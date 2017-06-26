@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IPROJ_ConnectionBroker.Common\CB.Common.csproj" />
+    <ProjectReference Include="..\IPROJ.Core\IPROJ.Core.csproj" />
   </ItemGroup>
 
 </Project>

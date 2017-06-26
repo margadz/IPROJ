@@ -70,7 +70,7 @@ namespace HS.MSSQLRepository.Tests.Tools
 
         }
 
-        [TestMethod]
+        [Test]
         public void DbToOutputConverterSuccessfullReadingConvertTest()
         {
             var result = DbToOutputConverter.GetDeviceReadingFromDbEntities(readingList, completeDevicesList);
@@ -80,14 +80,14 @@ namespace HS.MSSQLRepository.Tests.Tools
             Assert.AreEqual(result[1].DeviceId, reading2.DeviceId);
         }
 
-        [TestMethod]
+        [Test]
         public void DbToOutputConverterDeviceGuidNotFoundTest()
         {
             Assert.ThrowsException<ConverterException>(delegate { DbToOutputConverter.GetDeviceReadingFromDbEntities(readingList, incompleteDevicesList); },
                                                                 $"DeviceId: {guid2} could not been found in devices list");
         }
 
-        [TestMethod]
+        [Test]
         public void DbToOutputConverterInvalidReadingTypeTest()
         {
             Assert.ThrowsException<ReadingTypeCastException>(delegate { DbToOutputConverter.GetDeviceReadingFromDbEntities(readingList, invalidTypeDeviceList); },
@@ -95,7 +95,7 @@ namespace HS.MSSQLRepository.Tests.Tools
 
         }
 
-        [TestMethod]
+        [Test]
         public void DbToOutputConverterDeviceConvertTest()
         {
             var result = DbToOutputConverter.GetDevicesFromDbEntities(completeDevicesList);
@@ -105,7 +105,7 @@ namespace HS.MSSQLRepository.Tests.Tools
             Assert.AreEqual(result[1].DeviceId, reading2.DeviceId);
         }
 
-        [TestMethod]
+        [Test]
         public void DbToOutputConverterDeviceConvertInvalidTypeTest()
         {
             Assert.ThrowsException<ReadingTypeCastException>(delegate { DbToOutputConverter.GetDevicesFromDbEntities(invalidTypeDeviceList); },

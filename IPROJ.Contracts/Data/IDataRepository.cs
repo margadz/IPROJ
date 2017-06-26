@@ -1,9 +1,9 @@
-﻿using HS.Common.OutputModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using IPROJ.Contracts.DataModel;
 
-namespace HS.Common.Interfaces
+namespace IPROJ.Contracts.Data
 {
     public interface IDataRepository
     {

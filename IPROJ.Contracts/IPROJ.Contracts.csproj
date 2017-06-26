@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IPROJ.Core\IPROJ.Core.csproj" />
-    <ProjectReference Include="..\IPROJ_ConnectionBroker.Common\CB.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,8 @@
-﻿using CB.Common.Config;
-using CB.Common.Interfaces;
-using RabbitMQ.Client;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using IPROJ.Contracts.DataModel;
+using IPROJ.QueueManager;
+using RabbitMQ.Client;
 
 namespace CB.QueueManaging.Exchanges
 {
@@ -53,5 +53,9 @@ namespace CB.QueueManaging.Exchanges
             _disposed = true;
         }
 
+        public Task Put(DeviceReading message)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

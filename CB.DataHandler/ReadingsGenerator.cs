@@ -1,11 +1,8 @@
-﻿using CB.Common.Enumerators;
-using CB.Common.Interfaces;
-using CB.Common.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
+using IPROJ.Contracts.DataModel;
 
 namespace CB.DataHandling
 {

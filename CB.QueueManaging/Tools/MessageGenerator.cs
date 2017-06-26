@@ -1,7 +1,6 @@
-﻿using CB.Common.Model;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
+using IPROJ.Contracts.DataModel;
 
 namespace CB.QueueManaging.Tools
 {

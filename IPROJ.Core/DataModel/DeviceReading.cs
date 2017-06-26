@@ -1,5 +1,4 @@
-﻿using HS.Common.Enumerators;
-using System;
+﻿using System;
 
 namespace IPROJ.Contracts.DataModel
 

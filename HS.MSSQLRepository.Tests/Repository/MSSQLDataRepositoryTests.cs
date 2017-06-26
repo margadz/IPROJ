@@ -3,10 +3,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
 using FluentAssertions;
+using NUnit.Framework;
 
 namespace HS.MSSQLRepository.Tests.Repository
 {
-    [TestClass]
+    [TestFixture]
     public class MSSQLDataRepositoryTests
     {
         private MSSQLDataRepository repository = new MSSQLDataRepository(@"Data Source=KOMP;Initial Catalog=HomeServerTests;Integrated Security=True");
@@ -19,7 +20,7 @@ namespace HS.MSSQLRepository.Tests.Repository
         private decimal[] lastReadings = new decimal[] { 21.10M, 22.20M, 120.20M, 22.10M, 50.10M, 41.20M, 40.10M };
 
 
-        [TestMethod]
+        [Test]
         public void MSSQLDataRepositoryGetAllReadingTest()
         {
             var task = repository.GetAllReadingsAsync();
@@ -27,7 +28,7 @@ namespace HS.MSSQLRepository.Tests.Repository
             Assert.AreEqual(allReadings, task.Result.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void MSSQLDataRepositoryGetAllActiveDevicesAsyncTest()
         {
             var task = repository.GetAllActiveDevicesAsync();
@@ -41,7 +42,7 @@ namespace HS.MSSQLRepository.Tests.Repository
             }
         }
 
-        [TestMethod]
+        [Test]
         public void MSSQLDataRepositoryGetAllDevicesAsyncTest()
         {
             var task = repository.GetAllDevicesAsync();
@@ -49,7 +50,7 @@ namespace HS.MSSQLRepository.Tests.Repository
             Assert.AreEqual(allDevices, task.Result.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void MSSQLDataRepositoryGetAllInactiveDevicesAsync()
         {
             var task = repository.GetAllInactiveDevicesAsync();
@@ -63,7 +64,7 @@ namespace HS.MSSQLRepository.Tests.Repository
             }
         }
         
-        [TestMethod]
+        [Test]
         public void MSSQLDataRepositoryGetAllReadingsFromDeviceAsync()
         {
 
@@ -73,7 +74,7 @@ namespace HS.MSSQLRepository.Tests.Repository
             Assert.IsNotNull(task.Result.Where(x => x.Value == 23.80M));
         }
 
-        [TestMethod]
+        [Test]
         public void MSSQLDataRepositoryGetAllReadingsOfTypeAsyncTest()
         {
             var task = repository.GetAllReadingsOfTypeAsync("Temperature");
@@ -82,13 +83,13 @@ namespace HS.MSSQLRepository.Tests.Repository
             Assert.IsNotNull(task.Result.Where(x => x.Value == 23.80M).FirstOrDefault());
         }
 
-        [TestMethod]
+        [Test]
         public void MSSQLDataRepositoryGetAllReadingsSinceAsyncTest()
         {
             Assert.Fail();
         }
 
-        [TestMethod]
+        [Test]
         public void MSSQLDataRepositoryGetLastReadingsAsyncTest()
         {
             var task = repository.GetLastReadingsAsync();
@@ -99,25 +100,25 @@ namespace HS.MSSQLRepository.Tests.Repository
             readings.Should().BeEquivalentTo(lastReadings);
         }
 
-        [TestMethod]
+        [Test]
         public void MSSQLDataRepositoryAddDeviceAsyncTest()
         {
             Assert.Fail();
         }
 
-        [TestMethod]
+        [Test]
         public void MSSQLDataRepositoryAddReadingAsyncTest()
         {
             Assert.Fail();
         }
 
-        [TestMethod]
+        [Test]
         public void MSSQLDataRepositoryRemoveDeviceAsyncTest()
         {
             Assert.Fail();
         }
 
-        [TestMethod]
+        [Test]
         public void MSSQLDataRepositorySetDeviceActivityAsyncTest()
         {
             Assert.Fail();

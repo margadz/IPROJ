@@ -1,13 +1,13 @@
-﻿using HS.Common.Interfaces;
-using HS.Common.OutputModel;
-using HS.MSSQLRepository.Context;
-using HS.MSSQLRepository.ModelData;
-using HS.MSSQLRepository.Tools;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HS.MSSQLRepository.Context;
+using HS.MSSQLRepository.ModelData;
+using HS.MSSQLRepository.Tools;
+using IPROJ.Contracts.Data;
+using IPROJ.Contracts.DataModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace HS.MSSQLRepository.Repository
 {

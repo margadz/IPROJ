@@ -1,6 +1,5 @@
-﻿using CB.Common.Interfaces;
-using CB.Common.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using IPROJ.Contracts.DataModel;
 
 namespace CB.DataHandling
 {

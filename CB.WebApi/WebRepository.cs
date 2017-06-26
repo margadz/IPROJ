@@ -1,11 +1,10 @@
-﻿using CB.Common.Interfaces;
-using CB.Common.Model;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using IPROJ.Contracts.DataModel;
+using Newtonsoft.Json;
 
 namespace CB.WebApi
 {

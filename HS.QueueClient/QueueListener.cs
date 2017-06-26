@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
-using HS.Common.Interfaces;
-using System.Threading.Tasks;
-using RabbitMQ.Client;
-using HS.Common.ConfigData;
-using RabbitMQ.Client.Events;
-using HS.Common.OutputModel;
 using System.Text;
 using HS.QueueClient.Tools;
+using IPROJ.Contracts.Data;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 
 namespace HS.QueueClient
 {
@@ -15,7 +12,7 @@ namespace HS.QueueClient
         private IDataRepository repository;
         private ConnectionFactory _factory;
 
-        public QueueListener(IDataRepository repository)
+        public QueueListener(Ic repository)
         {
             this.repository = repository;
 
