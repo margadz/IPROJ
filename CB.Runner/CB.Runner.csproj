@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IPROJ_ConnectionBroker.ClientApi\CB.WebApi.csproj" />
+    <ProjectReference Include="..\IPROJ_ConnectionBroker.DataHandler\CB.DataHandling.csproj" />
+    <ProjectReference Include="..\IPROJ_ConnectionBroker.QueueManaging\CB.QueueManaging.csproj" />
+  </ItemGroup>
+
+</Project>
