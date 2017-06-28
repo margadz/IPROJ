@@ -7,11 +7,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
 
   <ItemGroup>
-    <ProjectReference Include="..\IPROJ.Core\IPROJ.Core.csproj" />
+    <PackageReference Include="Autofac" Version="4.6.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
+    <ProjectReference Include="..\IPROJ.Configuration\IPROJ.Configuration.csproj" />
   </ItemGroup>
 
 </Project>

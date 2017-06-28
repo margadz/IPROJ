@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using HS.QueueClient.Tools;
-using IPROJ.Contracts.Data;
+using IPROJ.Configuration.ConfigurationProvider;
+using IPROJ.Configuration.Configurations;
+using IPROJ.Contracts.DataModel;
+using IPROJ.QueueManager.Connection;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -9,21 +11,14 @@ namespace HS.QueueClient
 {
     public class QueueListener
     {
-        private IDataRepository repository;
         private ConnectionFactory _factory;
+        private readonly string _readingQueueName;
 
-        public QueueListener(Ic repository)
+        public QueueListener(IConnectionFactoryProvider queueConnectionProvider, IConfigurationProvider configurationProvider)
         {
-            this.repository = repository;
-
-            _factory = new ConnectionFactory()
-            {
-                HostName = MQServerConfig.IP,
-                Port = MQServerConfig.PORT,
-                UserName = MQServerConfig.USER,
-                Password = MQServerConfig.PASS,
-                VirtualHost = MQServerConfig.VHOST
-            };
+            _readingQueueName = configurationProvider.GetOption<string>(CoreConfigurations.Category, CoreConfigurations.ReadingsQueue);
+        
+            _factory = queueConnectionProvider.ProvideFactory();
         }
 
         public void Run()
@@ -34,13 +29,12 @@ namespace HS.QueueClient
                 {
                     channel.BasicQos(0, 1, false);
                     var consumer = new EventingBasicConsumer(channel);
-                    channel.BasicConsume(queue: MQServerConfig.ReadingsQueue, noAck: true, consumer: consumer);
+                    channel.BasicConsume(queue: _readingQueueName, noAck: true, consumer: consumer);
                     consumer.Received += (model, ea) =>
                     {
                         var body = ea.Body;
                         var message = Encoding.Unicode.GetString(body);
                         IList<DeviceReading> readings = QueueMessageConverter.ParseDeviceReaddings(message);
-                        repository.AddReadingsAsync(readings);
 
 
                     };

@@ -12,5 +12,11 @@
 
         public const string CodePage = "CodePage";
 
+        public const string ReadingsQueue = "ReadingsQueue";
+
+        public const string ReadingsExchange = "ReadingsExchange";
+
+        public const string RoutingKey = "RoutingKey";
+
     }
 }

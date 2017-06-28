@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 
 
-namespace HS.HomeServer.Controllers
+namespace HS.WebApi.Controllers
 {
     [Route("api/[controller]")]
     public class DevicesController : Controller

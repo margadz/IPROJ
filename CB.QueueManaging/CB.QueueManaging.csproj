@@ -4,8 +4,9 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+
   <ItemGroup>
-    <Folder Include="Exchanges\" />
     <Folder Include="Tools\" />
   </ItemGroup>
 

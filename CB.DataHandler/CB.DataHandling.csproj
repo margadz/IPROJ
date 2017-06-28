@@ -4,9 +4,15 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+
+  <ItemGroup>
+    <Compile Remove="DataHandler.cs" />
+    <Compile Remove="ReadingsGenerator.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\IPROJ.Core\IPROJ.Core.csproj" />
-    <ProjectReference Include="..\IPROJ_ConnectionBroker.Common\CB.Common.csproj" />
   </ItemGroup>
 
 </Project>
