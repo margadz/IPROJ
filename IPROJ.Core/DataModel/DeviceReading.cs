@@ -5,6 +5,11 @@ namespace IPROJ.Contracts.DataModel
 {
     public class DeviceReading
     {
+        public DeviceReading()
+        {
+
+        }
+
         public DeviceReading(DateTime readingTimeStamp, decimal value, Guid deviceId, ReadingType typeOfReading)
         {
             ReadingTimeStamp = readingTimeStamp;
@@ -13,9 +18,11 @@ namespace IPROJ.Contracts.DataModel
             TypeOfReading = typeOfReading;
         }
 
-        public DateTime ReadingTimeStamp { get; private set; }
-        public decimal Value { get; private set; }
-        public Guid DeviceId { get; private set; }
-        public ReadingType TypeOfReading { get; private set; }
+        public DateTime ReadingTimeStamp { get; set; }
+        public decimal Value { get; set; }
+        public Guid DeviceId { get; set; }
+        public ReadingType TypeOfReading { get; set; }
+
+        public virtual Device Device { get; set; }
     }
 }

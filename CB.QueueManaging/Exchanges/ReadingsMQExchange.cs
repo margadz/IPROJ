@@ -23,8 +23,8 @@ namespace CB.QueueManaging.Exchanges
         public ReadingsMQExchange(IConnectionFactoryProvider queueConnectionProvider, IConfigurationProvider configurationProvider)
         {
             _factory = queueConnectionProvider.ProvideFactory();
-            _routingKey = configurationProvider.GetOption<string>(CoreConfigurations.Category, CoreConfigurations.RoutingKey);
-            _encoding = Encoding.GetEncoding(configurationProvider.GetOption<int>(CoreConfigurations.Category, CoreConfigurations.CodePage));
+            _routingKey = configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.RoutingKey);
+            _encoding = Encoding.GetEncoding(int.Parse(configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.CodePage)));
             _connection = _factory.CreateConnection();
             _channel = _connection.CreateModel();
         }

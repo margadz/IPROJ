@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Linq;
+using IPROJ.Configuration.Configurations;
 
 namespace IPROJ.Configuration.ConfigurationProvider
 {
     public class ConfigurationProvider : IConfigurationProvider
     {
-        public T GetOption<T>(string OptionName, string OptionCategory)
+        public string GetOption(string OptionName, string OptionCategory)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<T> GetOptions<T>(string OptionName, string OptionCategory)
-        {
-            throw new NotImplementedException();
+            return (from options in DefaultConfigurations.Options
+                    where options.Category == OptionCategory &&
+                         options.OptionName == OptionName
+                    select options.OptionValue).FirstOrDefault();
         }
     }
 }

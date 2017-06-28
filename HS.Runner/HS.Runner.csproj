@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>winexe</OutputType>
+    <OutputType>exe</OutputType>
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <ApplicationIcon />
-    <OutputTypeEx>winexe</OutputTypeEx>
+    <OutputTypeEx>exe</OutputTypeEx>
     <StartupObject />
   </PropertyGroup>
 

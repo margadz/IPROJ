@@ -19,14 +19,14 @@ namespace HS.WebApi.Controllers
         }
 
         [HttpGet]
-        public Task<List<Device>> GetAllDevices()
+        public Task<IEnumerable<Device>> GetAllDevices()
         {
             return repository.GetAllDevicesAsync();
         }
 
         [HttpGet]
         [Route("active")]
-        public Task<List<Device>> GetAllActiveDevices()
+        public Task<IEnumerable<Device>> GetAllActiveDevices()
         {
             return repository.GetAllActiveDevicesAsync();
         }

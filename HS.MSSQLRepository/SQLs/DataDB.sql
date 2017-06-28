@@ -1,41 +1,31 @@
 ﻿USE HomeServer
 GO
 
+IF (OBJECT_ID('DeviceReadings') IS NOT NULL)
+  DROP TABLE DeviceReadings
+GO
+
 IF (OBJECT_ID('Devices') IS NOT NULL)
   DROP TABLE Devices
 GO
+
 CREATE TABLE Devices
 (
 	DeviceID UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT newid(),
 	Name NVARCHAR(100) NOT NULL,
-	ReadingInterval INT DEFAULT 0,
+	TypeOfReading VARCHAR(20) NOT NULL,
 	IsActive BIT NOT NULL
 )
 GO
 
 
-IF (OBJECT_ID('InstrumentReadings') IS NOT NULL)
-  DROP TABLE InstrumentReadings
-GO
-CREATE TABLE InstrumentReadings
+CREATE TABLE DeviceReadings
 (
 	ReadingTimeStamp DATETIME NOT NULL,
 	Value DECIMAL(20,2) NOT NULL,
 	DeviceID UNIQUEIDENTIFIER NOT NULL,
 	TypeOfReading VARCHAR(20) NOT NULL,
 	PRIMARY KEY(ReadingTimeStamp, DeviceID),
-	FOREIGN KEY (DeviceID) REFERENCES Devices (DeviceID)
-)
-GO
-
-IF (OBJECT_ID('DeviceReadingType') IS NOT NULL)
-  DROP TABLE DeviceReadingType
-GO
-CREATE TABLE DeviceReadingType
-(
-	ReadingId INTEGER PRIMARY KEY IDENTITY(1,1),
-	DeviceID UNIQUEIDENTIFIER NOT NULL,
-	TypeOfReading VARCHAR(20) NOT NULL,
 	FOREIGN KEY (DeviceID) REFERENCES Devices (DeviceID)
 )
 GO

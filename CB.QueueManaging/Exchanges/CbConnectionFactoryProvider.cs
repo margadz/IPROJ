@@ -14,11 +14,11 @@ namespace CB.QueueManaging.Exchanges
         {
             _factory = new ConnectionFactory()
             {
-                HostName = configurationProvider.GetOption<string>(CoreConfigurations.Category, CoreConfigurations.MQServerIp),
-                Port = configurationProvider.GetOption<ushort>(CoreConfigurations.Category, CoreConfigurations.MQServerPort),
-                UserName = configurationProvider.GetOption<string>(ConnectionBrokerConfigurations.Category, ConnectionBrokerConfigurations.MQServerUser),
-                Password = configurationProvider.GetOption<string>(ConnectionBrokerConfigurations.Category, ConnectionBrokerConfigurations.MQServerPass),
-                VirtualHost = configurationProvider.GetOption<string>(CoreConfigurations.Category, CoreConfigurations.MQServerVHost)
+                HostName = configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.MQServerIp),
+                Port = ushort.Parse(configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.MQServerPort)),
+                UserName = configurationProvider.GetOption(ConnectionBrokerConfigurations.Category, ConnectionBrokerConfigurations.MQServerUser),
+                Password = configurationProvider.GetOption(ConnectionBrokerConfigurations.Category, ConnectionBrokerConfigurations.MQServerPass),
+                VirtualHost = configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.MQServerVHost)
             };
 
         }

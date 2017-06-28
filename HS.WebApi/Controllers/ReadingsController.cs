@@ -20,16 +20,16 @@ namespace HS.WebApi.Controllers
 
         // GET: /<controller>/
         [HttpGet]
-        public Task<List<DeviceReading>> GetAllReadings()
+        public Task<IEnumerable<DeviceReading>> GetAllReadings()
         {
             return repository.GetAllReadingsAsync();
         }
 
         [HttpGet]
         [Route("last")]
-        public Task<List<DeviceReading>> GetLastReadings()
+        public Task<IEnumerable<DeviceReading>> GetLastReadings()
         {
-            return repository.GetLastReadingsAsync();
+            return null;
         }
     }
 }

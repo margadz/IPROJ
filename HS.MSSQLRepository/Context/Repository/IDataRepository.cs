@@ -7,26 +7,14 @@ namespace HS.MSSQLRepository.Repository
 {
     public interface IDataRepository
     {
-        Task<List<DeviceReading>> GetAllReadingsAsync();
+        Task<IEnumerable<DeviceReading>> GetAllReadingsAsync();
 
-        Task<List<DeviceReading>> GetLastReadingsAsync();
+        Task<IEnumerable<DeviceReading>> GetAllReadingsFromDeviceAsync(Guid deviceId);
 
-        Task<List<DeviceReading>> GetAllReadingsOfTypeAsync(string type);
+        Task<IEnumerable<Device>> GetAllDevicesAsync();
 
-        Task<List<DeviceReading>> GetAllReadingsFromDeviceAsync(Guid deviceId);
-
-        Task<List<Device>> GetAllDevicesAsync();
-
-        Task<List<Device>> GetAllInactiveDevicesAsync();
-
-        Task<List<Device>> GetAllActiveDevicesAsync();
+        Task<IEnumerable<Device>> GetAllActiveDevicesAsync();
 
         Task AddReadingsAsync(IEnumerable<DeviceReading> reading);
-
-        Task AddDeviceAsync(Device device);
-
-        Task RemoveDeviceAsync(Device device);
-
-        Task SetDeviceActivityAsync(Device device, bool isActive);
     }
 }

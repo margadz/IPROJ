@@ -8,7 +8,7 @@
 
         public const string MQServerPort = "MQServerPort";
 
-        public const string MQServerVHost = @"/";
+        public const string MQServerVHost = "MQServerVHost";
 
         public const string CodePage = "CodePage";
 
