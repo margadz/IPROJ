@@ -31,7 +31,7 @@ namespace HS.MSSQLRepository.Repository
         {
             using (var context = GenerateContext())
             {
-                return await (from device in context.Devices
+                return await(from device in context.Devices
                               select device).ToListAsync();
             }
         }
@@ -40,7 +40,7 @@ namespace HS.MSSQLRepository.Repository
         {
             using (var context = GenerateContext())
             {
-                return await (from reading in context.DeviceReadings
+                return await(from reading in context.DeviceReadings
                               select reading).ToListAsync();
             }
         }
@@ -49,7 +49,7 @@ namespace HS.MSSQLRepository.Repository
         {
             using (var context = GenerateContext())
             {
-                return await (from reading in context.DeviceReadings
+                return await(from reading in context.DeviceReadings
                               where reading.DeviceId == deviceId
                               select reading).ToListAsync();
             }
