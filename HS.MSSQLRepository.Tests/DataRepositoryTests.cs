@@ -19,14 +19,14 @@ namespace HS.MSSQLRepository.Tests
         private int _readingsFromDeviceCount = 4;
         private IEnumerable<DeviceReading> _readings = new List<DeviceReading>()
                                                                             {
-                                                                              new DeviceReading(DateTime.Now.AddMinutes(10), 46.4M, _guid, ReadingType.PowerConsumtion.ToString()),
-                                                                              new DeviceReading(DateTime.Now, 46.7M, _guid, ReadingType.PowerConsumtion.ToString())
+                                                                              new DeviceReading(DateTime.Now.AddMinutes(10), 46.4M, _guid, ReadingType.PowerComsumption.ToString()),
+                                                                              new DeviceReading(DateTime.Now, 46.7M, _guid, ReadingType.PowerComsumption.ToString())
                                                                             };
 
         private IEnumerable<DeviceReading> _incorrectReadings = new List<DeviceReading>()
                                                                             {
-                                                                              new DeviceReading(DateTime.Now.AddMinutes(10), 46.4M, Guid.NewGuid(), ReadingType.PowerConsumtion.ToString()),
-                                                                              new DeviceReading(DateTime.Now, 46.7M, Guid.NewGuid(), ReadingType.PowerConsumtion.ToString())
+                                                                              new DeviceReading(DateTime.Now.AddMinutes(10), 46.4M, Guid.NewGuid(), ReadingType.PowerComsumption.ToString()),
+                                                                              new DeviceReading(DateTime.Now, 46.7M, Guid.NewGuid(), ReadingType.PowerComsumption.ToString())
                                                                             };
 
         [Test]

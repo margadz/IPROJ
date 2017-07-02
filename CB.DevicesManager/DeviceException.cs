@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CB.DevicesManager.HS110.Commands
+namespace CB.DevicesManager
 {
-    public interface ICommand
+    class DeviceException
     {
     }
 }

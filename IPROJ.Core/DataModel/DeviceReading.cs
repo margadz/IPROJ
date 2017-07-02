@@ -41,5 +41,10 @@ namespace IPROJ.Contracts.DataModel
         }
 
         public virtual Device Device { get; set; }
+
+        public override string ToString()
+        {
+            return $"TimeStamp: {ReadingTimeStamp}, DeviceId: {DeviceId}, Value: {Value}, TypeOfReading: {TypeOfReading}";
+        }
     }
 }

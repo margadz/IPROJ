@@ -39,7 +39,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HS.Runner", "HS.Runner\HS.R
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HS.WebApi", "HS.WebApi\HS.WebApi.csproj", "{A1959B4E-068C-4CB9-AF06-A5734B982CA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CB.TcpCommunitcation.Tests", "CB.TcpCommunitcation.Tests\CB.TcpCommunitcation.Tests.csproj", "{28C505FF-0FE1-4B99-89AC-912AF455F6A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CB.TcpCommunitcation.Tests", "CB.TcpCommunitcation.Tests\CB.TcpCommunitcation.Tests.csproj", "{28C505FF-0FE1-4B99-89AC-912AF455F6A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CB.ClientRestApi", "CB.ClientRestApi\CB.ClientRestApi.csproj", "{B2F2745B-319A-4EC2-83C5-84DFBDE8657B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -197,6 +199,14 @@ Global
 		{28C505FF-0FE1-4B99-89AC-912AF455F6A6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{28C505FF-0FE1-4B99-89AC-912AF455F6A6}.Release|x64.ActiveCfg = Release|Any CPU
 		{28C505FF-0FE1-4B99-89AC-912AF455F6A6}.Release|x64.Build.0 = Release|Any CPU
+		{B2F2745B-319A-4EC2-83C5-84DFBDE8657B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2F2745B-319A-4EC2-83C5-84DFBDE8657B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2F2745B-319A-4EC2-83C5-84DFBDE8657B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B2F2745B-319A-4EC2-83C5-84DFBDE8657B}.Debug|x64.Build.0 = Debug|Any CPU
+		{B2F2745B-319A-4EC2-83C5-84DFBDE8657B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2F2745B-319A-4EC2-83C5-84DFBDE8657B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2F2745B-319A-4EC2-83C5-84DFBDE8657B}.Release|x64.ActiveCfg = Release|Any CPU
+		{B2F2745B-319A-4EC2-83C5-84DFBDE8657B}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,6 @@
-﻿namespace CB.DevicesManager.HS110
+﻿namespace CB.DevicesManager.HS110.Commands
 {
-    public class Comman
+    public class CommandStrings
     {
         public const string Emeter = "{\"emeter\":{\"get_realtime\":{}}}";
         public const string TurnOff = "{\"system\":{\"set_relay_state\":{\"state\":0}}}";

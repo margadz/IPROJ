@@ -3,7 +3,7 @@
     public enum ReadingType
     {
         NotSpecified,
-        PowerConsumtion,
+        PowerComsumption,
         Light,
         Temperature,
         InstantPowerConsumtion

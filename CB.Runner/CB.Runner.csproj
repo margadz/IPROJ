@@ -9,6 +9,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CB.ClientRestApi\CB.ClientRestApi.csproj" />
     <ProjectReference Include="..\CB.DevicesManager\CB.DevicesManager.csproj" />
     <ProjectReference Include="..\CB.TcpCommunication\CB.TcpCommunication.csproj" />
   </ItemGroup>

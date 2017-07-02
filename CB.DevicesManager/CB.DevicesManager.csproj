@@ -16,7 +16,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="HS110\Response\Emeter.cs">
+    <Compile Update="HS110\Response\EmeterCommnad.cs">
+      <ExcludeFromSourceAnalysis>True</ExcludeFromSourceAnalysis>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Update="HS110\Response\EmeterMessurement.cs">
+      <ExcludeFromSourceAnalysis>True</ExcludeFromSourceAnalysis>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Update="HS110\Response\EmeterResponse.cs">
       <ExcludeFromSourceAnalysis>True</ExcludeFromSourceAnalysis>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
