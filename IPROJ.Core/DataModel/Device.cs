@@ -8,14 +8,17 @@ namespace IPROJ.Contracts.DataModel
         public Device()
         {
             DeviceReadings = new HashSet<DeviceReading>();
+            CustomId = string.Empty;
         }
 
-        public Device(Guid deviceId, string name, string typeOfReading, bool isActive)
+        public Device(Guid deviceId, string name, string typeOfReading, bool isActive, string host, string customId = null)
         {
             DeviceId = deviceId;
             Name = name;
             IsActive = isActive;
             TypeOfReading = typeOfReading;
+            Host = host;
+            CustomId = customId ?? string.Empty;
             DeviceReadings = new HashSet<DeviceReading>();
         }
 
@@ -34,6 +37,10 @@ namespace IPROJ.Contracts.DataModel
                 return DeviceId.ToString();
             }
         }
+
+        public string CustomId { get; set; }
+
+        public string Host { get; set; }
 
         public virtual ICollection<DeviceReading> DeviceReadings { get; set; }
     }

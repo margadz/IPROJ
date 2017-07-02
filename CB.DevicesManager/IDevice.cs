@@ -1,12 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using IPROJ.Contracts.DataModel;
 
 namespace CB.DevicesManager
 {
-    public interface IDevice
+    public interface IDevice : IDisposable
     {
+        Guid DeviceId { get; }
+
         Task<DeviceReading> GetInsantReading();
 
-        Task<DeviceReading> GetHourlyReading();
+        Task<DeviceReading> GetDailyReading();
     }
 }

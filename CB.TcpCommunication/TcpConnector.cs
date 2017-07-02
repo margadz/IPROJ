@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace IPROJ_TcpCommunication
 {
     public class TcpConnector : IDisposable
     {
-        private readonly Socket _socket;
+        private readonly AutoResetEvent _resetEvent = new AutoResetEvent(true);
         private readonly TcpHost _host;
+        private Socket _socket;
         private bool _disposed = false;
 
         public TcpConnector(TcpHost host)
@@ -27,15 +29,20 @@ namespace IPROJ_TcpCommunication
         {
             byte[] buffer = new byte[4096];
 
-            int lent = await _socket.ReceiveAsync(new ArraySegment<byte>(buffer), SocketFlags.None);
+            int length = await _socket.ReceiveAsync(new ArraySegment<byte>(buffer), SocketFlags.None);
 
-            return buffer.Take(lent).ToArray();
+            return buffer.Take(length).ToArray();
         }
 
-        public async Task<byte[]> CallTcp(byte[] message)
+        public virtual async Task<byte[]> CallTcp(byte[] message)
         {
+            _resetEvent.WaitOne();
+            await Connect();
             await Send(message);
-            return await Take();
+            var res = await Take();
+            _socket.Dispose();
+            _resetEvent.Set();
+            return res;
         }
 
         public void Dispose()
@@ -56,10 +63,8 @@ namespace IPROJ_TcpCommunication
 
         private async Task Connect()
         {
-            if (!_socket.Connected)
-            {
-                await _socket.ConnectAsync(_host.HostName, _host.Port);
-            }
+            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            await _socket.ConnectAsync(_host.HostName, _host.Port);
         }
     }
 }

@@ -14,7 +14,9 @@ CREATE TABLE [HomeServer].[dbo].[Devices]
 	DeviceID UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT newid(),
 	Name NVARCHAR(100) NOT NULL,
 	TypeOfReading VARCHAR(20) NOT NULL,
-	IsActive BIT NOT NULL
+	IsActive BIT NOT NULL,
+	Host VARCHAR(100) NOT NULL,
+	CustomId VARCHAR (100) NULL,
 )
 GO
 
@@ -33,14 +35,14 @@ GO
 
 
 
-INSERT INTO [HomeServer].[dbo].[Devices] (Name, TypeOfReading, IsActive) VALUES ('Temperatura w pokoju', 'Temperature' ,1 )
-INSERT INTO [HomeServer].[dbo].[Devices] (Name, TypeOfReading, IsActive) VALUES ('Temperatura w kuchni', 'Temperature' ,1)
-INSERT INTO [HomeServer].[dbo].[Devices] (Name, TypeOfReading, IsActive) VALUES ('Temperatura w sypialni', 'Temperature',1)
-INSERT INTO [HomeServer].[dbo].[Devices] (Name, TypeOfReading, IsActive) VALUES ('Temperatura w korytarzu', 'Temperature', 0)
+INSERT INTO [HomeServer].[dbo].[Devices] (Name, TypeOfReading, IsActive, Host) VALUES ('Temperatura w pokoju', 'Temperature' ,1, 'Host')
+INSERT INTO [HomeServer].[dbo].[Devices] (Name, TypeOfReading, IsActive, Host) VALUES ('Temperatura w kuchni', 'Temperature' ,1, 'Host')
+INSERT INTO [HomeServer].[dbo].[Devices] (Name, TypeOfReading, IsActive, Host) VALUES ('Temperatura w sypialni', 'Temperature',1, 'Host')
+INSERT INTO [HomeServer].[dbo].[Devices] (Name, TypeOfReading, IsActive, Host) VALUES ('Temperatura w korytarzu', 'Temperature', 0, 'Host')
 
-INSERT INTO [HomeServer].[dbo].[Devices] (DeviceID, Name, TypeOfReading, IsActive) VALUES ('D28B2B0C-831A-4027-9B6D-3894F5A7EB69', 'Energia elektryczna w pokoju', 'PowerConsumtion' ,1)
-INSERT INTO [HomeServer].[dbo].[Devices] (Name, TypeOfReading, IsActive) VALUES ('Energia elektryczna w kuchni', 'PowerConsumtion' ,1)
-INSERT INTO [HomeServer].[dbo].[Devices] (Name, TypeOfReading, IsActive) VALUES ('Energia elektryczna w sypialni', 'PowerConsumtion',1)
+INSERT INTO [HomeServer].[dbo].[Devices] (DeviceID, Name, TypeOfReading, IsActive, Host) VALUES ('D28B2B0C-831A-4027-9B6D-3894F5A7EB69', 'Energia elektryczna w pokoju', 'PowerConsumtion' ,1, 'Host')
+INSERT INTO [HomeServer].[dbo].[Devices] (Name, TypeOfReading, IsActive, Host) VALUES ('Energia elektryczna w kuchni', 'PowerConsumtion' ,1, 'Host')
+INSERT INTO [HomeServer].[dbo].[Devices] (Name, TypeOfReading, IsActive, Host) VALUES ('Energia elektryczna w sypialni', 'PowerConsumtion',1, 'Host')
 
 
 INSERT INTO [HomeServer].[dbo].[DeviceReadings] (ReadingTimeStamp, Value, DeviceID, TypeOfReading) VALUES (DATEADD(SECOND, -1, GETDATE()), 22.1, (SELECT TOP(1)DeviceId FROM [HomeServer].[dbo].[Devices] WHERE Name = 'Temperatura w pokoju'), 'Temperature')

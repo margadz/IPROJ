@@ -44,6 +44,13 @@ namespace HS.Repository.Context
                 entity.Property(e => e.TypeOfReading)
                     .IsRequired()
                     .HasColumnType("varchar(20)");
+
+                entity.Property(e => e.CustomId)
+                    .HasColumnType("varchar(100)");
+
+                entity.Property(e => e.Host)
+                    .IsRequired()
+                    .HasColumnType("varchar(100)");
             });
 
             modelBuilder.Entity<DeviceReading>(entity =>
