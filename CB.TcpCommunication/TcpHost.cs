@@ -1,9 +1,9 @@
-﻿namespace IPROJ.Core.Net
+﻿namespace IPROJ_TcpCommunication
 {
-    public class Host
+    public class TcpHost
     {
-        public Host(string hostName, ushort port)
-        { 
+        public TcpHost(string hostName, ushort port)
+        {
             HostName = hostName;
             Port = port;
         }

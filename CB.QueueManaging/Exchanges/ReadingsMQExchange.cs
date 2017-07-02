@@ -42,6 +42,11 @@ namespace CB.QueueManaging.Exchanges
             GC.SuppressFinalize(true);
         }
 
+        public Task Put(DeviceReading message)
+        {
+            throw new NotImplementedException();
+        }
+
         private void Dispose(bool disposing)
         {
             if (disposing && !_disposed)
@@ -51,11 +56,6 @@ namespace CB.QueueManaging.Exchanges
             }
 
             _disposed = true;
-        }
-
-        public Task Put(DeviceReading message)
-        {
-            throw new NotImplementedException();
         }
     }
 }

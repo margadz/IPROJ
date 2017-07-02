@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading;
+using CB.DevicesManager.HS110;
+using IPROJ_TcpCommunication;
 using Newtonsoft.Json;
 
 namespace CB.Runner
@@ -8,22 +10,10 @@ namespace CB.Runner
     {
         private static void Main(string[] args)
         {
-            //ReadingsGenerator generator = new ReadingsGenerator(new WebRepository());
+            TcpConnector tcp = new TcpConnector(new TcpHost("192.168.1.202", 9999));
+            var result = tcp.CallTcp(HS110Coding.Encrypt(Commands.Emeter));
 
-            //using (ReadingsMQExchange exchange = new ReadingsMQExchange())
-            //{
-            //    for (int i = 0; i < 10; i++)
-            //    {
-            //        var t = Task.Run(() => exchange.Put(MessageGenerator.GetMessage(generator.GenerateReadings())));
-            //        t.Wait();
-            //        Thread.Sleep(5000);
-            //    }
-            //}
-
-            TcpMessageBase tcp = new TcpMessageBase("192.168.1.202", 9999);
-            var result = tcp.CallTcp(TcpMessageBase.Encrypt(Commands.Emeter));
-
-            var decr = TcpMessageBase.Decrypt(result);
+            var decr = HS110Coding.Decrypt(result.Result);
 
             dynamic conv = JsonConvert.DeserializeObject<dynamic>(decr);
 

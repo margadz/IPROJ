@@ -4,8 +4,6 @@ using HS.MSSQLRepository.Repository;
 using IPROJ.Contracts.DataModel;
 using Microsoft.AspNetCore.Mvc;
 
-
-
 namespace HS.WebApi.Controllers
 {
     [Route("api/[controller]")]
@@ -22,13 +20,6 @@ namespace HS.WebApi.Controllers
         public Task<IEnumerable<Device>> GetAllDevices()
         {
             return repository.GetAllDevicesAsync();
-        }
-
-        [HttpGet]
-        [Route("active")]
-        public Task<IEnumerable<Device>> GetAllActiveDevices()
-        {
-            return repository.GetAllActiveDevicesAsync();
         }
     }
 }

@@ -5,11 +5,11 @@ namespace IPROJ.Configuration.ConfigurationProvider
 {
     public class ConfigurationProvider : IConfigurationProvider
     {
-        public string GetOption(string OptionName, string OptionCategory)
+        public string GetOption(string optionName, string optionCategory)
         {
             return (from options in DefaultConfigurations.Options
-                    where options.Category == OptionCategory &&
-                         options.OptionName == OptionName
+                    where options.Category == optionCategory &&
+                         options.OptionName == optionName
                     select options.OptionValue).FirstOrDefault();
         }
     }

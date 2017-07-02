@@ -13,8 +13,6 @@ namespace HS.MSSQLRepository.Repository
 
         Task<IEnumerable<Device>> GetAllDevicesAsync();
 
-        Task<IEnumerable<Device>> GetAllActiveDevicesAsync();
-
         Task AddReadingsAsync(IEnumerable<DeviceReading> reading);
     }
 }

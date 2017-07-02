@@ -18,7 +18,7 @@ namespace IPROJ.QueueManager.Messaging
                 throw new ArgumentOutOfRangeException();
             }
 
-            return new DeviceReading(DateTime.Parse(split[0]), decimal.Parse(split[1]), Guid.Parse(split[2]), (ReadingType)int.Parse(split[3]));
+            return new DeviceReading(DateTime.Parse(split[0]), decimal.Parse(split[1]), Guid.Parse(split[2]), split[3]);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace CB.QueueManaging.Tools
     {
         public static string GetMessage(DeviceReading reading)
         {
-            StringBuilder sb = new StringBuilder("");
+            StringBuilder sb = new StringBuilder(string.Empty);
             sb.Append(reading.DeviceId.ToString())
                 .Append(";")
                 .Append(reading.Value)
@@ -22,7 +22,7 @@ namespace CB.QueueManaging.Tools
 
         public static string GetMessage(IList<DeviceReading> readings)
         {
-            StringBuilder sb = new StringBuilder("");
+            StringBuilder sb = new StringBuilder(string.Empty);
 
             foreach (var read in readings)
             {

@@ -16,7 +16,7 @@ namespace HS.QueueClient
 
         public QueueListener(IConnectionFactoryProvider queueConnectionProvider, IConfigurationProvider configurationProvider)
         {
-            _readingQueueName = configurationProvider.GetOption<string>(CoreConfigurations.Category, CoreConfigurations.ReadingsQueue);
+            _readingQueueName = configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.ReadingsQueue);
         
             _factory = queueConnectionProvider.ProvideFactory();
         }

@@ -5,10 +5,15 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+
   <ItemGroup>
-    <ProjectReference Include="..\IPROJ_ConnectionBroker.ClientApi\CB.WebApi.csproj" />
-    <ProjectReference Include="..\IPROJ_ConnectionBroker.DataHandler\CB.DataHandling.csproj" />
-    <ProjectReference Include="..\IPROJ_ConnectionBroker.QueueManaging\CB.QueueManaging.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CB.DevicesManager\CB.DevicesManager.csproj" />
+    <ProjectReference Include="..\CB.TcpCommunication\CB.TcpCommunication.csproj" />
   </ItemGroup>
 
 </Project>

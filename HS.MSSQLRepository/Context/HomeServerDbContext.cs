@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using IPROJ.Contracts.DataModel;
+﻿using IPROJ.Contracts.DataModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace HS.MSSQLRepository.Context
+namespace HS.Repository.Context
 {
     public class HomeServerDbContext : DbContext
     {
@@ -22,6 +19,7 @@ namespace HS.MSSQLRepository.Context
         }
 
         public virtual DbSet<Device> Devices { get; set; }
+
         public virtual DbSet<DeviceReading> DeviceReadings { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -69,5 +67,4 @@ namespace HS.MSSQLRepository.Context
             });
         }
     }
-
 }

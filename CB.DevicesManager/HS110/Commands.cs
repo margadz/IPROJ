@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IPROJ_TcpCommunication
+﻿namespace CB.DevicesManager.HS110
 {
-   public  class Commands
+    public class Commands
     {
         public const string Emeter = "{\"emeter\":{\"get_realtime\":{},\"get_vgain_igain\":{}}}";
         public const string TurnOff = "{\"system\":{\"set_relay_state\":{\"state\":0}}}";

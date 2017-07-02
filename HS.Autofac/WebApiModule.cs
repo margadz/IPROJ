@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Autofac;
-using HS.MSSQLRepository.Context.Repository;
+﻿using Autofac;
 using HS.MSSQLRepository.Repository;
 
 namespace HS.Autofac
@@ -11,7 +7,7 @@ namespace HS.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<DummRepository>().As<IDataRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<DataRepository>().WithParameter(new TypedParameter(typeof(string), @"Data Source=KOMP;Initial Catalog=HomeServer;Integrated Security=True")).As<IDataRepository>().InstancePerLifetimeScope();
         }
     }
 }

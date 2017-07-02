@@ -5,6 +5,8 @@ namespace CB.DevicesManager
 {
     public interface IDevice
     {
-        Task<DeviceReading> GetReading();
+        Task<DeviceReading> GetInsantReading();
+
+        Task<DeviceReading> GetHourlyReading();
     }
 }

@@ -20,6 +20,5 @@ namespace HS.WebApi
 
             host.Run();
         }
-
     }
 }

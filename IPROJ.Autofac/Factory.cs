@@ -6,7 +6,6 @@ namespace IPROJ.Autofac
 {
     public abstract class Factory : IDisposable
     {
-        protected static IContainer Container;
         private ILifetimeScope _scope;
 
         public Factory()
@@ -22,8 +21,9 @@ namespace IPROJ.Autofac
             _scope = Container.BeginLifetimeScope();
         }
 
+        protected static IContainer Container { get; set; }
 
-        protected ContainerBuilder Builder { get;}
+        protected ContainerBuilder Builder { get; }
 
         public void Dispose()
         {

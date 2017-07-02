@@ -6,9 +6,9 @@ using RabbitMQ.Client;
 
 namespace CB.QueueManaging.Exchanges
 {
-    class CbConnectionFactoryProvider : IConnectionFactoryProvider
+    public class CbConnectionFactoryProvider : IConnectionFactoryProvider
     {
-        ConnectionFactory _factory;
+        private ConnectionFactory _factory;
 
         public CbConnectionFactoryProvider(IConfigurationProvider configurationProvider)
         {
@@ -20,7 +20,6 @@ namespace CB.QueueManaging.Exchanges
                 Password = configurationProvider.GetOption(ConnectionBrokerConfigurations.Category, ConnectionBrokerConfigurations.MQServerPass),
                 VirtualHost = configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.MQServerVHost)
             };
-
         }
 
         public ConnectionFactory ProvideFactory()
