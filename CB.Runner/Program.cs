@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using CB.Autofac;
 using CB.ClientRestApi;
+using CB.DevicesManager;
 using CB.DevicesManager.HS110;
 using CB.DevicesManager.HS110.Commands;
 using CB.DevicesManager.HS110.Response;
 using IPROJ.Contracts.DataModel;
+using IPROJ.QueueManager;
 using IPROJ_TcpCommunication;
 using Newtonsoft.Json;
 
@@ -15,9 +19,14 @@ namespace CB.Runner
     {
         private static void Main(string[] args)
         {
-            RestDevicesRepository api = new RestDevicesRepository();
+            CBFactory factory = new CBFactory();
 
-            var es = api.GetAllDevicesAsync().Result.ToArray();
+            var manager = factory.Resolve<IDeviceManager>();
+
+            //DeviceReading reading = new DeviceReading();
+            //reading.TypeOfReading = "dasdad";
+
+            //manager.Put(new List<DeviceReading>() { reading }).Wait();
 
             Console.ReadKey();
         }

@@ -9,13 +9,13 @@ namespace IPROJ_TcpCommunication
     public class TcpConnector : IDisposable
     {
         private readonly AutoResetEvent _resetEvent = new AutoResetEvent(true);
+        private readonly ManualResetEvent _initResetEvent = new ManualResetEvent(false);
         private readonly TcpHost _host;
         private Socket _socket;
         private bool _disposed = false;
 
         public TcpConnector(TcpHost host)
         {
-            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _host = host;
             Connect().Wait();
         }

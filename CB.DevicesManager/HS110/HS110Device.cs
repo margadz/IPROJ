@@ -20,10 +20,10 @@ namespace CB.DevicesManager.HS110
         {
             _connector = new HS110TcpConnector(new TcpConnector(new TcpHost(device.Host)));
 
-            if (!EnsureDevice(device).Result)
-            {
-                throw new DeviceException();
-            }
+            //if (!EnsureDevice(device).Result)
+            //{
+            //    //throw new DeviceException();
+            //}
 
             DeviceId = device.DeviceId;
             TypeOfReading = device.TypeOfReading;

@@ -1,20 +1,27 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using CB.ClientRestApi;
 using CB.DevicesManager.HS110;
 using IPROJ.Contracts.DataModel;
+using IPROJ.QueueManager;
 
 namespace CB.DevicesManager
 {
     public class DeviceManager : IDeviceManager
     {
         private readonly IDevicesRepository _deviceRepository;
+        private readonly IQueueWriter _queueWriter;
+        private readonly Timer _timer;
         private IEnumerable<IDevice> _devices;
 
-        public DeviceManager(IDevicesRepository deviceRepository)
+        public DeviceManager(IDevicesRepository deviceRepository, IQueueWriter queueWriter)
         {
             _deviceRepository = deviceRepository;
+            _queueWriter = queueWriter;
             _devices = CollectDevices().Result;
+
+            _timer = new Timer(EnqueueMessages, null, 0, 2000);
         }
 
         public IEnumerable<IDevice> Devices
@@ -54,6 +61,11 @@ namespace CB.DevicesManager
             }
 
             return result;
+        }
+
+        private void EnqueueMessages(object state)
+        {
+            _queueWriter.Put(AquireInstantReadings().Result).Wait();
         }
     }
 }

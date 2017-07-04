@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CB.DevicesManager
 {
-    class DeviceException
+    public class DeviceException : Exception
     {
     }
 }

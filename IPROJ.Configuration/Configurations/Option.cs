@@ -10,7 +10,7 @@ namespace IPROJ.Configuration.Configurations
         {
             Category = category;
             OptionName = optionName;
-            OptionValue = OptionValue;
+            OptionValue = optionValue;
         }
 
         public string Category { get; }

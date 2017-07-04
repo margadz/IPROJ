@@ -5,7 +5,7 @@ namespace IPROJ.Configuration.ConfigurationProvider
 {
     public class ConfigurationProvider : IConfigurationProvider
     {
-        public string GetOption(string optionName, string optionCategory)
+        public string GetOption(string optionCategory, string optionName)
         {
             return (from options in DefaultConfigurations.Options
                     where options.Category == optionCategory &&

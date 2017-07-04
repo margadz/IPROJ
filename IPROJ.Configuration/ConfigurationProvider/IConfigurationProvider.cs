@@ -4,6 +4,6 @@ namespace IPROJ.Configuration.ConfigurationProvider
 {
     public interface IConfigurationProvider
     {
-        string GetOption(string optionName, string optionCategory);
+        string GetOption(string optionCategory, string optionName);
     }
 }

@@ -16,7 +16,16 @@ namespace CB.ClientRestApi
         {
             using (var client = GetHttpClient())
             {
-                HttpResponseMessage response = await client.GetAsync(string.Empty);
+                HttpResponseMessage response = null;
+                try
+                {
+                    response = await client.GetAsync(string.Empty);
+                }
+                catch (HttpRequestException)
+                {
+                    return new List<Device>();
+                }
+
                 var result = await response.Content.ReadAsStringAsync();
 
                 return JsonConvert.DeserializeObject<IEnumerable<Device>>(result);

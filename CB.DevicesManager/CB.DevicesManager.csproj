@@ -11,8 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CB.ClientRestApi\CB.ClientRestApi.csproj" />
     <ProjectReference Include="..\CB.TcpCommunication\CB.TcpCommunication.csproj" />
     <ProjectReference Include="..\IPROJ.Core\IPROJ.Core.csproj" />
+    <ProjectReference Include="..\IPROJ.QueueManager\IPROJ.QueueManager.csproj" />
   </ItemGroup>
 
   <ItemGroup>

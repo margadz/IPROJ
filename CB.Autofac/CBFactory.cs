@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Autofac;
 using IPROJ.Autofac;
 
 namespace CB.Autofac
@@ -7,7 +7,7 @@ namespace CB.Autofac
     {
         protected override void RegisterTypes()
         {
-            throw new NotImplementedException();
+            Builder.RegisterModule(new CBModule());
         }
     }
 }

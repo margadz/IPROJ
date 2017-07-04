@@ -24,7 +24,7 @@ namespace CB.QueueManaging.Exchanges
 
         public ConnectionFactory ProvideFactory()
         {
-            throw new NotImplementedException();
+            return _factory;
         }
     }
 }
