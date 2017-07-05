@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using CB.DevicesManager.HS110.Commands;
@@ -20,10 +22,10 @@ namespace CB.DevicesManager.HS110
         {
             _connector = new HS110TcpConnector(new TcpConnector(new TcpHost(device.Host)));
 
-            //if (!EnsureDevice(device).Result)
-            //{
-            //    //throw new DeviceException();
-            //}
+            if (!EnsureDevice(device).Result)
+            {
+                throw new DeviceException();
+            }
 
             DeviceId = device.DeviceId;
             TypeOfReading = device.TypeOfReading;
@@ -40,9 +42,14 @@ namespace CB.DevicesManager.HS110
             GC.SuppressFinalize(true);
         }
 
-        public Task<DeviceReading> GetDailyReading()
+        public async Task<DeviceReading> GetDailyReading(DateTime date)
         {
-            throw new NotImplementedException();
+            var result = await DailyParser.AquireDailyPowerComsumption(_connector, date);
+
+            return (from messurement in result
+                    where messurement.day == date.Day
+                    select new DeviceReading(date, messurement.energy, DeviceId, TypeOfReading))
+                    .FirstOrDefault();
         }
 
         public Task<DeviceReading> GetInsantReading()
@@ -71,9 +78,19 @@ namespace CB.DevicesManager.HS110
         private async Task SetCurrentValue()
         {
             _event.WaitOne();
-            var value = await EmeterParser.AquireInstantPowerComsumption(_connector);
-            _currentMessurement = value;
-            _event.Set();
+            try
+            {
+                var value = await EmeterParser.AquireInstantPowerComsumption(_connector);
+                _currentMessurement = value;
+            }
+            catch (SocketException)
+            {
+                // Supress
+            }
+            finally
+            {
+                _event.Set();
+            }
         }
 
         private void QueryDevice(object state)

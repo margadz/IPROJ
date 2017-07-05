@@ -21,7 +21,7 @@ namespace CB.DevicesManager
             _queueWriter = queueWriter;
             _devices = CollectDevices().Result;
 
-            _timer = new Timer(EnqueueMessages, null, 0, 2000);
+            _timer = new Timer(EnqueueMessages, null, 2000, 10000);
         }
 
         public IEnumerable<IDevice> Devices

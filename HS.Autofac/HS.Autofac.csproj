@@ -12,8 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CB.QueueManaging\CB.QueueManaging.csproj" />
     <ProjectReference Include="..\HS.MSSQLRepository\HS.MSSQLRepository.csproj" />
+    <ProjectReference Include="..\HS.QueueClient\HS.QueueClient.csproj" />
     <ProjectReference Include="..\IPROJ.Autofac\IPROJ.Autofac.csproj" />
+    <ProjectReference Include="..\IPROJ.QueueManager\IPROJ.QueueManager.csproj" />
   </ItemGroup>
 
 </Project>

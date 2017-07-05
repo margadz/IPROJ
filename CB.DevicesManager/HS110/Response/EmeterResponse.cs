@@ -2,6 +2,6 @@
 {
     public class EmeterResponse
     {
-        public EmeterCommnad emeter { get; set; }
+        public EmeterCommand emeter { get; set; }
     }
 }

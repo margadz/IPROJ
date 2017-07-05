@@ -10,7 +10,7 @@ namespace CB.ClientRestApi
 {
     public class RestDevicesRepository : IDevicesRepository
     {
-        private static readonly Uri _uri = new Uri("http://192.168.1.10:12345/api/devices/");
+        private static readonly Uri Uri = new Uri("http://192.168.1.10:12345/api/devices/");
 
         public async Task<IEnumerable<Device>> GetAllDevicesAsync()
         {
@@ -38,7 +38,7 @@ namespace CB.ClientRestApi
             client.MaxResponseContentBufferSize = 256000;
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.BaseAddress = _uri;
+            client.BaseAddress = Uri;
 
             return client;
         }

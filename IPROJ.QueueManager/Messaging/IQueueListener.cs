@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+using IPROJ.Contracts.DataModel;
 
 namespace IPROJ.QueueManager.Messaging
 {
     public interface IQueueListener : IDisposable
     {
-        event EventHandler QueueEvent;
+        event QueueEventHandler QueueEvent;
 
-        Task Listen();
+        void Listen(CancellationToken token);
     }
+
+    public delegate void QueueEventHandler(IEnumerable<DeviceReading> reading);
 }

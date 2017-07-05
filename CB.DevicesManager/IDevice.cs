@@ -10,6 +10,6 @@ namespace CB.DevicesManager
 
         Task<DeviceReading> GetInsantReading();
 
-        Task<DeviceReading> GetDailyReading();
+        Task<DeviceReading> GetDailyReading(DateTime date);
     }
 }
