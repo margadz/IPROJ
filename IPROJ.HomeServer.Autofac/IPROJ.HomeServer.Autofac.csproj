@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IPROJ.Autofac\IPROJ.Autofac.csproj" />
+    <ProjectReference Include="..\IPROJ.Configuration\IPROJ.Configuration.csproj" />
+    <ProjectReference Include="..\IPROJ.Contracts\IPROJ.Contracts.csproj" />
+    <ProjectReference Include="..\IPROJ.HomeServer.MSSQLRepository\IPROJ.HomeServer.MSSQLRepository.csproj" />
+    <ProjectReference Include="..\IPROJ.HomeServer.QueueClient\IPROJ.HomeServer.QueueClient.csproj" />
+    <ProjectReference Include="..\IPROJ.QueueManager\IPROJ.QueueManager.csproj" />
+  </ItemGroup>
+
+</Project>

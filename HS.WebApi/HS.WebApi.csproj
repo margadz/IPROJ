@@ -27,11 +27,5 @@
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HS.Autofac\HS.Autofac.csproj" />
-    <ProjectReference Include="..\HS.MSSQLRepository\HS.MSSQLRepository.csproj" />
-    <ProjectReference Include="..\IPROJ.Contracts\IPROJ.Contracts.csproj" />
-    <ProjectReference Include="..\IPROJ.Core\IPROJ.Core.csproj" />
-  </ItemGroup>
 
 </Project>

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using IPROJ.Configuration.Configurations;
+using IPROJ.Contracts.ConfigurationProvider;
 
 namespace IPROJ.Configuration.ConfigurationProvider
 {

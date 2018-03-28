@@ -1,6 +1,7 @@
 ﻿using System;
 using Autofac;
 using IPROJ.Configuration.ConfigurationProvider;
+using IPROJ.Contracts.ConfigurationProvider;
 
 namespace IPROJ.Autofac
 {
