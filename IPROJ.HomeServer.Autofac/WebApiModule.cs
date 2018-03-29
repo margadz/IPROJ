@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using IPROJ.HomeServer.MSSQLRepository;
+using IPROJ.MSSQLRepository.Repository;
 
 namespace IPROJ.HomeServer.Autofac
 {

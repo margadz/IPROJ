@@ -1,9 +1,15 @@
 ﻿using Autofac;
 using IPROJ.Configuration.ConfigurationProvider;
+using IPROJ.ConnectionBroker.DevicesManager;
+using IPROJ.ConnectionBroker.QueueManaging.Exchanges;
+using IPROJ.Contracts;
+using IPROJ.Contracts.ConfigurationProvider;
+using IPROJ.MSSQLRepository.Repository;
+using IPROJ.QueueManager.Connection;
 
 namespace IPROJ.ConnectionBroker.Autofac
 {
-    public class CBModule : Module
+    public class ConnectioBrokerModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
@@ -15,11 +21,12 @@ namespace IPROJ.ConnectionBroker.Autofac
                    .As<IConnectionFactoryProvider>()
                    .SingleInstance();
 
+            builder.RegisterType<DataRepository>().WithParameter(new TypedParameter(typeof(string), @"Data Source=KOMP;Initial Catalog=HomeServer;Integrated Security=True")).As<IDataRepository>().InstancePerLifetimeScope();
+
             builder.RegisterType<ReadingsMQExchange>()
                    .As<IQueueWriter>()
                    .SingleInstance();
-            builder.RegisterType<DeviceManager>().As<IDeviceManager>().SingleInstance();
-            builder.RegisterType<RestDevicesRepository>().As<IDevicesRepository>().SingleInstance();
+            builder.RegisterType<Manager>().As<IDeviceManager>().SingleInstance();
         }
     }
 }

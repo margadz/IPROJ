@@ -1,7 +1,7 @@
 ﻿using IPROJ.Contracts.DataModel;
 using Microsoft.EntityFrameworkCore;
 
-namespace IPROJ.HomeServer.MSSQLRepository
+namespace IPROJ.MSSQLRepository.Context
 {
     public class HomeServerDbContext : DbContext
     {
@@ -44,6 +44,10 @@ namespace IPROJ.HomeServer.MSSQLRepository
                     .HasMaxLength(100);
 
                 entity.Property(e => e.TypeOfReading)
+                    .IsRequired()
+                    .HasColumnType("varchar(20)");
+
+                entity.Property(e => e.TypeOfDevice)
                     .IsRequired()
                     .HasColumnType("varchar(20)");
 

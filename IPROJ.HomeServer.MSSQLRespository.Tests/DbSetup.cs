@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace IPROJ.HomeServer.MSSQLRespository.Tests
+namespace IPROJ.MSSQLRepository.Tests
 {
     public class DbSetup
     {
@@ -37,7 +37,7 @@ namespace IPROJ.HomeServer.MSSQLRespository.Tests
         {
             var path = Directory.GetCurrentDirectory();
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 3; i++)
             {
                 path = Directory.GetParent(path).ToString();
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using IPROJ.ConnectionBroker.DevicesManager.HS110.Response;
+using Newtonsoft.Json;
 
 namespace IPROJ.ConnectionBroker.DevicesManager.HS110.Commands
 {

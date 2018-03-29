@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IPROJ.Contracts.DataModel;
+using IPROJ.MSSQLRepository.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace IPROJ.HomeServer.MSSQLRepository
+namespace IPROJ.MSSQLRepository.Repository
 {
     public class DataRepository : IDataRepository
     {

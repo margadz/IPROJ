@@ -3,6 +3,9 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+using IPROJ.ConnectionBroker.DevicesManager.HS110.Commands;
+using IPROJ.ConnectionBroker.TcpCommunication;
+using IPROJ.Contracts.DataModel;
 
 namespace IPROJ.ConnectionBroker.DevicesManager.HS110
 {
@@ -17,7 +20,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager.HS110
 
         public HS110Device(Device device)
         {
-            _connector = new HS110TcpConnector(new TcpConnector(new TcpHost(device.Host)));
+            _connector = new HS110TcpConnector(new TcpHost(device.Host));
 
             if (!EnsureDevice(device).Result)
             {

@@ -38,6 +38,8 @@ namespace IPROJ.Contracts.DataModel
             }
         }
 
+        public string TypeOfDevice { get; set; }
+
         public string CustomId { get; set; }
 
         public string Host { get; set; }

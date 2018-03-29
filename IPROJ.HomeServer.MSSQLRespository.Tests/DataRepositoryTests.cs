@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using IPROJ.Contracts.DataModel;
-using IPROJ.HomeServer.MSSQLRepository;
+using IPROJ.MSSQLRepository.Repository;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
-namespace IPROJ.HomeServer.MSSQLRespository.Tests
+namespace IPROJ.MSSQLRepository.Tests
 {
     [TestFixture]
     public class DataRepositoryTests

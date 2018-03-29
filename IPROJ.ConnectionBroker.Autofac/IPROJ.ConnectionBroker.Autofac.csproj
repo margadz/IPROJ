@@ -10,6 +10,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IPROJ.Autofac\IPROJ.Autofac.csproj" />
+    <ProjectReference Include="..\IPROJ.ConnectionBroker.DevicesManager\IPROJ.ConnectionBroker.DevicesManager.csproj" />
+    <ProjectReference Include="..\IPROJ.ConnectionBroker.QueueManaging\IPROJ.ConnectionBroker.QueueManaging.csproj" />
+    <ProjectReference Include="..\IPROJ.HomeServer.MSSQLRepository\IPROJ.MSSQLRepository.csproj" />
+    <ProjectReference Include="..\IPROJ.QueueManager\IPROJ.QueueManager.csproj" />
   </ItemGroup>
 
 </Project>

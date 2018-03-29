@@ -58,6 +58,10 @@ namespace IPROJ.ConnectionBroker.TcpCommunication
                 _socket.Dispose();
                 await Connect();
             }
+            if (_socket == null)
+            {
+                await Connect();
+            }
         }
 
         private void Dispose(bool disposing)

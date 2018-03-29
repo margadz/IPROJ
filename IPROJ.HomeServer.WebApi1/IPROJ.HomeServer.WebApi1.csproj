@@ -5,12 +5,15 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
     <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
     <ApplicationIcon />
     <OutputTypeEx>library</OutputTypeEx>
     <StartupObject />
+    <AssemblyName>IPROJ.HomeServer.WebApi</AssemblyName>
+    <RootNamespace>IPROJ.HomeServer.WebApi</RootNamespace>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
@@ -37,6 +40,7 @@
   <ItemGroup>
     <ProjectReference Include="..\HS.Autofac\HS.Autofac.csproj" />
     <ProjectReference Include="..\HS.MSSQLRepository\HS.MSSQLRepository.csproj" />
+    <ProjectReference Include="..\IPROJ.HomeServer.Autofac\IPROJ.HomeServer.Autofac.csproj" />
   </ItemGroup>
 
 </Project>

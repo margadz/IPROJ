@@ -3,7 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 
-namespace HS.HomeServer
+namespace IPROJ.HomeServer.WebApi
 {
     public class WebApi
     {

@@ -14,9 +14,11 @@ CREATE TABLE [HomeServer].[dbo].[Devices]
 	DeviceID UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT newid(),
 	Name NVARCHAR(100) NOT NULL,
 	TypeOfReading VARCHAR(20) NOT NULL,
+	TypeOfDevice VARCHAR(20) NOT NULL,
 	IsActive BIT NOT NULL,
 	Host VARCHAR(100) NOT NULL,
 	CustomId VARCHAR (100) NULL,
+
 )
 GO
 
@@ -31,3 +33,5 @@ CREATE TABLE [HomeServer].[dbo].[DeviceReadings]
 	FOREIGN KEY (DeviceID) REFERENCES Devices (DeviceID)
 )
 GO
+
+INSERT INTO Devices (Name, TypeOfReading, TypeOfDevice, IsActive, Host, CustomId) VALUES ('Komputer w salonie', 'PowerConsumption', 'HS110', 1, '192.168.1.202:9999', '8006D1847073EC74595FFCD43771CB2817AFBCAD');

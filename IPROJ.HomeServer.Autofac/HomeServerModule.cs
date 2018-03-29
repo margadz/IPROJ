@@ -2,8 +2,8 @@
 using IPROJ.Configuration.ConfigurationProvider;
 using IPROJ.Contracts.ConfigurationProvider;
 using IPROJ.Contracts.Messaging;
-using IPROJ.HomeServer.MSSQLRepository;
 using IPROJ.HomeServer.QueueClient;
+using IPROJ.MSSQLRepository.Repository;
 using IPROJ.QueueManager.Connection;
 
 namespace IPROJ.HomeServer.Autofac

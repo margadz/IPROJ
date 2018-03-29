@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.Messaging;
 using IPROJ.HomeServer.Autofac;
-using IPROJ.HomeServer.MSSQLRepository;
+using IPROJ.MSSQLRepository.Repository;
 
 namespace IPROJ.HomeServer.Runner
 {
@@ -27,7 +28,9 @@ namespace IPROJ.HomeServer.Runner
 
             Task.Factory.StartNew(() => listener.Listen(source.Token));
 
-            ///HS.WebApi.Program api = new WebApi.Program();
+            var api = new Program();
+
+            Console.ReadKey();
 
         }
 

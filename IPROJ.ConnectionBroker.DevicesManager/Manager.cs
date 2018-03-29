@@ -1,32 +1,29 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using IPROJ.ConnectionBroker.DevicesManager.HS110;
+using IPROJ.Contracts;
+using IPROJ.Contracts.DataModel;
+using IPROJ.MSSQLRepository.Repository;
 
 namespace IPROJ.ConnectionBroker.DevicesManager
 {
     public class Manager : IDeviceManager
     {
-        private readonly IDevicesRepository _deviceRepository;
+        private readonly IDataRepository _dataRepository;
         private readonly IQueueWriter _queueWriter;
         private readonly Timer _timer;
-        private IEnumerable<IDevice> _devices;
 
-        public Manager(IDevicesRepository deviceRepository, IQueueWriter queueWriter)
+        public Manager(IDataRepository deviceRepository, IQueueWriter queueWriter)
         {
-            _deviceRepository = deviceRepository;
+            _dataRepository = deviceRepository;
             _queueWriter = queueWriter;
-            _devices = CollectDevices().Result;
+            Devices = CollectDevices().Result;
 
-            _timer = new Timer(EnqueueMessages, null, 2000, 10000);
+            //_timer = new Timer(EnqueueMessages, null, 100, 1000);
         }
 
-        public IEnumerable<IDevice> Devices
-        {
-            get
-            {
-                return _devices;
-            }
-        }
+        public IEnumerable<IDevice> Devices { get; }
 
         public async Task<IEnumerable<DeviceReading>> AquireInstantReadings()
         {
@@ -41,7 +38,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager
 
         private async Task<IEnumerable<IDevice>> CollectDevices()
         {
-            var rawDevices = await _deviceRepository.GetAllDevicesAsync();
+            var rawDevices = await _dataRepository.GetAllDevicesAsync();
             var result = new List<HS110Device>();
 
             foreach (var dev in rawDevices)
@@ -61,7 +58,13 @@ namespace IPROJ.ConnectionBroker.DevicesManager
 
         private void EnqueueMessages(object state)
         {
-            _queueWriter.Put(AquireInstantReadings().Result).Wait();
+            foreach (var reading in AquireInstantReadings().Result)
+            {
+                System.Console.WriteLine("instant: " + reading.Value);
+
+            }
+            
+            ///_queueWriter.Put(AquireInstantReadings().Result).Wait();
         }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using Autofac;
-using HS.Autofac;
+using IPROJ.HomeServer.Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace HS.HomeServer
+namespace IPROJ.HomeServer.WebApi
 {
     public class Startup
     {
