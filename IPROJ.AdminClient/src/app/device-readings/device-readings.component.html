@@ -1,0 +1,31 @@
+<h1>Historyczne pomiary</h1>
+<div class="container" *ngIf="readings">
+  <table class="table">
+    <thead class="thead-light">
+      <th>Data pomiaru</th>
+      <th>Wartość pomiaru [kWh]</th>
+    </thead>
+    <tbody *ngFor="let reading of readings">
+      <td>{{reading.readingTimeStamp| date:'yyyy-MM-dd'}}</td>
+      <td>{{reading.value}}</td>
+    </tbody>
+  </table>
+  <ngb-accordion>
+    <ngb-panel title="Oblicz zużycie energii">
+      <ng-template ngbPanelContent>
+        <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t">
+          <ng-template #t let-date="date" let-focused="focused">
+            <span class="custom-day"
+                  [class.focused]="focused"
+                  [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
+                  [class.faded]="isHovered(date) || isInside(date)"
+                  (mouseenter)="hoveredDate = date"
+                  (mouseleave)="hoveredDate = null">
+              {{ date.day }}
+            </span>
+          </ng-template>
+        </ngb-datepicker>
+        <div>Łączne zużycie energii w zaznaczonym okresie wyniosło: {{getTotal()}} kwh</div>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>

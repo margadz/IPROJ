@@ -1,0 +1,10 @@
+<h2>Devices</h2>
+<div class="container">
+<ul >
+  <li *ngFor="let device of devices">
+    <a routerLink="/detail/{{device.deviceId}}">
+      <button type="button" class="btn btn-primary">{{device.name}}</button>
+    </a>
+  </li>
+</ul>
+</div>

@@ -1,0 +1,8 @@
+<h1>details</h1>
+<div *ngIf="device">
+<h2>{{device.name | uppercase }} Details</h2>
+<div>id: {{device.deviceId}}</div>
+<div>host: {{device.host}}</div>
+</div>
+<app-device-readings></app-device-readings>
+<button (click)="goBack()">go back</button>
