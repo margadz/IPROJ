@@ -7,11 +7,10 @@ namespace IPROJ.Contracts.DataModel
     {
         public Device()
         {
-            DeviceReadings = new HashSet<DeviceReading>();
             CustomId = string.Empty;
         }
 
-        public Device(Guid deviceId, string name, string typeOfReading, bool isActive, string host, string customId = null)
+        public Device(Guid deviceId, string name, ReadingType typeOfReading, bool isActive, string host, string typeOfDevice, string customId = null)
         {
             DeviceId = deviceId;
             Name = name;
@@ -19,7 +18,7 @@ namespace IPROJ.Contracts.DataModel
             TypeOfReading = typeOfReading;
             Host = host;
             CustomId = customId ?? string.Empty;
-            DeviceReadings = new HashSet<DeviceReading>();
+            TypeOfDevice = typeOfDevice;
         }
 
         public Guid DeviceId { get; set; }
@@ -28,7 +27,7 @@ namespace IPROJ.Contracts.DataModel
 
         public bool IsActive { get; set; }
 
-        public string TypeOfReading { get; set; }
+        public ReadingType TypeOfReading { get; set; }
 
         public string DeviceIdString
         {
@@ -43,7 +42,5 @@ namespace IPROJ.Contracts.DataModel
         public string CustomId { get; set; }
 
         public string Host { get; set; }
-
-        public virtual ICollection<DeviceReading> DeviceReadings { get; set; }
     }
 }

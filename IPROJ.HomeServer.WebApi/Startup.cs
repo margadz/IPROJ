@@ -24,6 +24,11 @@ namespace IPROJ.HomeServer.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+            });
         }
 
         //public void ConfigureContainer(ContainerBuilder builder)
@@ -43,7 +48,7 @@ namespace IPROJ.HomeServer.WebApi
             {
                 app.UseExceptionHandler("/Error");
             }
-
+            app.UseCors("AllowSpecificOrigin");
             app.UseStaticFiles();
 
             app.UseMvc();

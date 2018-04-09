@@ -69,14 +69,7 @@ namespace IPROJ.MSSQLRepository.Context
 
                 entity.Property(e => e.Value).HasColumnType("decimal");
 
-                entity.HasOne(d => d.Device)
-                    .WithMany(p => p.DeviceReadings)
-                    .HasForeignKey(d => d.DeviceId)
-                    .OnDelete(DeleteBehavior.Restrict);
-
-                entity.Property(e => e.TypeOfReading)
-                    .IsRequired()
-                    .HasColumnType("varchar(20)");
+                entity.Ignore(e => e.Device);
             });
         }
     }

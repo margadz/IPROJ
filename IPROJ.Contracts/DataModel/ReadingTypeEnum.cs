@@ -2,10 +2,10 @@
 {
     public enum ReadingType
     {
-        NotSpecified,
-        PowerConsumption,
-        Light,
-        Temperature,
-        InstantPowerConsumtion
+        NotSpecified = 0,
+        PowerComsumption = 1,
+        Light = 2,
+        Temperature = 3,
+        InstantPowerConsumtion = 4
     }
 }

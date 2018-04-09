@@ -48,13 +48,13 @@ namespace IPROJ.ConnectionBroker.DevicesManager.HS110
 
             return (from messurement in result
                     where messurement.day == date.Day
-                    select new DeviceReading(date, messurement.energy, DeviceId, TypeOfReading))
+                    select new DeviceReading(date, messurement.energy, DeviceId, ReadingType.PowerComsumption, ReadingCharacter.Daily))
                     .FirstOrDefault();
         }
 
         public Task<DeviceReading> GetInsantReading()
         {
-            return Task.FromResult(new DeviceReading(DateTime.Now, _currentMessurement, DeviceId, TypeOfReading));
+            return Task.FromResult(new DeviceReading(DateTime.Now, _currentMessurement, DeviceId, ReadingType.PowerComsumption, ReadingCharacter.Instant));
         }
 
         private async Task<bool> EnsureDevice(Device device)

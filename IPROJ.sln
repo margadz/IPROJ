@@ -19,11 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPROJ.Core", "IPROJ.Core\IP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPROJ.QueueManager", "IPROJ.QueueManager\IPROJ.QueueManager.csproj", "{359DB0FB-CA2E-4A14-9B35-7CDD959AD352}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPROJ.ConnectionBroker.DevicesManager", "IPROJ.ConnectionBroker.DevicesManager\IPROJ.ConnectionBroker.DevicesManager.csproj", "{EAD05EDF-290F-44D2-A378-125D76AF2727}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPROJ.ConnectionBroker.DevicesManager", "IPROJ.ConnectionBroker.DevicesManager\IPROJ.ConnectionBroker.DevicesManager.csproj", "{EAD05EDF-290F-44D2-A378-125D76AF2727}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPROJ.ConnectionBroker.TcpCommunication", "IPROJ.ConnectionBroker.TcpCommunication\IPROJ.ConnectionBroker.TcpCommunication.csproj", "{18C60EA8-A472-4A26-86DC-9843C8FDB888}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPROJ.ConnectionBroker.TcpCommunication", "IPROJ.ConnectionBroker.TcpCommunication\IPROJ.ConnectionBroker.TcpCommunication.csproj", "{18C60EA8-A472-4A26-86DC-9843C8FDB888}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPROJ.ConnectionBroker.QueueManaging", "IPROJ.ConnectionBroker.QueueManaging\IPROJ.ConnectionBroker.QueueManaging.csproj", "{DD91C87F-7335-487F-86B2-7FFB08FC7E88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPROJ.ConnectionBroker.QueueManaging", "IPROJ.ConnectionBroker.QueueManaging\IPROJ.ConnectionBroker.QueueManaging.csproj", "{DD91C87F-7335-487F-86B2-7FFB08FC7E88}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPROJ.HomeServer.Autofac", "IPROJ.HomeServer.Autofac\IPROJ.HomeServer.Autofac.csproj", "{219A2318-72A5-4090-A8A2-FA58FE198168}"
 EndProject
@@ -33,13 +33,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPROJ.HomeServer.QueueClien
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPROJ.Contracts", "IPROJ.Contracts\IPROJ.Contracts.csproj", "{54535BCA-1854-4F65-BC5E-6075FA07A5CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPROJ.MSSQLRepository.Tests", "IPROJ.HomeServer.MSSQLRespository.Tests\IPROJ.MSSQLRepository.Tests.csproj", "{F6F1431F-1033-4534-B9F9-57606CAF1223}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPROJ.MSSQLRepository.Tests", "IPROJ.HomeServer.MSSQLRespository.Tests\IPROJ.MSSQLRepository.Tests.csproj", "{F6F1431F-1033-4534-B9F9-57606CAF1223}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPROJ.HomeServer.WebApi", "IPROJ.HomeServer.WebApi\IPROJ.HomeServer.WebApi.csproj", "{2CC8F366-0FA5-406A-9AA8-C34FE5121CB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPROJ.HomeServer.Runner", "IPROJ.HomeServer.Runner\IPROJ.HomeServer.Runner.csproj", "{AD1D93A7-DCB6-4CF4-B547-EA35CFCBF803}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPROJ.HomeServer.Runner", "IPROJ.HomeServer.Runner\IPROJ.HomeServer.Runner.csproj", "{AD1D93A7-DCB6-4CF4-B547-EA35CFCBF803}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPROJ.ConntectionBroker.Runner", "IPROJ.ConntectionBroker.Runner\IPROJ.ConntectionBroker.Runner.csproj", "{2DA371C1-0B98-4713-AD3D-99D856089262}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPROJ.ConntectionBroker.Runner", "IPROJ.ConntectionBroker.Runner\IPROJ.ConntectionBroker.Runner.csproj", "{2DA371C1-0B98-4713-AD3D-99D856089262}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{ADB1DB5F-D872-4A64-9C5B-C5BC72B9D0C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPROJ.Contracts.Tests", "IPROJ.Contracts.Tests\IPROJ.Contracts.Tests.csproj", "{F187D83D-AB4D-4FA7-8027-C90FEE3198CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -177,6 +181,14 @@ Global
 		{2DA371C1-0B98-4713-AD3D-99D856089262}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2DA371C1-0B98-4713-AD3D-99D856089262}.Release|x64.ActiveCfg = Release|Any CPU
 		{2DA371C1-0B98-4713-AD3D-99D856089262}.Release|x64.Build.0 = Release|Any CPU
+		{F187D83D-AB4D-4FA7-8027-C90FEE3198CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F187D83D-AB4D-4FA7-8027-C90FEE3198CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F187D83D-AB4D-4FA7-8027-C90FEE3198CD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F187D83D-AB4D-4FA7-8027-C90FEE3198CD}.Debug|x64.Build.0 = Debug|Any CPU
+		{F187D83D-AB4D-4FA7-8027-C90FEE3198CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F187D83D-AB4D-4FA7-8027-C90FEE3198CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F187D83D-AB4D-4FA7-8027-C90FEE3198CD}.Release|x64.ActiveCfg = Release|Any CPU
+		{F187D83D-AB4D-4FA7-8027-C90FEE3198CD}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -194,10 +206,11 @@ Global
 		{59A82572-D29A-42B1-83A3-2BDE08243704} = {D14D255B-7AAD-45B1-8718-18B4BD38530D}
 		{67F38FA9-512B-45D6-BEB2-6F8D0903CF1F} = {40E453E7-1FD0-4C57-A6DF-2365FC75FCC8}
 		{54535BCA-1854-4F65-BC5E-6075FA07A5CD} = {D14D255B-7AAD-45B1-8718-18B4BD38530D}
-		{F6F1431F-1033-4534-B9F9-57606CAF1223} = {D14D255B-7AAD-45B1-8718-18B4BD38530D}
+		{F6F1431F-1033-4534-B9F9-57606CAF1223} = {ADB1DB5F-D872-4A64-9C5B-C5BC72B9D0C5}
 		{2CC8F366-0FA5-406A-9AA8-C34FE5121CB2} = {40E453E7-1FD0-4C57-A6DF-2365FC75FCC8}
 		{AD1D93A7-DCB6-4CF4-B547-EA35CFCBF803} = {40E453E7-1FD0-4C57-A6DF-2365FC75FCC8}
 		{2DA371C1-0B98-4713-AD3D-99D856089262} = {2B06A4D0-B9B7-4848-B127-A157E7094421}
+		{F187D83D-AB4D-4FA7-8027-C90FEE3198CD} = {ADB1DB5F-D872-4A64-9C5B-C5BC72B9D0C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {007AF9E8-A785-4173-B017-01B7C9E9DDEE}

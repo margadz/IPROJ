@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using IPROJ.ConnectionBroker.DevicesManager.HS110;
+using IPROJ.ConnectionBroker.DevicesManager.Wemo;
 using IPROJ.Contracts;
 using IPROJ.Contracts.DataModel;
 using IPROJ.MSSQLRepository.Repository;
@@ -39,13 +40,21 @@ namespace IPROJ.ConnectionBroker.DevicesManager
         private async Task<IEnumerable<IDevice>> CollectDevices()
         {
             var rawDevices = await _dataRepository.GetAllDevicesAsync();
-            var result = new List<HS110Device>();
+            var result = new List<IDevice>();
 
             foreach (var dev in rawDevices)
             {
                 try
                 {
-                    result.Add(new HS110Device(dev));
+                    if (dev.TypeOfDevice == "HS110")
+                    {
+                        result.Add(new HS110Device(dev));
+                    }
+                    if (dev.TypeOfDevice == "WEMO")
+                    {
+                        result.Add(new WemoDevice());
+                    }
+
                 }
                 catch (DeviceException)
                 {

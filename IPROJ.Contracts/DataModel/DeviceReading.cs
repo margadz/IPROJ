@@ -4,47 +4,52 @@ namespace IPROJ.Contracts.DataModel
 {
     public class DeviceReading
     {
-        private ReadingType _typeOfReading;
+        Device _device;
 
         public DeviceReading()
         {
         }
 
-        public DeviceReading(DateTime readingTimeStamp, decimal value, Guid deviceId, string typeOfReading)
+        public DeviceReading(DateTime readingTimeStamp, decimal value, Guid deviceId, ReadingType typeOfReading, ReadingCharacter readingCharacter)
         {
             ReadingTimeStamp = readingTimeStamp;
             Value = value;
             DeviceId = deviceId;
             TypeOfReading = typeOfReading;
+            ReadingCharacter = readingCharacter;
         }
 
         public DateTime ReadingTimeStamp { get; set; }
 
         public decimal Value { get; set; }
 
-        public Guid DeviceId { get; set; }
+        public ReadingCharacter ReadingCharacter { get; set; }
 
-        public string TypeOfReading
+        public ReadingType TypeOfReading { get; set; }
+
+        public Guid DeviceId
+        {
+            get { return Device.DeviceId; }
+            set { Device.DeviceId = value; }
+        }
+
+
+        public Device Device
         {
             get
             {
-                return _typeOfReading.ToString();
+                if (_device == null)
+                {
+                    _device = new Device();
+                }
+
+                return _device;
             }
 
             set
             {
-                if (!Enum.TryParse<ReadingType>(value, out _typeOfReading))
-                {
-                    _typeOfReading = ReadingType.NotSpecified;
-                }
+                _device = value;
             }
-        }
-
-        public virtual Device Device { get; set; }
-
-        public override string ToString()
-        {
-            return $"TimeStamp: {ReadingTimeStamp}, DeviceId: {DeviceId}, Value: {Value}, TypeOfReading: {TypeOfReading}";
         }
     }
 }
