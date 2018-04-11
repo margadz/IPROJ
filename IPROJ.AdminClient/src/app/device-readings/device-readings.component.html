@@ -1,4 +1,7 @@
 <h1>Historyczne pomiary</h1>
+<head>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
 <div class="container" *ngIf="readings">
   <table class="table">
     <thead class="thead-light">
@@ -25,7 +28,7 @@
             </span>
           </ng-template>
         </ngb-datepicker>
-        <div>Łączne zużycie energii w zaznaczonym okresie wyniosło: {{getTotal()}} kwh</div>
+        <div>Łączne zużycie energii w zaznaczonym okresie wyniosło: {{total$ | async}} kwh</div>
       </ng-template>
     </ngb-panel>
   </ngb-accordion>
