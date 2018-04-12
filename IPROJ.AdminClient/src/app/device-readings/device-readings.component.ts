@@ -59,12 +59,12 @@ export class DeviceReadingsComponent implements OnInit {
   getTotal(): number {
     let result = 0;
     const fromDate = this.getDate(this.fromDate);
-    fromDate.setHours(0,0,0,0)
+    fromDate.setHours(0,0,0,0);
     const toDate = this.getDate(this.toDate);
-    toDate.setHours(0,0,0,0)
+    toDate.setHours(0,0,0,0);
     for (const reading of this.readings) {
       const date = new Date(reading.readingTimeStamp);
-      date.setHours(0,0,0,0)
+      date.setHours(0,0,0,0);
       if (date >= fromDate && date <= toDate) {
         result += reading.value;
       }

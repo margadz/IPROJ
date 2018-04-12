@@ -5,7 +5,7 @@ using IPROJ.ConnectionBroker.DevicesManager.HS110;
 using IPROJ.ConnectionBroker.DevicesManager.Wemo;
 using IPROJ.Contracts;
 using IPROJ.Contracts.DataModel;
-using IPROJ.MSSQLRepository.Repository;
+using IPROJ.Contracts.DataRepository;
 
 namespace IPROJ.ConnectionBroker.DevicesManager
 {
@@ -65,15 +65,16 @@ namespace IPROJ.ConnectionBroker.DevicesManager
             return result;
         }
 
-        private void EnqueueMessages(object state)
+        private async Task EnqueueMessages(object state)
         {
             foreach (var reading in AquireInstantReadings().Result)
             {
                 System.Console.WriteLine("instant: " + reading.Value);
 
             }
-            
-            ///_queueWriter.Put(AquireInstantReadings().Result).Wait();
+
+            var readings = await AquireInstantReadings();
+            await _queueWriter.Put(readings);
         }
     }
 }

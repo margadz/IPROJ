@@ -34,7 +34,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager.HS110
 
         public Guid DeviceId { get; }
 
-        public string TypeOfReading { get; }
+        public ReadingType TypeOfReading { get; }
 
         public void Dispose()
         {

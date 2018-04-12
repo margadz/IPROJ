@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using IPROJ.Contracts.DataModel;
+using IPROJ.Contracts.DataRepository;
 using IPROJ.MSSQLRepository.Repository;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;

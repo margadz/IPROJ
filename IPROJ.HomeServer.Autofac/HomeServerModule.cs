@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using IPROJ.Configuration.ConfigurationProvider;
 using IPROJ.Contracts.ConfigurationProvider;
+using IPROJ.Contracts.DataRepository;
 using IPROJ.Contracts.Messaging;
 using IPROJ.HomeServer.QueueClient;
 using IPROJ.MSSQLRepository.Repository;
@@ -15,7 +16,8 @@ namespace IPROJ.HomeServer.Autofac
             builder.RegisterType<ConfigurationProvider>().As<IConfigurationProvider>().SingleInstance();
             builder.RegisterType<HsConnectionFactoryProvider>().As<IConnectionFactoryProvider>().SingleInstance();
             builder.RegisterType<QueueListener>().As<IQueueListener>().SingleInstance();
-            builder.RegisterType<DataRepository>().WithParameter(new TypedParameter(typeof(string), @"Data Source=KOMP;Initial Catalog=HomeServer;Integrated Security=True")).As<IDataRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<MessagesHandler>().As<IMessagesHandler>().SingleInstance();
+            builder.RegisterType<DataRepository>().WithParameter(new TypedParameter(typeof(string), @"Data Source=KOMP;Initial Catalog=HomeServer;Integrated Security=True")).As<IDataRepository>().SingleInstance();
         }
     }
 }

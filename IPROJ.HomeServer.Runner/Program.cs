@@ -1,42 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using IPROJ.Contracts.DataModel;
-using IPROJ.Contracts.Messaging;
 using IPROJ.HomeServer.Autofac;
-using IPROJ.MSSQLRepository.Repository;
+using IPROJ.HomeServer.QueueClient;
 
 namespace IPROJ.HomeServer.Runner
 {
     public class Program
     {
-        private static IDataRepository _repo;
-
         public static void Main(string[] args)
         {
             HomeServerFactory factory = new HomeServerFactory();
 
-            var listener = factory.Resolve<IQueueListener>();
-            _repo = factory.Resolve<IDataRepository>();
-
-            listener.QueueEvent += Fun;
-
+            var handler = factory.Resolve<IMessagesHandler>();
             CancellationTokenSource source;
 
             source = new CancellationTokenSource();
 
-            Task.Factory.StartNew(() => listener.Listen(source.Token));
-
-            var api = new Program();
+            Task.Factory.StartNew(() => handler.StartListening(source.Token));
 
             Console.ReadKey();
 
-        }
-
-        private static void Fun(IEnumerable<DeviceReading> readings)
-        {
-            _repo.AddReadingsAsync(readings).Wait();
+            source.Cancel();
+            source.Dispose();
         }
     }
 }

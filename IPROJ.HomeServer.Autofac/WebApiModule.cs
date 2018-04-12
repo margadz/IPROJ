@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using IPROJ.Contracts.DataRepository;
 using IPROJ.MSSQLRepository.Repository;
 
 namespace IPROJ.HomeServer.Autofac

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using IPROJ.ConnectionBroker.Autofac;
 using IPROJ.ConnectionBroker.DevicesManager;
-using IPROJ.ConnectionBroker.DevicesManager.HS110;
+using IPROJ.Contracts;
+using IPROJ.Contracts.DataModel;
 
 namespace IPROJ.ConntectionBroker.Runner
 {
@@ -16,8 +18,15 @@ namespace IPROJ.ConntectionBroker.Runner
 
             var device = manager.Devices.First();
 
-            var res1 = device.GetDailyReading(DateTime.UtcNow).Result;
-            var res2 = device.GetDailyReading(DateTime.UtcNow.AddDays(-1)).Result;
+            var writer = factory.Resolve<IQueueWriter>();
+
+            var result = new List<DeviceReading>();
+            for (var i = 0; i < 20; i++)
+            {
+                result.Add(device.GetDailyReading(DateTime.UtcNow.AddDays(-i)).Result);
+            }
+
+            writer.Put(result).Wait();
 
             Console.ReadKey();
         }

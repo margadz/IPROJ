@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using IPROJ.Contracts.DataModel;
 
-namespace IPROJ.MSSQLRepository.Repository
+namespace IPROJ.Contracts.DataRepository
 {
     public interface IDataRepository
     {

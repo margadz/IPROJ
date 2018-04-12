@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using IPROJ.Contracts.DataModel;
+using IPROJ.Contracts.DataRepository;
 using IPROJ.MSSQLRepository.Repository;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
@@ -13,7 +14,7 @@ namespace IPROJ.MSSQLRepository.Tests
     public class DataRepositoryTests
     {
         private static Guid _guid = Guid.Parse("D28B2B0C-831A-4027-9B6D-3894F5A7EB69");
-        private DataRepository _repository;
+        private IDataRepository _repository;
         private int _allReadingCount = 16;
         private int _allDevicesCount = 8;
         private int _readingsFromDeviceCount = 4;

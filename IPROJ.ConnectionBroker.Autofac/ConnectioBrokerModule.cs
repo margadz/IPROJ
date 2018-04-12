@@ -4,6 +4,7 @@ using IPROJ.ConnectionBroker.DevicesManager;
 using IPROJ.ConnectionBroker.QueueManaging.Exchanges;
 using IPROJ.Contracts;
 using IPROJ.Contracts.ConfigurationProvider;
+using IPROJ.Contracts.DataRepository;
 using IPROJ.MSSQLRepository.Repository;
 using IPROJ.QueueManager.Connection;
 

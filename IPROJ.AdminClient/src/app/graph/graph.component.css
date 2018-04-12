@@ -1,0 +1,13 @@
+::ng-deep .bar {
+  fill: deepskyblue;
+}
+
+::ng-deep .bar:hover {
+  fill: darkblue;
+}
+
+::ng-deep .axis-title {
+  fill: none;
+  stroke: black;
+  stroke-width: 0.5px;
+}
