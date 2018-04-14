@@ -4,8 +4,6 @@ import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
-import {timeFormat} from "d3-time-format";
-import {timeParse} from "d3-time-format";
 import {DeviceReading} from '../deviceReading';
 import {Observable} from 'rxjs/Observable';
 
@@ -30,6 +28,13 @@ export class GraphComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    this.getReadings();
+  }
+
+  initGraph() {
+    if (this.svg){
+      this.svg.selectAll('*').remove();
+    }
     this.initSvg();
     this.initAxis();
     this.drawAxis();
@@ -45,7 +50,11 @@ export class GraphComponent implements OnInit {
   }
 
   private getReadings(): void{
-    this.readings$.subscribe(readings => this.readings = readings);
+    this.readings$.subscribe(readings => {
+      this.readings = readings;
+      this.initGraph();
+      console.log(this.readings.length);
+    });
   }
 
   private initAxis() {

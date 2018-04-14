@@ -21,7 +21,7 @@ namespace IPROJ.HomeServer.QueueClient
             _queueListener.QueueEvent += HandleMessages;
         }
 
-        public void StartListening(CancellationToken cancellationToken)
+        public void StartStartHandling(CancellationToken cancellationToken)
         {
             Console.WriteLine("Handler started listening...");
             _queueListener.Listen(cancellationToken);
@@ -29,8 +29,8 @@ namespace IPROJ.HomeServer.QueueClient
 
         private async void HandleMessages(IEnumerable<DeviceReading> readings)
         {
+            var filtered = readings.Where(reading => reading != null && reading.ReadingCharacter == ReadingCharacter.Daily);
             Console.WriteLine($"Received message with {readings.Count()} readings.");
-            var filtered = readings.Where(reading => reading != null);
             await _dataRepository.AddReadingsAsync(filtered);
         }
     }

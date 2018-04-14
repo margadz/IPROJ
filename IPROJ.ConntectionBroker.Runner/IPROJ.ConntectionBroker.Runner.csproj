@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IPROJ.ConnectionBroker.Autofac\IPROJ.ConnectionBroker.Autofac.csproj" />
-    <ProjectReference Include="..\IPROJ.ConnectionBroker.Signaling\IPROJ.ConnectionBroker.Signaling.csproj" />
   </ItemGroup>
 
 </Project>

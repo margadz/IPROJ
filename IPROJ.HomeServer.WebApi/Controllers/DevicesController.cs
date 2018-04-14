@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.DataRepository;
 using IPROJ.MSSQLRepository.Repository;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace IPROJ.HomeServer.WebApi.Controllers
 {
@@ -14,6 +17,7 @@ namespace IPROJ.HomeServer.WebApi.Controllers
     public class DevicesController : Controller
     {
         private static IDataRepository _repository;
+        private static bool _run;
 
         public DevicesController()
         {

@@ -17,7 +17,7 @@ namespace IPROJ.HomeServer.QueueClient
         private readonly string _readingQueueName;
         private readonly Encoding _encoding;
         private ConnectionFactory _factory;
-        
+        private bool _started = false;
 
         public QueueListener(IConnectionFactoryProvider queueConnectionProvider, IConfigurationProvider configurationProvider)
         {
@@ -34,6 +34,12 @@ namespace IPROJ.HomeServer.QueueClient
 
         public void Listen(CancellationToken token)
         {
+            if (_started)
+            {
+                return;
+            }
+
+            _started = true;
             using (var connection = _factory.CreateConnection())
             {
                 using (var channel = connection.CreateModel())

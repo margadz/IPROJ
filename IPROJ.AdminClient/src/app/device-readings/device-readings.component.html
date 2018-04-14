@@ -1,6 +1,6 @@
-<h1>Historyczne pomiary</h1>
+<h2>Historyczne pomiary</h2>
 <div class="container" *ngIf="readings">
-  <table class="table">
+  <table class="table table-fixed">
     <thead class="thead-light">
       <th>Data pomiaru</th>
       <th>Wartość pomiaru [kWh]</th>
@@ -26,7 +26,9 @@
           </ng-template>
         </ngb-datepicker>
         <div>Łączne zużycie energii w zaznaczonym okresie wyniosło: {{total$ | async}} kwh</div>
-        <app-graph [readings]="readings" ></app-graph>
+        <div *ngIf="selectedReadings$ | async; else loading; let reading" >
+          <app-graph [readings$]="selectedReadings$"></app-graph>
+        </div>
       </ng-template>
     </ngb-panel>
   </ngb-accordion>

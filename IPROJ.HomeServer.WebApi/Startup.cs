@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Autofac;
-using IPROJ.HomeServer.Autofac;
+using IPROJ.SignalR.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,12 +18,19 @@ namespace IPROJ.HomeServer.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    );
             });
+            services.AddMvc();
+
+            services.AddSignalR();
         }
 
         //public void ConfigureContainer(ContainerBuilder builder)
@@ -48,8 +50,10 @@ namespace IPROJ.HomeServer.WebApi
             {
                 app.UseExceptionHandler("/Error");
             }
-            app.UseCors("AllowSpecificOrigin");
+            app.UseCors("CorsPolicy");
             app.UseStaticFiles();
+            app.UseWebSockets();
+            app.UseSignalR(routes => routes.MapHub<DeviceReadingHub>("/current"));
 
             app.UseMvc();
         }

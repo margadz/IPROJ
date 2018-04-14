@@ -6,6 +6,7 @@ using IPROJ.Contracts.Messaging;
 using IPROJ.HomeServer.QueueClient;
 using IPROJ.MSSQLRepository.Repository;
 using IPROJ.QueueManager.Connection;
+using IPROJ.SignalR;
 
 namespace IPROJ.HomeServer.Autofac
 {
@@ -17,6 +18,7 @@ namespace IPROJ.HomeServer.Autofac
             builder.RegisterType<HsConnectionFactoryProvider>().As<IConnectionFactoryProvider>().SingleInstance();
             builder.RegisterType<QueueListener>().As<IQueueListener>().SingleInstance();
             builder.RegisterType<MessagesHandler>().As<IMessagesHandler>().SingleInstance();
+            builder.RegisterType<SignalingDispatcher>().As<ISignalingDispatcher>().SingleInstance();
             builder.RegisterType<DataRepository>().WithParameter(new TypedParameter(typeof(string), @"Data Source=KOMP;Initial Catalog=HomeServer;Integrated Security=True")).As<IDataRepository>().SingleInstance();
         }
     }

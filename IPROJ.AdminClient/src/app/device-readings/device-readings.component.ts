@@ -24,19 +24,24 @@ const after = (one: NgbDateStruct, two: NgbDateStruct) =>
 })
 export class DeviceReadingsComponent implements OnInit {
   private _total$: Observable<number>;
+  private _selectedReadings$: Observable<DeviceReading[]>;
+  private _fromDate: NgbDateStruct;
+  private _toDate: NgbDateStruct;
+  private _totalConsumptionSubject: ReplaySubject<number>;
+  private _selectedReadingSubject: ReplaySubject<DeviceReading[]>;
+  private _selectedReadings: DeviceReading[];
   readings:  DeviceReading[];
   hoveredDate: NgbDateStruct;
-  fromDate: NgbDateStruct;
-  toDate: NgbDateStruct;
-  subject: ReplaySubject<number>;
 
   constructor(
     private deviceReadingService: DeviceReadingService,
     private route: ActivatedRoute,
     calendar: NgbCalendar) {
-    this.fromDate = calendar.getToday();
-    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
-    this.subject = new ReplaySubject<number>();
+    this._fromDate = calendar.getToday();
+    this._toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    this._totalConsumptionSubject = new ReplaySubject<number>();
+    this._selectedReadingSubject = new ReplaySubject<DeviceReading[]>();
+    this._selectedReadings = [];
   }
 
   ngOnInit() {
@@ -45,9 +50,16 @@ export class DeviceReadingsComponent implements OnInit {
 
   get total$(): Observable<number> {
     if (!this._total$) {
-      this._total$ = this.subject.asObservable();
+      this._total$ = this._totalConsumptionSubject.asObservable();
     }
     return this._total$;
+  }
+
+  get selectedReadings$(): Observable<DeviceReading[]> {
+    if (!this._selectedReadings$) {
+      this._selectedReadings$ = this._selectedReadingSubject.asObservable();
+    }
+    return this._selectedReadings$;
   }
 
   getReadings() {
@@ -58,31 +70,34 @@ export class DeviceReadingsComponent implements OnInit {
 
   getTotal(): number {
     let result = 0;
-    const fromDate = this.getDate(this.fromDate);
+    const fromDate = this.getDate(this._fromDate);
     fromDate.setHours(0,0,0,0);
-    const toDate = this.getDate(this.toDate);
+    const toDate = this.getDate(this._toDate);
     toDate.setHours(0,0,0,0);
     for (const reading of this.readings) {
       const date = new Date(reading.readingTimeStamp);
       date.setHours(0,0,0,0);
       if (date >= fromDate && date <= toDate) {
         result += reading.value;
+        this._selectedReadings.push(reading);
       }
     }
     return result;
   }
 
   onDateSelection(date: NgbDateStruct) {
-    if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && after(date, this.fromDate)) {
-      this.toDate = date;
+    if (!this._fromDate && !this._toDate) {
+      this._fromDate = date;
+    } else if (this._fromDate && !this._toDate && after(date, this._fromDate)) {
+      this._toDate = date;
     } else {
-      this.toDate = null;
-      this.fromDate = date;
+      this._toDate = null;
+      this._fromDate = date;
     }
-    if (this.fromDate && this.toDate){
-      this.subject.next(this.getTotal());
+    if (this._fromDate && this._toDate) {
+      this._selectedReadings = [];
+      this._totalConsumptionSubject.next(this.getTotal());
+      this._selectedReadingSubject.next(this._selectedReadings);
     }
   }
 
@@ -90,10 +105,10 @@ export class DeviceReadingsComponent implements OnInit {
     return new Date(date.year + '-' + date.month + '-' + date.day);
   }
 
-  isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
-  isInside = date => after(date, this.fromDate) && before(date, this.toDate);
-  isFrom = date => equals(date, this.fromDate);
-  isTo = date => equals(date, this.toDate);
+  isHovered = date => this._fromDate && !this._toDate && this.hoveredDate && after(date, this._fromDate) && before(date, this.hoveredDate);
+  isInside = date => after(date, this._fromDate) && before(date, this._toDate);
+  isFrom = date => equals(date, this._fromDate);
+  isTo = date => equals(date, this._toDate);
 }
 
 

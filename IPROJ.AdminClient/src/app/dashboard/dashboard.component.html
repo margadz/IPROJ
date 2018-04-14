@@ -9,6 +9,7 @@
               <a *ngIf="device.typeOfDevice == 'HS110'">
                 <img src="/assets/images/hs110.jpg" style="width:60px">
               </a>
+              <a><app-signal-r-client [deviceId]="device.deviceId"></app-signal-r-client></a>
             </p>
             <p><button type="button" class="btn btn-info" routerLink="/detail/{{device.deviceId}}">Wyświetl pomiary</button></p>
           </li>
@@ -17,4 +18,3 @@
     </ngb-panel>
   </a>
 </ngb-accordion>
-
