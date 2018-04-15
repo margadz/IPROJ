@@ -20,7 +20,7 @@ const after = (one: NgbDateStruct, two: NgbDateStruct) =>
 @Component({
   selector: 'app-device-readings',
   templateUrl: './device-readings.component.html',
-  styleUrls: ['./device-readings.component.css']
+  styleUrls: ['./device-readings.component.scss']
 })
 export class DeviceReadingsComponent implements OnInit {
   private _total$: Observable<number>;
@@ -42,6 +42,21 @@ export class DeviceReadingsComponent implements OnInit {
     this._totalConsumptionSubject = new ReplaySubject<number>();
     this._selectedReadingSubject = new ReplaySubject<DeviceReading[]>();
     this._selectedReadings = [];
+  }
+
+  private normalizeDate(date: Date): Date{
+    date.setHours(0, 0, 0, 0);
+    return date;
+  }
+
+  private getDate(date: NgbDateStruct): Date {
+    return new Date(date.year + '-' + date.month + '-' + date.day);
+  }
+
+  private normalizeNgDate(date: NgbDateStruct): Date {
+      let newDate = this.getDate(date);
+      newDate = this.normalizeDate(newDate);
+      return newDate;
   }
 
   ngOnInit() {
@@ -70,13 +85,10 @@ export class DeviceReadingsComponent implements OnInit {
 
   getTotal(): number {
     let result = 0;
-    const fromDate = this.getDate(this._fromDate);
-    fromDate.setHours(0,0,0,0);
-    const toDate = this.getDate(this._toDate);
-    toDate.setHours(0,0,0,0);
+    const fromDate = this.normalizeNgDate(this._fromDate);
+    const toDate = this.normalizeNgDate(this._toDate);
     for (const reading of this.readings) {
-      const date = new Date(reading.readingTimeStamp);
-      date.setHours(0,0,0,0);
+      const date = this.normalizeDate(reading.readingTimeStamp);
       if (date >= fromDate && date <= toDate) {
         result += reading.value;
         this._selectedReadings.push(reading);
@@ -99,10 +111,6 @@ export class DeviceReadingsComponent implements OnInit {
       this._totalConsumptionSubject.next(this.getTotal());
       this._selectedReadingSubject.next(this._selectedReadings);
     }
-  }
-
-  getDate(date: NgbDateStruct): Date{
-    return new Date(date.year + '-' + date.month + '-' + date.day);
   }
 
   isHovered = date => this._fromDate && !this._toDate && this.hoveredDate && after(date, this._fromDate) && before(date, this.hoveredDate);

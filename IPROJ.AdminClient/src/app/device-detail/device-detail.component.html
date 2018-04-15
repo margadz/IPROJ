@@ -1,5 +1,14 @@
 <div *ngIf="device">
-<h2>{{device.name | uppercase }}</h2>
+  <p><span>Nazwa: {{device.name}}</span> <span>Typ urządzenia: {{device.typeOfDevice}}</span>
+    <a *ngIf="device.typeOfDevice == 'HS110'">
+      <img src="/assets/images/hs110.jpg" style="width:60px">
+    </a>
+    <a *ngIf="getCurrentMeasurement(device.deviceId) | async; let reading; else loading">
+      {{reading.value}}
+    </a>
+  </p>
+  <p><button type="button" class="btn btn-info" routerLink="/detail/{{device.deviceId}}">Wyświetl pomiary</button></p>
 </div>
-<app-device-readings></app-device-readings>
-<button (click)="goBack()">go back</button>
+<ng-template #loading>
+  <img src="assets/svg/spinner.svg" height="40px" width="40px"/>
+</ng-template>

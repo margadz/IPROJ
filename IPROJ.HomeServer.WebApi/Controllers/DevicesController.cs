@@ -32,6 +32,7 @@ namespace IPROJ.HomeServer.WebApi.Controllers
         [DisableCors]
         public Task<IEnumerable<Device>> GetAllDevices()
         {
+            Task.Delay(1500);
             return _repository.GetAllDevicesAsync();
         }
 

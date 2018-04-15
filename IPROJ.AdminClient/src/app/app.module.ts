@@ -15,8 +15,7 @@ import { DeviceReadingsComponent } from './device-readings/device-readings.compo
 import { DeviceReadingService } from './device-reading.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { GraphComponent } from './graph/graph.component';
-import { D3Service } from './d3.service';
-import { SignalRClientComponent } from './signal-r-client/signal-r-client.component';
+import {CurrentMeasurementService} from './current-measurement.service';
 
 
 @NgModule({
@@ -28,7 +27,6 @@ import { SignalRClientComponent } from './signal-r-client/signal-r-client.compon
     DashboardComponent,
     DeviceReadingsComponent,
     GraphComponent,
-    SignalRClientComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +34,7 @@ import { SignalRClientComponent } from './signal-r-client/signal-r-client.compon
     AppRoutingModule,
     NgbModule.forRoot()
   ],
-  providers: [ DeviceService, MessageService, DeviceReadingService, D3Service ],
+  providers: [ DeviceService, MessageService, DeviceReadingService, CurrentMeasurementService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

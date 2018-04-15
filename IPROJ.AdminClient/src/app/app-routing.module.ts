@@ -5,7 +5,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DeviceDetailComponent } from './device-detail/device-detail.component';
 
 const routes: Routes = [
-  { path: 'devices', component: DevicesComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'detail/:id', component: DeviceDetailComponent },

@@ -10,7 +10,7 @@ import {Observable} from 'rxjs/Observable';
 @Component({
   selector: 'app-graph',
   templateUrl: './graph.component.html',
-  styleUrls: ['./graph.component.css']
+  styleUrls: ['./graph.component.scss']
 })
 export class GraphComponent implements OnInit {
   subtitle = 'Wykres zużycia energii';

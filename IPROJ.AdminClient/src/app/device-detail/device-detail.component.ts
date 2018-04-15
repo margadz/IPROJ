@@ -1,32 +1,23 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { Device} from '../device';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { DeviceService } from '../device.service';
+import {CurrentMeasurementService} from '../current-measurement.service';
+import {Observable} from 'rxjs/Observable';
+import {DeviceReading} from '../deviceReading';
 
 @Component({
   selector: 'app-device-detail',
   templateUrl: './device-detail.component.html',
-  styleUrls: ['./device-detail.component.css']
+  styleUrls: ['./device-detail.component.scss']
 })
 export class DeviceDetailComponent implements OnInit {
-  device: Device;
+  @Input() device: Device;
   constructor(
-    private route: ActivatedRoute,
-    private deviceService: DeviceService,
-    private location: Location,
-  ) { }
+    private currentService: CurrentMeasurementService) { }
 
   ngOnInit() {
-    this.getDevice();
   }
 
-  getDevice(): void {
-    const id  = this.route.snapshot.paramMap.get('id');
-    this.deviceService.getDevice(id).then(result => this.device = result);
-  }
-
-  goBack(): void {
-    this.location.back();
+  getCurrentMeasurement(deviceId: string): Observable<DeviceReading> {
+    return this.currentService.getCurrentReadings(deviceId);
   }
 }

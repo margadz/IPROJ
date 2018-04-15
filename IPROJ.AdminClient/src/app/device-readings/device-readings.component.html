@@ -6,8 +6,10 @@
       <th>Wartość pomiaru [kWh]</th>
     </thead>
     <tbody *ngFor="let reading of readings">
+    <tr>
       <td>{{reading.readingTimeStamp| date:'yyyy-MM-dd'}}</td>
       <td>{{reading.value}}</td>
+    </tr>
     </tbody>
   </table>
   <ngb-accordion>
