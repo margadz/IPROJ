@@ -15,8 +15,8 @@ namespace IPROJ.MSSQLRepository.Tests
     {
         private static Guid _guid = Guid.Parse("D28B2B0C-831A-4027-9B6D-3894F5A7EB69");
         private IDataRepository _repository;
-        private int _allReadingCount = 16;
-        private int _allDevicesCount = 8;
+        private int _allReadingCount = 21;
+        private int _allDevicesCount = 9;
         private int _readingsFromDeviceCount = 4;
         private IEnumerable<DeviceReading> _readings = new List<DeviceReading>()
         {

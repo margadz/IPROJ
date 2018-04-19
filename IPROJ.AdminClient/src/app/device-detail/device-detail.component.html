@@ -3,11 +3,14 @@
     <a *ngIf="device.typeOfDevice == 'HS110'">
       <img src="/assets/images/hs110.jpg" style="width:60px">
     </a>
-    <a *ngIf="getCurrentMeasurement(device.deviceId) | async; let reading; else loading">
-      {{reading.value}}
+    <a *ngIf="device.typeOfDevice == 'WEMO'">
+      <img src="/assets/images/wemo.png" style="width:60px">
+    </a>
+    <a *ngIf="getCurrentMeasurement(device.deviceId) | async; let reading; else loading" class="current-reading">
+      {{reading.value.toFixed(1)}}W
     </a>
   </p>
-  <p><button type="button" class="btn btn-info" routerLink="/detail/{{device.deviceId}}">Wyświetl pomiary</button></p>
+  <p><button type="button" class="btn btn-info" routerLink="/readings/{{device.deviceId}}">Wyświetl pomiary</button></p>
 </div>
 <ng-template #loading>
   <img src="assets/svg/spinner.svg" height="40px" width="40px"/>

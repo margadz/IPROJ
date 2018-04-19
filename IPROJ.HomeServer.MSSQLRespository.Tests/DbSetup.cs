@@ -44,7 +44,7 @@ namespace IPROJ.MSSQLRepository.Tests
         {
             var path = Directory.GetCurrentDirectory();
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
                 path = Directory.GetParent(path).ToString();
             }

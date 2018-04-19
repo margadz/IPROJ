@@ -28,7 +28,7 @@ namespace IPROJ.MSSQLRepository.Repository
             }
         }
 
-        public async Task<IEnumerable<Device>> GetAllDevicesAsync()
+        public async Task<IEnumerable<DeviceDescription>> GetAllDevicesAsync()
         {
             using (var context = GenerateContext())
             {

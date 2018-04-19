@@ -27,7 +27,7 @@ namespace IPROJ.ConnectionBroker.Autofac
             builder.RegisterType<ReadingsMQExchange>()
                    .As<IQueueWriter>()
                    .SingleInstance();
-            builder.RegisterType<Manager>().As<IDeviceManager>().SingleInstance();
+            builder.RegisterType<DeviceRepository>().As<IDeviceRepository>().SingleInstance();
         }
     }
 }

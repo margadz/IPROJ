@@ -53,7 +53,6 @@ export class GraphComponent implements OnInit {
     this.readings$.subscribe(readings => {
       this.readings = readings;
       this.initGraph();
-      console.log(this.readings.length);
     });
   }
 

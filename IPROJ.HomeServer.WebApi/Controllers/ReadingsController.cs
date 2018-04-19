@@ -24,22 +24,22 @@ namespace IPROJ.HomeServer.WebApi.Controllers
         // GET: /<controller>/
         [HttpGet]
         [Route("allreadings")]
-        public Task<IEnumerable<DeviceReading>> GetAllReadings()
+        public async Task<IEnumerable<DeviceReading>> GetAllReadings()
         {
-            return _repository.GetAllReadingsAsync();
+            return await _repository.GetAllReadingsAsync();
         }
 
         [HttpGet("readingsFor/{id}", Name = "deviceGuid")]
         [Route("readingsFor")]
-        public Task<IEnumerable<DeviceReading>> GetReadingsForDevice(string id)
+        public async Task<IEnumerable<DeviceReading>> GetReadingsForDevice(string id)
         {
             Guid guid;
             if (Guid.TryParse(id, out guid))
             {
-                return _repository.GetAllReadingsFromDeviceAsync(guid);
+                return await _repository.GetAllReadingsFromDeviceAsync(guid);
             }
 
-            return Task.FromResult<IEnumerable<DeviceReading>>(Array.Empty<DeviceReading>());
+            return await Task.FromResult<IEnumerable<DeviceReading>>(Array.Empty<DeviceReading>());
         }
     }
 }

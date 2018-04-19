@@ -25,8 +25,7 @@ namespace IPROJ.HomeServer.WebApi
                     .AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .AllowCredentials()
-                    );
+                    .AllowCredentials());
             });
             services.AddMvc();
 

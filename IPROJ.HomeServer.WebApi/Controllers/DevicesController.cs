@@ -30,16 +30,15 @@ namespace IPROJ.HomeServer.WebApi.Controllers
         [HttpGet]
         [Route("all")]
         [DisableCors]
-        public Task<IEnumerable<Device>> GetAllDevices()
+        public async Task<IEnumerable<DeviceDescription>> GetAllDevices()
         {
-            Task.Delay(1500);
-            return _repository.GetAllDevicesAsync();
+            return await _repository.GetAllDevicesAsync();
         }
 
 
         [HttpGet("id/{id}", Name = "id")]
         [Route("id")]
-        public async Task<Device> GetDevice(string id)
+        public async Task<DeviceDescription> GetDevice(string id)
         {
             return (await _repository.GetAllDevicesAsync()).Where(device => device.DeviceId.ToString() == id).FirstOrDefault();
         }

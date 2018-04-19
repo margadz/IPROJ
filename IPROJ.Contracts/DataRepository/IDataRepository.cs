@@ -11,7 +11,7 @@ namespace IPROJ.Contracts.DataRepository
 
         Task<IEnumerable<DeviceReading>> GetAllReadingsFromDeviceAsync(Guid deviceId);
 
-        Task<IEnumerable<Device>> GetAllDevicesAsync();
+        Task<IEnumerable<DeviceDescription>> GetAllDevicesAsync();
 
         Task AddReadingsAsync(IEnumerable<DeviceReading> reading);
     }

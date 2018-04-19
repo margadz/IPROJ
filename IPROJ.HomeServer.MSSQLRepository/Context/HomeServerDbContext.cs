@@ -17,7 +17,7 @@ namespace IPROJ.MSSQLRepository.Context
             _connectionString = connectionString;
         }
 
-        public virtual DbSet<Device> Devices { get; set; }
+        public virtual DbSet<DeviceDescription> Devices { get; set; }
 
         public virtual DbSet<DeviceReading> DeviceReadings { get; set; }
 
@@ -28,10 +28,14 @@ namespace IPROJ.MSSQLRepository.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Device>()
+            modelBuilder.Entity<DeviceDescription>()
             .Property(b => b.DeviceId).HasColumnName("Description");
 
-            modelBuilder.Entity<Device>(entity =>
+            modelBuilder.Entity<DeviceDescription>().ToTable("Devices");
+
+            modelBuilder.Entity<DeviceReading>().Ignore(_ => _.DeviceState);
+
+            modelBuilder.Entity<DeviceDescription>(entity =>
             {
                 entity.HasKey(e => e.DeviceId);
 

@@ -4,19 +4,20 @@ namespace IPROJ.Contracts.DataModel
 {
     public class DeviceReading
     {
-        Device _device;
+        DeviceDescription _device;
 
         public DeviceReading()
         {
         }
 
-        public DeviceReading(DateTime readingTimeStamp, decimal value, Guid deviceId, ReadingType typeOfReading, ReadingCharacter readingCharacter)
+        public DeviceReading(DateTime readingTimeStamp, decimal value, Guid deviceId, ReadingType typeOfReading, ReadingCharacter readingCharacter, DeviceState? deviceState = null)
         {
             ReadingTimeStamp = readingTimeStamp;
             Value = value;
             DeviceId = deviceId;
             TypeOfReading = typeOfReading;
             ReadingCharacter = readingCharacter;
+            DeviceState = deviceState;
         }
 
         public DateTime ReadingTimeStamp { get; set; }
@@ -27,6 +28,8 @@ namespace IPROJ.Contracts.DataModel
 
         public ReadingType TypeOfReading { get; set; }
 
+        public DeviceState? DeviceState { get; set; }
+
         public Guid DeviceId
         {
             get { return Device.DeviceId; }
@@ -34,13 +37,13 @@ namespace IPROJ.Contracts.DataModel
         }
 
 
-        public Device Device
+        public DeviceDescription Device
         {
             get
             {
                 if (_device == null)
                 {
-                    _device = new Device();
+                    _device = new DeviceDescription();
                 }
 
                 return _device;

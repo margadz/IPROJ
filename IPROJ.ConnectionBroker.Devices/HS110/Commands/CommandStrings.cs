@@ -10,7 +10,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager.HS110.Commands
         public const string TurnOn = "{\"system\":{\"set_relay_state\":{\"state\":1}}}";
         public const string SysInfo = "{\"system\":{\"get_sysinfo\":{}}}";
 
-        public static string MonthStat (DateTime date)
+        public static string MonthStat(DateTime date)
         {
             StringBuilder sb = new StringBuilder(string.Empty);
 

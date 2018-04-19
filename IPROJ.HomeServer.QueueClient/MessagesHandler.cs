@@ -12,7 +12,6 @@ namespace IPROJ.HomeServer.QueueClient
     {
         private readonly IDataRepository _dataRepository;
         private readonly IQueueListener _queueListener;
-        private readonly CancellationToken _cancellationToken;
 
         public MessagesHandler(IDataRepository dataRepository, IQueueListener queueListener)
         {

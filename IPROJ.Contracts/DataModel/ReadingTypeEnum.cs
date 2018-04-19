@@ -6,6 +6,5 @@
         PowerComsumption = 1,
         Light = 2,
         Temperature = 3,
-        InstantPowerConsumtion = 4
     }
 }

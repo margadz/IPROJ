@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace IPROJ.Contracts.DataModel
 {
-    public class Device
+    public class DeviceDescription
     {
-        public Device()
+        public DeviceDescription()
         {
             CustomId = string.Empty;
         }
 
-        public Device(Guid deviceId, string name, ReadingType typeOfReading, bool isActive, string host, string typeOfDevice, string customId = null)
+        public DeviceDescription(Guid deviceId, string name, ReadingType typeOfReading, bool isActive, string host, string typeOfDevice, string customId = null)
         {
             DeviceId = deviceId;
             Name = name;

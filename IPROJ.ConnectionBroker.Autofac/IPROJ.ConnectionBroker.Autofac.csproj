@@ -2,15 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.6.2" />
+    <PackageReference Include="Autofac" Version="4.8.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\IPROJ.Autofac\IPROJ.Autofac.csproj" />
-    <ProjectReference Include="..\IPROJ.ConnectionBroker.DevicesManager\IPROJ.ConnectionBroker.DevicesManager.csproj" />
+    <ProjectReference Include="..\IPROJ.ConnectionBroker.Devices\IPROJ.ConnectionBroker.Devices.csproj" />
     <ProjectReference Include="..\IPROJ.ConnectionBroker.QueueManaging\IPROJ.ConnectionBroker.QueueManaging.csproj" />
     <ProjectReference Include="..\IPROJ.HomeServer.MSSQLRepository\IPROJ.MSSQLRepository.csproj" />
     <ProjectReference Include="..\IPROJ.QueueManager\IPROJ.QueueManager.csproj" />

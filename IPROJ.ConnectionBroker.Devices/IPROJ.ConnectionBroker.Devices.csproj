@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Platforms>AnyCPU;x64</Platforms>
+    <RootNamespace>IPROJ.ConnectionBroker.Devices</RootNamespace>
+    <AssemblyName>IPROJ.ConnectionBroker.Devices</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

@@ -14,6 +14,7 @@ namespace IPROJ.HomeServer.Runner
             HomeServerFactory factory = new HomeServerFactory();
 
             var handler = factory.Resolve<IMessagesHandler>();
+            var singalling = factory.Resolve<ISignalingDispatcher>();
             CancellationTokenSource source;
 
             source = new CancellationTokenSource();
@@ -21,8 +22,6 @@ namespace IPROJ.HomeServer.Runner
             Task.Factory.StartNew(() => handler.StartStartHandling(source.Token));
 
             Task.Factory.StartNew(() => WebApi.Program.Main(Array.Empty<string>()));
-
-            var singalling = factory.Resolve<ISignalingDispatcher>();
 
             Task.Factory.StartNew(() => singalling.StartDispatching(source.Token));
 

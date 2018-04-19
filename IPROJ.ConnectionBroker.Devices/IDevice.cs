@@ -8,8 +8,10 @@ namespace IPROJ.ConnectionBroker.DevicesManager
     {
         Guid DeviceId { get; }
 
+        string DeviceName { get; }
+
         Task<DeviceReading> GetInsantReading();
 
-        Task<DeviceReading> GetDailyReading(DateTime date);
+        Task<DeviceReading> GetTodaysConsumption();
     }
 }

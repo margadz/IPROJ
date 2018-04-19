@@ -45,8 +45,9 @@ export class DeviceReadingsComponent implements OnInit {
   }
 
   private normalizeDate(date: Date): Date{
-    date.setHours(0, 0, 0, 0);
-    return date;
+    const newDate = new Date(date);
+    newDate.setHours(0, 0, 0, 0);
+    return newDate;
   }
 
   private getDate(date: NgbDateStruct): Date {

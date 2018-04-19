@@ -34,5 +34,5 @@ CREATE TABLE [HomeServer].[dbo].[DeviceReadings]
 )
 GO
 
-INSERT INTO Devices (Name, TypeOfReading, TypeOfDevice, IsActive, Host, CustomId)
- VALUES ('Komputer w salonie', 1, 'HS110', 1, '192.168.1.202:9999', '8006D1847073EC74595FFCD43771CB2817AFBCAD');
+INSERT INTO Devices (Name, TypeOfReading, TypeOfDevice, IsActive, Host) VALUES ('Komputer w salonie', 1, 'HS110', 1, '192.168.1.202:9999');
+INSERT INTO Devices (Name, TypeOfReading, TypeOfDevice, IsActive, Host) VALUES ('Zestaw audio w salonie', 1, 'WEMO', 1, '192.168.1.227:49153');
