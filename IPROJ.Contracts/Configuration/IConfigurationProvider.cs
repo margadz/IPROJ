@@ -1,4 +1,6 @@
-﻿namespace IPROJ.Contracts.ConfigurationProvider
+﻿using System;
+
+namespace IPROJ.Contracts.ConfigurationProvider
 {
     public interface IConfigurationProvider
     {

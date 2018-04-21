@@ -21,7 +21,6 @@ namespace IPROJ.ConnectionBroker.DevicesManager.HS110
             Argument.OfWichValueShoulBeProvided(device, nameof(device));
 
             _connector = new HS110TcpConnector(new TcpHost(device.Host));
-            _deviceId = device.CustomId;
             DeviceId = device.DeviceId;
         }
 
@@ -39,7 +38,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager.HS110
 
         public async Task<DeviceReading> GetTodaysConsumption()
         {
-            return await GetDailyReading(DateTime.Today);
+            return await GetDailyReading(DateTime.UtcNow);
         }
 
         public async Task<DeviceReading> GetDailyReading(DateTime date)
@@ -74,7 +73,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager.HS110
         {
             var customId = await SystemInfoParser.AquireSystemInformation(_connector);
 
-            return customId.deviceId == _deviceId ? true : false;
+            return customId.deviceId != null;
         }
 
         private void Dispose(bool disposing)

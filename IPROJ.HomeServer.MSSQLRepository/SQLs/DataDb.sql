@@ -11,7 +11,7 @@ GO
 
 CREATE TABLE [HomeServer].[dbo].[Devices]
 (
-	DeviceID UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT newid(),
+	DeviceId UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT newid(),
 	Name NVARCHAR(100) NOT NULL,
 	TypeOfReading INT NOT NULL,
 	TypeOfDevice VARCHAR(20) NOT NULL,
@@ -24,13 +24,13 @@ GO
 
 CREATE TABLE [HomeServer].[dbo].[DeviceReadings]
 (
+	Id INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
 	ReadingTimeStamp DATETIME NOT NULL,
 	Value DECIMAL(20,2) NOT NULL,
 	DeviceID UNIQUEIDENTIFIER NOT NULL,
 	TypeOfReading INT NOT NULL,
 	ReadingCharacter INT NOT NULL,
-	PRIMARY KEY(ReadingTimeStamp, DeviceID),
-	FOREIGN KEY (DeviceID) REFERENCES Devices (DeviceID)
+	FOREIGN KEY (DeviceId) REFERENCES Devices (DeviceId)
 )
 GO
 

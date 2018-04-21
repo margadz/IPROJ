@@ -7,5 +7,9 @@
         public const string MQServerUser = "MQServerUser";
 
         public const string MQServerPass = "MQServerPass";
+
+        public const string InstanQueryInterval = "InstanQueryInterval";
+
+        public const string DailyConsumptionGettingTime = "DailyConsumptionGettingTime";
     }
 }

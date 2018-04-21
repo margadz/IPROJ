@@ -28,9 +28,6 @@ namespace IPROJ.MSSQLRepository.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DeviceDescription>()
-            .Property(b => b.DeviceId).HasColumnName("Description");
-
             modelBuilder.Entity<DeviceDescription>().ToTable("Devices");
 
             modelBuilder.Entity<DeviceReading>().Ignore(_ => _.DeviceState);
@@ -40,7 +37,6 @@ namespace IPROJ.MSSQLRepository.Context
                 entity.HasKey(e => e.DeviceId);
 
                 entity.Property(e => e.DeviceId)
-                    .HasColumnName("DeviceID")
                     .HasDefaultValueSql("newid()");
 
                 entity.Property(e => e.Name)

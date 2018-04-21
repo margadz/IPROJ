@@ -32,9 +32,12 @@ namespace IPROJ.ConnectionBroker.DevicesManager.Wemo
             throw new NotImplementedException();
         }
 
-        public Task<DeviceReading> GetTodaysConsumption()
+        public async Task<DeviceReading> GetTodaysConsumption()
         {
-            throw new NotImplementedException();
+            var result = await SendRequest(GetInsightParamsWemoCommand.Command);
+            var response = GetInsightParamsWemoResponse.FromRawResponse(result).DailyReading;
+            response.DeviceId = DeviceId;
+            return response;
         }
 
         public async Task<DeviceReading> GetInsantReading()

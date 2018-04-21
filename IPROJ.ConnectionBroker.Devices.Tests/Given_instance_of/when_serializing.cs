@@ -5,10 +5,10 @@ using IPROJ.ConnectionBroker.DevicesManager.Wemo.Response;
 using IPROJ.Contracts.DataModel;
 using NUnit.Framework;
 
-namespace IPROJ.Given_instance_of
+namespace IPROJ.Given_instance_of.etInsightParamsWemoResponse_class
 {
     [TestFixture]
-    public class GetInsightParamsWemoResponse_class
+    public class when_serializing
     {
         private DateTime dateTime = DateTime.UtcNow;
 

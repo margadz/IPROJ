@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 using IPROJ.ConnectionBroker.Autofac;
+using IPROJ.ConnectionBroker.Devices.Managing;
 using IPROJ.ConnectionBroker.DevicesManager;
+using IPROJ.ConnectionBroker.DevicesManager.HS110;
 using IPROJ.ConnectionBroker.DevicesManager.Wemo;
 using IPROJ.Contracts;
 using IPROJ.Contracts.DataModel;
@@ -14,22 +20,35 @@ namespace IPROJ.ConntectionBroker.Runner
 {
     class Program
     {
+        public static TraceSource _source = new TraceSource("ConsoleApp5", SourceLevels.All);
         static void Main(string[] args)
         {
+            _source.TraceEvent(TraceEventType.Information, 0, "Found");
+            //Lines removed for brevity
+
             var factory = new ConnectioBrokerFactory();
 
             var repository = factory.Resolve<IDeviceRepository>();
 
-            var device = repository.Devices.ToArray();
-            var res1 = device[0].GetInsantReading().Result;
-            var res2 = device[1].GetInsantReading().Result;
-
-            var writer = factory.Resolve<IQueueWriter>();
-
             var source = new CancellationTokenSource();
 
-            Task.Factory.StartNew(async () => await Function(device, writer, source.Token), source.Token);
-            
+            var instant = factory.Resolve<IDeviceManager>();
+            var compount = new CompoundDeviceManager(new[] { instant });
+
+            Task.Factory.StartNew(async () => await instant.ManageDevices(source.Token));
+
+
+            var writer = factory.Resolve<IQueueWriter>();
+            var res = new List<DeviceReading>();
+            foreach(var dev in repository.Devices)
+            {
+                res.Add(dev.GetTodaysConsumption().Result);
+            }
+
+            writer.Put(res).Wait();
+
+            //Task.Factory.StartNew(async () => await Function(device, writer, source.Token), source.Token);
+
             //var result = new List<DeviceReading>();
             //var rand = new Random();
             //while (true)
@@ -46,18 +65,6 @@ namespace IPROJ.ConntectionBroker.Runner
             Console.ReadKey();
             source.Cancel();
             source.Dispose();
-        }
-
-        private static async Task Function(IDevice[] devices, IQueueWriter writer, CancellationToken token)
-        {
-            while (!token.IsCancellationRequested)
-            {
-                var res1 = await devices[0].GetInsantReading();
-                var res2 = await devices[1].GetInsantReading();
-
-                await writer.Put(new[]{ res1, res2 });
-                await Task.Delay(1000);
-            }
         }
     }
 }
