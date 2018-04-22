@@ -19,7 +19,7 @@ export class CurrentMeasurementService {
 
   private initialize(): void{
     if (!this._started) {
-      this._hubConnection = new HubConnection('http://localhost:12345/current');
+      this._hubConnection = new HubConnection('http://192.168.1.10:12345/current');
       this._hubConnection.on('SendMessage', (data: any) => {
         this.updateReadings(data);
       });

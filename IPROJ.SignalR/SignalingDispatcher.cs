@@ -20,7 +20,7 @@ namespace IPROJ.SignalR
         public SignalingDispatcher(IQueueListener queueListener)
         {
             _hubConnection = new HubConnectionBuilder()
-                .WithUrl("http://localhost:12345/current")
+                .WithUrl("http://192.168.1.10:12345/current")
                 .Build();
 
             _queueListener = queueListener;

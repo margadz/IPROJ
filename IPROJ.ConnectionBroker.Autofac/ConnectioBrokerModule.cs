@@ -33,6 +33,7 @@ namespace IPROJ.ConnectionBroker.Autofac
                    .SingleInstance();
             builder.RegisterType<DeviceRepository>().As<IDeviceRepository>().SingleInstance();
             builder.RegisterType<InstantMessurmentsDeviceManager>().As<IDeviceManager>().SingleInstance();
+            builder.RegisterType<DailyConsumptionDeviceManager>().As<IDeviceManager>().SingleInstance();
         }
     }
 }

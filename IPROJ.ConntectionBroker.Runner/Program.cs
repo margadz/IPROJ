@@ -32,35 +32,10 @@ namespace IPROJ.ConntectionBroker.Runner
 
             var source = new CancellationTokenSource();
 
-            var instant = factory.Resolve<IDeviceManager>();
-            var compount = new CompoundDeviceManager(new[] { instant });
+            var instant = factory.Resolve<IEnumerable<IDeviceManager>>();
+            var compount = new CompoundDeviceManager(instant);
 
-            Task.Factory.StartNew(async () => await instant.ManageDevices(source.Token));
-
-
-            var writer = factory.Resolve<IQueueWriter>();
-            var res = new List<DeviceReading>();
-            foreach(var dev in repository.Devices)
-            {
-                res.Add(dev.GetTodaysConsumption().Result);
-            }
-
-            writer.Put(res).Wait();
-
-            //Task.Factory.StartNew(async () => await Function(device, writer, source.Token), source.Token);
-
-            //var result = new List<DeviceReading>();
-            //var rand = new Random();
-            //while (true)
-            //{
-            //    for (var i = 1; i < 2; i++)
-            //    {
-            //        result.Add(new DeviceReading(DateTime.Now, new decimal(rand.Next()), Guid.Parse("994FC7B7-9388-43C5-AD09-E16350289785"), ReadingType.PowerComsumption, ReadingCharacter.Instant));
-            //    }
-
-            //    writer.Put(result).Wait();
-            //    Thread.Sleep(1000);
-            //    result.Clear();
+            Task.Factory.StartNew(async () => await compount.ManageDevices(source.Token));
 
             Console.ReadKey();
             source.Cancel();

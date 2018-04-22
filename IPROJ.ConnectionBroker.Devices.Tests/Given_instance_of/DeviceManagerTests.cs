@@ -16,7 +16,8 @@ namespace IPROJ
     public abstract class DeviceManagerTests<TManager> where TManager : IDeviceManager
     {
         private CancellationTokenSource _tokentSource;
-        private IEnumerable<DeviceReading> _sentReadings;
+
+        protected IEnumerable<DeviceReading> SentReadings { get; private set; }
 
         protected DeviceReading FirstReading { get; } = new DeviceReading();
 
@@ -40,46 +41,28 @@ namespace IPROJ
             Task.Delay(50, _tokentSource.Token).Wait();
         }
 
-        [Test]
-        public void First_device_should_be_called()
-        {
-            FirstDevice.Verify(_ => _.GetInsantReading(), Times.Once);
-        }
-
-        [Test]
-        public void Second_device_should_be_called()
-        {
-            FirstDevice.Verify(_ => _.GetInsantReading(), Times.Once);
-        }
-
-        [Test]
-        public void Queue_writer_should_be_called()
-        {
-            QueueWriter.Verify(_ => _.Put(It.IsAny<IEnumerable<DeviceReading>>()), Times.Once);
-        }
-
-        [Test]
-        public void Actual_readings_should_be_sent()
-        {
-            _sentReadings.Any(_ => ReferenceEquals(_, FirstReading));
-            _sentReadings.Any(_ => ReferenceEquals(_, SecondReading));
-        }
-
         [SetUp]
-        public void ScenarioSetup()
+        public void TestSetup()
         {
             _tokentSource = new CancellationTokenSource();
             FirstDevice = new Mock<IDevice>(MockBehavior.Strict);
             SecondDevice = new Mock<IDevice>(MockBehavior.Strict);
             QueueWriter = new Mock<IQueueWriter>(MockBehavior.Strict);
-            QueueWriter.Setup(_ => _.Put(It.IsAny<IEnumerable<DeviceReading>>())).Returns(Task.FromResult(0)).Callback<IEnumerable<DeviceReading>>(readings => _sentReadings = readings);
+            QueueWriter.Setup(_ => _.Put(It.IsAny<IEnumerable<DeviceReading>>())).Returns(Task.FromResult(0)).Callback<IEnumerable<DeviceReading>>(readings => SentReadings = readings);
             FirstDevice.Setup(_ => _.GetInsantReading()).ReturnsAsync(FirstReading);
             SecondDevice.Setup(_ => _.GetInsantReading()).ReturnsAsync(SecondReading);
+            FirstDevice.Setup(_ => _.GetTodaysConsumption()).ReturnsAsync(FirstReading);
+            SecondDevice.Setup(_ => _.GetTodaysConsumption()).ReturnsAsync(SecondReading);
             DeviceRepository = new Mock<IDeviceRepository>(MockBehavior.Strict);
             DeviceRepository.SetupGet(_ => _.Devices).Returns(new[] { FirstDevice.Object, SecondDevice.Object });
             ConfigurationProvider = new Mock<IConfigurationProvider>(MockBehavior.Strict);
             ConfigurationProvider.Setup(_ => _.GetOption(ConnectionBrokerConfigurations.Category, ConnectionBrokerConfigurations.InstanQueryInterval)).Returns("00:00:01");
             ConfigurationProvider.Setup(_ => _.GetOption(ConnectionBrokerConfigurations.Category, ConnectionBrokerConfigurations.DailyConsumptionGettingTime)).Returns("22:00");
+            ScenarioSetup();
+        }
+
+        public virtual void ScenarioSetup()
+        {
         }
 
         [TearDown]

@@ -16,7 +16,7 @@ namespace IPROJ.HomeServer.WebApi
                 .UseIISIntegration()
                 .UseKestrel()
                 .PreferHostingUrls(true)
-                .UseUrls("http://localhost:12345")
+                .UseUrls("http://192.168.1.10:12345")
                 .Build();
     }
 }

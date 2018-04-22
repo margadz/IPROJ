@@ -18,7 +18,7 @@ namespace IPROJ.Configuration.Configurations
             new Option("HomeServer", "MQServerUser", "HSUser"),
             new Option("HomeServer", "MQServerPass", "HSPass"),
             new Option("ConnectionBroker", "InstanQueryInterval", "00:00:01"),
-            new Option("ConnectionBroker", "DailyConsumptionGettingTime", "22:00"),
+            new Option("ConnectionBroker", "DailyConsumptionGettingTime", "20:12"),
         };
     }
 }

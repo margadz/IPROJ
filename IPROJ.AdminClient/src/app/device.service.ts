@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class DeviceService {
-  private baseUrl = 'http://localhost:12345/api/devices/';
+  private baseUrl = 'http://192.168.1.10:12345/api/devices/';
   constructor(
     private messageService: MessageService,
     private httpClient: HttpClient) {

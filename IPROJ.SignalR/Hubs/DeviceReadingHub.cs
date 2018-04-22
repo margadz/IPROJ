@@ -11,7 +11,7 @@ namespace IPROJ.SignalR.Hubs
         public async Task SendMessage(IEnumerable<DeviceReading> deviceReading)
         {
             await Clients.All.SendAsync("SendMessage", deviceReading);
-            Console.WriteLine($"Instant readings sent.");
+            //Console.WriteLine($"Instant readings sent.");
         }
     }
 }
