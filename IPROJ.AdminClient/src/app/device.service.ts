@@ -28,7 +28,7 @@ export class DeviceService {
 
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
+      this.messageService.add('DeviceService', error.message)
       console.error(error);
       return of(result as T);
     };

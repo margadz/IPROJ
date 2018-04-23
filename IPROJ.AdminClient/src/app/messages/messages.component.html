@@ -1,0 +1,11 @@
+<button type="button" class="btn btn-outline-primary" (click)="switchCollapse()">Komunikaty aplikacji: {{getMessages().length}}</button>
+<div [ngbCollapse]="isCollapsed">
+  <div class="card">
+    <div *ngFor="let message of getMessages()">
+      <div class="card-body">
+        {{message}}
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-outline-warning" (click)="clearMessages()">Wyczyść</button>
+</div>

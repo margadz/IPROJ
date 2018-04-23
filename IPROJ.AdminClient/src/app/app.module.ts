@@ -16,6 +16,7 @@ import { DeviceReadingService } from './device-reading.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { GraphComponent } from './graph/graph.component';
 import {CurrentMeasurementService} from './current-measurement.service';
+import { AddingDevicesComponent } from './adding-devices/adding-devices.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import {CurrentMeasurementService} from './current-measurement.service';
     DashboardComponent,
     DeviceReadingsComponent,
     GraphComponent,
+    AddingDevicesComponent,
   ],
   imports: [
     BrowserModule,

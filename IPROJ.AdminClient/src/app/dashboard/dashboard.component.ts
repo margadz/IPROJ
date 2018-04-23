@@ -13,15 +13,10 @@ import {DeviceReading} from '../deviceReading';
 export class DashboardComponent implements OnInit {
   devices: Device[];
   constructor(
-    private deviceService: DeviceService,
-    private currentService: CurrentMeasurementService) { }
+    private deviceService: DeviceService) { }
 
   ngOnInit() {
     this.getDevices();
-  }
-
-  getCurrentMeasurement(deviceId: string): Observable<DeviceReading> {
-    return this.currentService.getCurrentReadings(deviceId);
   }
 
   getDevices() {
