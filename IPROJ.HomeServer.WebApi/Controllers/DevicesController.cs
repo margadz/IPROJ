@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
+using System.Reflection;
 using System.Threading.Tasks;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.DataRepository;
 using IPROJ.MSSQLRepository.Repository;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace IPROJ.HomeServer.WebApi.Controllers
 {
@@ -40,7 +40,18 @@ namespace IPROJ.HomeServer.WebApi.Controllers
         [Route("id")]
         public async Task<DeviceDescription> GetDevice(string id)
         {
-            return (await _repository.GetAllDevicesAsync()).Where(device => device.DeviceId.ToString() == id).FirstOrDefault();
+            return (await _repository.GetAllDevicesAsync()).Where(device => device.DeviceId.ToString().ToLower() == id.ToLower()).FirstOrDefault();
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public async Task InsertNewDevice([FromBody]dynamic body)
+        {
+            string test = body.ToString();
+            var jObject = JObject.Parse(test);
+            jObject.Remove("DeviceId");
+            var device = jObject.ToObject<DeviceDescription>();
+            await _repository.AddDeviceAync(device);
         }
     }
 }

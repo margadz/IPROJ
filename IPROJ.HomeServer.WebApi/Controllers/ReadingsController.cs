@@ -41,5 +41,7 @@ namespace IPROJ.HomeServer.WebApi.Controllers
 
             return await Task.FromResult<IEnumerable<DeviceReading>>(Array.Empty<DeviceReading>());
         }
+
+
     }
 }

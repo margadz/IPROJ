@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using IPROJ.Configuration.Configurations;
@@ -37,7 +36,7 @@ namespace IPROJ
 
         protected void TheTest()
         {
-            Task.Factory.StartNew(async () => await Manager.ManageDevices(_tokentSource.Token), _tokentSource.Token);
+            Task.Factory.StartNew(() => Manager.ManageDevices(_tokentSource.Token), _tokentSource.Token);
             Task.Delay(50, _tokentSource.Token).Wait();
         }
 
@@ -48,7 +47,7 @@ namespace IPROJ
             FirstDevice = new Mock<IDevice>(MockBehavior.Strict);
             SecondDevice = new Mock<IDevice>(MockBehavior.Strict);
             QueueWriter = new Mock<IQueueWriter>(MockBehavior.Strict);
-            QueueWriter.Setup(_ => _.Put(It.IsAny<IEnumerable<DeviceReading>>())).Returns(Task.FromResult(0)).Callback<IEnumerable<DeviceReading>>(readings => SentReadings = readings);
+            QueueWriter.Setup(_ => _.Put(It.IsAny<IEnumerable<DeviceReading>>(), It.IsAny<CancellationToken>())).Returns(Task.FromResult(0)).Callback<IEnumerable<DeviceReading>, CancellationToken>((readings, token) => SentReadings = readings);
             FirstDevice.Setup(_ => _.GetInsantReading()).ReturnsAsync(FirstReading);
             SecondDevice.Setup(_ => _.GetInsantReading()).ReturnsAsync(SecondReading);
             FirstDevice.Setup(_ => _.GetTodaysConsumption()).ReturnsAsync(FirstReading);

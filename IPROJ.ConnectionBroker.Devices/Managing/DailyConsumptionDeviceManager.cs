@@ -41,12 +41,12 @@ namespace IPROJ.ConnectionBroker.Devices.Managing
                 {
                     var toNextSend = _readingGetTime.TimeOfDay - currentTime.TimeOfDay;
                     await Task.Delay((int)toNextSend.TotalMilliseconds, cancellationToken);
-                    await SendReadings();
+                    await SendReadings(cancellationToken);
                     await WaitToNextDay(cancellationToken);
                 }
                 else
                 {
-                    await SendReadings();
+                    await SendReadings(cancellationToken);
                     var sinceSetTime = currentTime.TimeOfDay - _readingGetTime.TimeOfDay;
                     var toNextSend = _dayDelay - sinceSetTime + TimeSpan.FromSeconds(1);
                     await Task.Delay((int)toNextSend.TotalMilliseconds, cancellationToken);
@@ -61,7 +61,7 @@ namespace IPROJ.ConnectionBroker.Devices.Managing
             return new DateTime(1900, 1, 1, int.Parse(split[0]), int.Parse(split[1]), 0);
         }
 
-        private async Task SendReadings()
+        private async Task SendReadings(CancellationToken cancellationToken)
         {
             var result = new List<DeviceReading>();
             foreach (var device in _deviceRepository.Devices)
@@ -69,7 +69,7 @@ namespace IPROJ.ConnectionBroker.Devices.Managing
                 result.Add(await device.GetTodaysConsumption());
             }
 
-            await _queueWriter.Put(result);
+            await _queueWriter.Put(result, cancellationToken);
         }
 
         private async Task WaitToNextDay(CancellationToken cancellationToken)

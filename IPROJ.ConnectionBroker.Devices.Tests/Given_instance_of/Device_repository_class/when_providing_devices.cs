@@ -8,6 +8,7 @@ using IPROJ.ConnectionBroker.DevicesManager.HS110;
 using IPROJ.ConnectionBroker.DevicesManager.Wemo;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.DataRepository;
+using IPROJ.Contracts.Logging;
 using Moq;
 using NUnit.Framework;
 
@@ -18,8 +19,8 @@ namespace IPROJ.Given_instance_of.Device_repository_class
     {
         private static DeviceDescription _wemoDeviceDescription = new DeviceDescription() { DeviceId = Guid.NewGuid(), TypeOfDevice = "Wemo" };
         private static DeviceDescription _hs110DeviceDescription = new DeviceDescription() { DeviceId = Guid.NewGuid(), Host = "192.0.0.1:111", TypeOfDevice = "HS110" };
-        private WemoDevice _wemoDevice = new WemoDevice(_wemoDeviceDescription);
-        private HS110Device _hs110Device = new HS110Device(_hs110DeviceDescription);
+        private WemoDevice _wemoDevice = new WemoDevice(_wemoDeviceDescription, new Mock<IDeviceLog>().Object);
+        private HS110Device _hs110Device = new HS110Device(_hs110DeviceDescription, new Mock<IDeviceLog>().Object);
         private Mock<IDataRepository> _dataRepositoryMock;
         private DeviceRepository _deviceRepository;
 
@@ -48,7 +49,7 @@ namespace IPROJ.Given_instance_of.Device_repository_class
         {
             _dataRepositoryMock = new Mock<IDataRepository>(MockBehavior.Strict);
             _dataRepositoryMock.Setup(_ => _.GetAllDevicesAsync()).ReturnsAsync(new[] { _wemoDeviceDescription, _hs110DeviceDescription });
-            _deviceRepository = new DeviceRepository(_dataRepositoryMock.Object);
+            _deviceRepository = new DeviceRepository(_dataRepositoryMock.Object, new Mock<IDeviceLog>().Object);
         }
 
         [TearDown]

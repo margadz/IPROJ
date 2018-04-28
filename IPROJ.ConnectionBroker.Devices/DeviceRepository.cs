@@ -1,25 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using IPROJ.ConnectionBroker.DevicesManager.HS110;
 using IPROJ.ConnectionBroker.DevicesManager.Wemo;
+using IPROJ.Contracts;
 using IPROJ.Contracts.DataRepository;
 using IPROJ.Contracts.Helpers;
+using IPROJ.Contracts.Logging;
 
 namespace IPROJ.ConnectionBroker.DevicesManager
 {
     public sealed class DeviceRepository : IDeviceRepository
     {
-        private ManualResetEvent _syncEvent = new ManualResetEvent(false);
+        private readonly ManualResetEvent _syncEvent = new ManualResetEvent(false);
         private readonly IDataRepository _dataRepository;
+        private readonly IDeviceLog _logger;
         private IEnumerable<IDevice> _devices;
 
-        public DeviceRepository(IDataRepository deviceRepository)
+        public DeviceRepository(IDataRepository deviceRepository, IDeviceLog logger)
         {
             Argument.OfWichValueShoulBeProvided(deviceRepository, nameof(deviceRepository));
+            Argument.OfWichValueShoulBeProvided(logger, nameof(logger));
 
+            _logger = logger;
             _dataRepository = deviceRepository;
             Task.Factory.StartNew(async () => await CollectDevices());
         }
@@ -50,11 +54,11 @@ namespace IPROJ.ConnectionBroker.DevicesManager
                 {
                     if (dev.TypeOfDevice.ToLower() == "hs110")
                     {
-                        result.Add(new HS110Device(dev));
+                        result.Add(new HS110Device(dev, _logger));
                     }
                     if (dev.TypeOfDevice.ToLower() == "wemo")
                     {
-                        result.Add(new WemoDevice(dev));
+                        result.Add(new WemoDevice(dev, _logger));
                     }
 
                 }

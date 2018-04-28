@@ -26,7 +26,7 @@ namespace IPROJ.ConnectionBroker.Devices.Managing
         {
             foreach(var manager in _deviceManagers)
             {
-                Task.Factory.StartNew(async () => await manager.ManageDevices(cancellationToken), cancellationToken);
+                Task.Factory.StartNew(() => manager.ManageDevices(cancellationToken), cancellationToken);
             }
 
             return Task.FromResult(0);

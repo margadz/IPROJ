@@ -3,44 +3,40 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using IPROJ.ConnectionBroker.Devices;
 using IPROJ.ConnectionBroker.DevicesManager.Wemo.Commands;
 using IPROJ.ConnectionBroker.DevicesManager.Wemo.Response;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.Helpers;
+using IPROJ.Contracts.Logging;
 
 namespace IPROJ.ConnectionBroker.DevicesManager.Wemo
 {
-    public class WemoDevice : IDevice
+    public class WemoDevice : Device
     {
         const string COMMAND_OFF = @"<?xml version=""1.0"" encoding=""utf-8""?><s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><u:SetBinaryState xmlns:u=""urn:Belkin:service:basicevent:1""><BinaryState>0</BinaryState></u:SetBinaryState></s:Body></s:Envelope>";
         const string COMMAND_ON = @"<?xml version=""1.0"" encoding=""utf-8""?><s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><u:SetBinaryState xmlns:u=""urn:Belkin:service:basicevent:1""><BinaryState>1</BinaryState></u:SetBinaryState></s:Body></s:Envelope>";
         private readonly string _url;
 
-        public WemoDevice(DeviceDescription device)
+        public WemoDevice(DeviceDescription device, IDeviceLog logger) : base (logger)
         {
             Argument.OfWichValueShoulBeProvided(device, nameof(device));
+
             _url = device.Host;
             DeviceId = device.DeviceId;
+            Task.Factory.StartNew(() => EnsureDevice());
         }
 
-        public Guid DeviceId { get; }
+        public override Guid DeviceId { get; }
 
-        public string DeviceName { get; } = "Wemo";
+        public override string DeviceName { get; } = "Wemo";
 
-        public void Dispose()
+        protected override async Task EnsureMethod()
         {
-            throw new NotImplementedException();
+            await SendRequest(GetInsightParamsWemoCommand.Command);
         }
 
-        public async Task<DeviceReading> GetTodaysConsumption()
-        {
-            var result = await SendRequest(GetInsightParamsWemoCommand.Command);
-            var response = GetInsightParamsWemoResponse.FromRawResponse(result).DailyReading;
-            response.DeviceId = DeviceId;
-            return response;
-        }
-
-        public async Task<DeviceReading> GetInsantReading()
+        protected override async Task<DeviceReading> InternalInstantGet()
         {
             var result = await SendRequest(GetInsightParamsWemoCommand.Command);
             var response = GetInsightParamsWemoResponse.FromRawResponse(result).InstantReading;
@@ -48,18 +44,13 @@ namespace IPROJ.ConnectionBroker.DevicesManager.Wemo
             return response;
         }
 
-        //public async Task On()
-        //{
-        //    var targetUrl = $"http://{_url}/upnp/control/basicevent1";
-        //    var res = await SendRequest(targetUrl, COMMAND_ON);
-        //}
-
-        //public async Task Off()
-        //{
-        //    var targetUrl = $"http://{_url}/upnp/control/basicevent1";
-        //    var res = await SendRequest(targetUrl, COMMAND_OFF);
-        //}
-
+        protected override async Task<DeviceReading> InternalDailyGet()
+        {
+            var result = await SendRequest(GetInsightParamsWemoCommand.Command);
+            var response = GetInsightParamsWemoResponse.FromRawResponse(result).DailyReading;
+            response.DeviceId = DeviceId;
+            return response;
+        }
 
         private async Task<string> SendRequest(IWemoCommand command)
         {

@@ -7,7 +7,6 @@ namespace IPROJ.ConnectionBroker.DevicesManager.HS110
     {
         public HS110TcpConnector(TcpHost host) : base(host)
         {
-
         }
 
         public async Task<string> QueryDevice(string command)

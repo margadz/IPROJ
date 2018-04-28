@@ -1,32 +1,37 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using IPROJ.ConnectionBroker.Devices;
 using IPROJ.ConnectionBroker.DevicesManager.HS110.Commands;
 using IPROJ.ConnectionBroker.DevicesManager.HS110.Response;
 using IPROJ.ConnectionBroker.TcpCommunication;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.Helpers;
+using IPROJ.Contracts.Logging;
 using Newtonsoft.Json;
 
 namespace IPROJ.ConnectionBroker.DevicesManager.HS110
 {
-    public class HS110Device : IDevice
+    public class HS110Device : Device
     {
-        private readonly string _deviceId;
-        private HS110TcpConnector _connector;
-        private bool _disposed = false;
+        private object _locker = new object();
+        private readonly HS110TcpConnector _connector;
+        private readonly ManualResetEvent _initSync = new ManualResetEvent(false);
 
-        public HS110Device(DeviceDescription device)
+
+        public HS110Device(DeviceDescription device, IDeviceLog logger) : base (logger)
         {
             Argument.OfWichValueShoulBeProvided(device, nameof(device));
 
             _connector = new HS110TcpConnector(new TcpHost(device.Host));
             DeviceId = device.DeviceId;
+            Task.Factory.StartNew(() => EnsureDevice());
         }
 
-        public Guid DeviceId { get; }
+        public override Guid DeviceId { get; }
 
-        public string DeviceName { get; } = "HS110";
+        public override string DeviceName { get; } = "HS110";
 
         public ReadingType TypeOfReading { get; } = ReadingType.PowerComsumption;
 
@@ -36,17 +41,9 @@ namespace IPROJ.ConnectionBroker.DevicesManager.HS110
             GC.SuppressFinalize(true);
         }
 
-        public async Task<DeviceReading> GetTodaysConsumption()
-        {
-            return await GetDailyReading(DateTime.UtcNow);
-        }
-
         public async Task<DeviceReading> GetDailyReading(DateTime date)
         {
-            if (!(await EnsureDevice()))
-            {
-                return null;
-            }
+            _initSync.WaitOne();
 
             var response = await _connector.QueryDevice(CommandStrings.MonthStat(date));
             var result = JsonConvert.DeserializeObject<DailyResponse>(response).emeter.get_daystat.day_list;
@@ -57,33 +54,33 @@ namespace IPROJ.ConnectionBroker.DevicesManager.HS110
                     .FirstOrDefault();
         }
 
-        public async Task<DeviceReading> GetInsantReading()
+        protected override async Task<DeviceReading> InternalDailyGet()
         {
-            if (!(await EnsureDevice()))
-            {
-                return null;
-            }
+            var response = await _connector.QueryDevice(CommandStrings.MonthStat(DateTime.UtcNow));
+            var result = JsonConvert.DeserializeObject<DailyResponse>(response).emeter.get_daystat.day_list;
 
+            return (from messurement in result
+                    where messurement.day == DateTime.UtcNow.Day
+                    select new DeviceReading(DateTime.UtcNow, messurement.energy, DeviceId, ReadingType.PowerComsumption, ReadingCharacter.Daily))
+                    .FirstOrDefault();
+        }
+
+        protected override async Task<DeviceReading> InternalInstantGet()
+        {
             var response = await _connector.QueryDevice(CommandStrings.Emeter);
             var result = JsonConvert.DeserializeObject<EmeterResponse>(response).emeter.get_realtime.power;
             return new DeviceReading(DateTime.Now, result, DeviceId, ReadingType.PowerComsumption, ReadingCharacter.Instant);
         }
 
-        private async Task<bool> EnsureDevice()
+        protected override void Dispose(bool disposing)
         {
-            var customId = await SystemInfoParser.AquireSystemInformation(_connector);
-
-            return customId.deviceId != null;
+            base.Dispose(disposing);
+            _connector.Dispose();
         }
 
-        private void Dispose(bool disposing)
+        protected override async Task EnsureMethod()
         {
-            if (disposing && !_disposed)
-            {
-                _connector.Dispose();
-            }
-
-            _disposed = true;
+            await _connector.QueryDevice(CommandStrings.Emeter);
         }
     }
 }

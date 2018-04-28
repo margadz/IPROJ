@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IPROJ.ConnectionBroker.Autofac\IPROJ.ConnectionBroker.Autofac.csproj" />
+    <ProjectReference Include="..\IPROJ.ConnectionBroker.Runner\IPROJ.ConnectionBroker.Runner.csproj" />
+    <ProjectReference Include="..\IPROJ.HomeServer.Runner\IPROJ.HomeServer.Runner.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.0.0\ref\netcoreapp2.0\System.Threading.Tasks.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using IPROJ.ConnectionBroker.Devices.Managing;
 using IPROJ.Contracts.DataModel;
 using Moq;
@@ -33,7 +34,7 @@ namespace IPROJ.Given_instance_of.InstantMessurmentsDeviceManager_class
         public void Queue_writer_should_be_called()
         {
             TheTest();
-            QueueWriter.Verify(_ => _.Put(It.IsAny<IEnumerable<DeviceReading>>()), Times.Once);
+            QueueWriter.Verify(_ => _.Put(It.IsAny<IEnumerable<DeviceReading>>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [Test]

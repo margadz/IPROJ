@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using IPROJ.Configuration.Configurations;
 using IPROJ.Contracts;
@@ -50,7 +51,7 @@ namespace IPROJ.ConnectionBroker.QueueManaging.Exchanges
             _disposed = true;
         }
 
-        public async Task Put(IEnumerable<DeviceReading> messages)
+        public async Task Put(IEnumerable<DeviceReading> messages, CancellationToken cancellationToken)
         {
             if (messages.Count() == 0)
             {
@@ -61,7 +62,7 @@ namespace IPROJ.ConnectionBroker.QueueManaging.Exchanges
 
             var body = _encoding.GetBytes(json);
 
-            await Task.Run(() => _channel.BasicPublish(exchange: _readingsExchange, routingKey: _routingKey, basicProperties: null, body: body));
+            await Task.Run(() => _channel.BasicPublish(exchange: _readingsExchange, routingKey: _routingKey, basicProperties: null, body: body), cancellationToken);
         }
     }
 }

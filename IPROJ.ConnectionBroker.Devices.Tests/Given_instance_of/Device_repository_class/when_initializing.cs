@@ -1,6 +1,8 @@
 ﻿using System;
 using FluentAssertions;
 using IPROJ.ConnectionBroker.DevicesManager;
+using IPROJ.Contracts.DataRepository;
+using Moq;
 using NUnit.Framework;
 
 namespace IPROJ.Given_instance_of.Device_repository_class
@@ -11,7 +13,13 @@ namespace IPROJ.Given_instance_of.Device_repository_class
         [Test]
         public void Should_throw_when_data_repository_is_null()
         {
-            ((DeviceRepository)null).Invoking(_ => new DeviceRepository(null)).Should().Throw<ArgumentNullException>();
+            ((DeviceRepository)null).Invoking(_ => new DeviceRepository(null, null)).Should().Throw<ArgumentNullException>();
+        }
+
+        [Test]
+        public void Should_throw_when_logger_is_null()
+        {
+            ((DeviceRepository)null).Invoking(_ => new DeviceRepository(new Mock<IDataRepository>().Object, null)).Should().Throw<ArgumentNullException>();
         }
     }
 }

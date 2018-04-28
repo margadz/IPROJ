@@ -64,6 +64,16 @@ namespace IPROJ.MSSQLRepository.Tests
                 .WithInnerException<DbUpdateException>();
         }
 
+        [Test]
+        public void DataRepository_Adding_device_Test()
+        {
+            var newDevice = new DeviceDescription() { Name = "NewDevice", TypeOfReading = ReadingType.PowerComsumption, TypeOfDevice = "type", IsActive = true, Host = "someHost" };
+
+            _repository.AddDeviceAync(newDevice).Wait();
+
+            _repository.GetAllDevicesAsync().Result.Any(device => device.Name == newDevice.Name);
+        }
+
         [SetUp]
         public void TestSetup()
         {

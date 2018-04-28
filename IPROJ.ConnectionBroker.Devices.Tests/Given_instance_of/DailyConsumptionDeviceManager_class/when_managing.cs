@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using IPROJ.Configuration.Configurations;
 using IPROJ.ConnectionBroker.Devices.Managing;
 using IPROJ.Contracts.DataModel;
@@ -21,7 +22,7 @@ namespace IPROJ.Given_instance_of.DailyConsumptionDeviceManager_class
         {
             SetupTime(true);
             TheTest();
-            QueueWriter.Verify(_ => _.Put(It.IsAny<IEnumerable<DeviceReading>>()), Times.Once);
+            QueueWriter.Verify(_ => _.Put(It.IsAny<IEnumerable<DeviceReading>>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [Test]
@@ -29,7 +30,7 @@ namespace IPROJ.Given_instance_of.DailyConsumptionDeviceManager_class
         {
             SetupTime(false);
             TheTest();
-            QueueWriter.Verify(_ => _.Put(It.IsAny<IEnumerable<DeviceReading>>()), Times.Never);
+            QueueWriter.Verify(_ => _.Put(It.IsAny<IEnumerable<DeviceReading>>(), It.IsAny<CancellationToken>()), Times.Never);
         }
 
         private void SetupTime(bool passed)

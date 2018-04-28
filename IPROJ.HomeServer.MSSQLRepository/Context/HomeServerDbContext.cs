@@ -45,7 +45,7 @@ namespace IPROJ.MSSQLRepository.Context
 
                 entity.Property(e => e.TypeOfReading)
                     .IsRequired()
-                    .HasColumnType("varchar(20)");
+                    .HasColumnType("int");
 
                 entity.Property(e => e.TypeOfDevice)
                     .IsRequired()

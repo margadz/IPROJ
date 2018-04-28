@@ -10,6 +10,7 @@
     <PackageReference Include="Autofac" Version="4.8.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0-preview2-final" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
@@ -17,5 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\IPROJ.HomeServer.Autofac\IPROJ.HomeServer.Autofac.csproj" />
     <ProjectReference Include="..\IPROJ.HomeServer.MSSQLRepository\IPROJ.MSSQLRepository.csproj" />
+    <ProjectReference Include="..\IPROJ.HomeServer.SignalR\IPROJ.HomeServer.SignalR.csproj" />
   </ItemGroup>
 </Project>

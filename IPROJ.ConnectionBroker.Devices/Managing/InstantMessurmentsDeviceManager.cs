@@ -38,7 +38,7 @@ namespace IPROJ.ConnectionBroker.Devices.Managing
                     readings.Add(await device.GetInsantReading());
                 }
 
-                await _queueWriter.Put(readings);
+                await _queueWriter.Put(readings, cancellationToken);
 
                 await Task.Delay(_queryInterval, cancellationToken);
             }

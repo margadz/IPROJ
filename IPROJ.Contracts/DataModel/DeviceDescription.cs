@@ -28,14 +28,6 @@ namespace IPROJ.Contracts.DataModel
 
         public ReadingType TypeOfReading { get; set; }
 
-        public string DeviceIdString
-        {
-            get
-            {
-                return DeviceId.ToString();
-            }
-        }
-
         public string TypeOfDevice { get; set; }
 
         public string CustomId { get; set; }

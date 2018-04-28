@@ -18,6 +18,15 @@ namespace IPROJ.MSSQLRepository.Repository
             _connectionString = connectionString;
         }
 
+        public async Task AddDeviceAync(DeviceDescription device)
+        {
+            using (var context = GenerateContext())
+            {
+                context.Devices.Add(device);
+                await context.SaveChangesAsync();
+            }
+        }
+
         public async Task AddReadingsAsync(IEnumerable<DeviceReading> readings)
         {
             using (var context = GenerateContext())

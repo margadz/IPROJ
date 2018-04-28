@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using IPROJ.Contracts.DataModel;
+using IPROJ.Contracts;
 
 namespace IPROJ.ConnectionBroker.DevicesManager
 {

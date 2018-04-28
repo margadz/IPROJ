@@ -1,0 +1,42 @@
+<h2>Historyczne pomiary</h2>
+<div class="container" *ngIf="readings">
+
+  <ngb-accordion>
+    <ngb-panel title="Pomiary dzienne">
+      <ng-template ngbPanelContent>
+        <table class="table table-bordered table-font">
+          <thead class="thead-light">
+          <th>Data pomiaru</th>
+          <th>Wartość pomiaru [kWh]</th>
+          </thead>
+          <tbody class="main-table">
+          <tr  class="tables" *ngFor="let reading of readings" >
+            <td>{{reading.readingTimeStamp| date:'yyyy-MM-dd'}}</td>
+            <td>{{reading.value}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel title="Oblicz zużycie energii">
+      <ng-template ngbPanelContent>
+        <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t">
+          <ng-template #t let-date="date" let-focused="focused">
+            <span class="custom-day"
+                  [class.focused]="focused"
+                  [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
+                  [class.faded]="isHovered(date) || isInside(date)"
+                  [class.hasReading]="hasDayReading(date)"
+                  (mouseenter)="hoveredDate = date"
+                  (mouseleave)="hoveredDate = null">
+              {{ date.day }}
+            </span>
+          </ng-template>
+        </ngb-datepicker>
+        <div>Łączne zużycie energii w zaznaczonym okresie wyniosło: {{total$ | async}} kwh</div>
+        <div *ngIf="selectedReadings$ | async; else loading; let reading" >
+          <app-graph [readings$]="selectedReadings$"></app-graph>
+        </div>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
