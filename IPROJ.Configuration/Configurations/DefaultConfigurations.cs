@@ -6,7 +6,7 @@ namespace IPROJ.Configuration.Configurations
     {
         internal static readonly IEnumerable<Option> Options = new List<Option>()
         {
-            new Option("Core", "MQServerIp", "192.168.1.10"),
+            new Option("Core", "MQServerIp", "192.168.0.108"),
             new Option("Core", "MQServerPort", "5672"),
             new Option("Core", "MQServerVHost", @"/"),
             new Option("Core", "CodePage", "65001"),

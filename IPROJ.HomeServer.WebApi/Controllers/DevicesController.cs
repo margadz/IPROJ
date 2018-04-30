@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.DataRepository;
 using IPROJ.MSSQLRepository.Repository;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace IPROJ.HomeServer.WebApi.Controllers
@@ -17,13 +15,12 @@ namespace IPROJ.HomeServer.WebApi.Controllers
     public class DevicesController : Controller
     {
         private static IDataRepository _repository;
-        private static bool _run;
 
         public DevicesController()
         {
             if (_repository == null)
             {
-                _repository = new DataRepository(@"Data Source=KOMP;Initial Catalog=HomeServer;Integrated Security=True");
+                _repository = new DataRepository(@"Data Source=LAPSAM;Initial Catalog=HomeServer;Integrated Security=True");
             }
         }
 

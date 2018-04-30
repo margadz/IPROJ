@@ -25,7 +25,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager
 
             _logger = logger;
             _dataRepository = deviceRepository;
-            Task.Factory.StartNew(async () => await CollectDevices());
+            Task.Factory.StartNew(() => CollectDevices());
         }
 
         public IEnumerable<IDevice> Devices
@@ -39,6 +39,11 @@ namespace IPROJ.ConnectionBroker.DevicesManager
 
         public void Dispose()
         {
+            foreach(var device in Devices)
+            {
+                device?.Dispose();
+            }
+
             _syncEvent.Dispose();
             GC.SuppressFinalize(this);
         }
@@ -56,10 +61,10 @@ namespace IPROJ.ConnectionBroker.DevicesManager
                     {
                         result.Add(new HS110Device(dev, _logger));
                     }
-                    if (dev.TypeOfDevice.ToLower() == "wemo")
+                    /*if (dev.TypeOfDevice.ToLower() == "wemo")
                     {
                         result.Add(new WemoDevice(dev, _logger));
-                    }
+                    }*/
 
                 }
                 catch (DeviceException)

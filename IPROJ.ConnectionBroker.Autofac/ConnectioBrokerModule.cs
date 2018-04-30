@@ -32,9 +32,9 @@ namespace IPROJ.ConnectionBroker.Autofac
                    .As<IConnectionFactoryProvider>()
                    .SingleInstance();
 
-            builder.RegisterType<DataRepository>().WithParameter(new TypedParameter(typeof(string), @"Data Source=KOMP;Initial Catalog=HomeServer;Integrated Security=True")).As<IDataRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<DataRepository>().WithParameter(new TypedParameter(typeof(string), @"Data Source=LapSam;Initial Catalog=HomeServer;Integrated Security=True")).As<IDataRepository>().InstancePerLifetimeScope();
 
-            builder.RegisterType<ReadingsMQExchange>()
+            builder.RegisterType<RabbitMqWriter>()
                    .As<IQueueWriter>()
                    .SingleInstance();
             builder.RegisterType<DeviceRepository>().As<IDeviceRepository>().SingleInstance();
@@ -47,6 +47,7 @@ namespace IPROJ.ConnectionBroker.Autofac
         private static void RegisterLoggers(ContainerBuilder builder)
         {
             builder.RegisterType<DeviceLog>().As<IDeviceLog>().SingleInstance();
+            builder.RegisterType<QueueLogger>().As<IQueueLogger>().SingleInstance();
         }
     }
 }

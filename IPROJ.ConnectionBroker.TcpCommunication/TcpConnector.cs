@@ -38,11 +38,21 @@ namespace IPROJ.ConnectionBroker.TcpCommunication
         public virtual async Task<byte[]> CallTcp(byte[] message)
         {
             _resetEvent.WaitOne();
-            await Put(message);
-            var res = await Take();
-            _socket.Dispose();
-            _resetEvent.Set();
-            return res;
+            try
+            {
+                await Put(message);
+                var res = await Take();
+                _socket.Dispose();
+                return res;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _resetEvent.Set();
+            }
         }
 
         public void Dispose()
@@ -53,13 +63,9 @@ namespace IPROJ.ConnectionBroker.TcpCommunication
 
         private async Task EnsureConnected()
         {
-            if (_socket != null && !_socket.Connected)
+            if (_socket == null || !_socket.Connected)
             {
-                _socket.Dispose();
-                await Connect();
-            }
-            if (_socket == null)
-            {
+                _socket?.Dispose();
                 await Connect();
             }
         }

@@ -35,12 +35,6 @@ namespace IPROJ.ConnectionBroker.DevicesManager.HS110
 
         public ReadingType TypeOfReading { get; } = ReadingType.PowerComsumption;
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(true);
-        }
-
         public async Task<DeviceReading> GetDailyReading(DateTime date)
         {
             _initSync.WaitOne();

@@ -1,5 +1,4 @@
-﻿using System;
-using IPROJ.Configuration.Configurations;
+﻿using IPROJ.Configuration.Configurations;
 using IPROJ.Contracts.ConfigurationProvider;
 using IPROJ.QueueManager.Connection;
 using RabbitMQ.Client;

@@ -13,7 +13,7 @@ namespace IPROJ.ConnectionBroker.Devices
         private readonly ManualResetEvent _initSync = new ManualResetEvent(false);
         private object _locker = new object();
         private bool _isDisposed;
-        private bool _isConnected;
+        private bool _isConnected = true;
         private bool _reconnecting;
 
         public Device(IDeviceLog logger)
@@ -107,9 +107,9 @@ namespace IPROJ.ConnectionBroker.Devices
                 if (_isConnected)
                 {
                     Logger.RaiseErrorOnDeviceConnections(error, this);
+                    Task.Factory.StartNew(ReConnect);
                 }
                 _isConnected = false;
-                Task.Factory.StartNew(ReConnect);
             }
             finally
             {
@@ -121,12 +121,11 @@ namespace IPROJ.ConnectionBroker.Devices
         {
             lock (_locker)
             {
+                if (_reconnecting)
+                {
+                    return;
+                }
                 _reconnecting = true;
-            }
-
-            if (_reconnecting)
-            {
-                return;
             }
 
             while (!_isConnected)
