@@ -61,10 +61,10 @@ namespace IPROJ.ConnectionBroker.DevicesManager
                     {
                         result.Add(new HS110Device(dev, _logger));
                     }
-                    /*if (dev.TypeOfDevice.ToLower() == "wemo")
+                    if (dev.TypeOfDevice.ToLower() == "wemo")
                     {
                         result.Add(new WemoDevice(dev, _logger));
-                    }*/
+                    }
 
                 }
                 catch (DeviceException)

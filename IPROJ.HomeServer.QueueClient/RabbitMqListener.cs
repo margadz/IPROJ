@@ -19,8 +19,8 @@ namespace IPROJ.HomeServer.QueueClient
     {
         private readonly string _readingQueueName;
         private readonly Encoding _encoding;
+        private readonly IConnectionFactoryProvider _connectionFactoryProvider;
         private readonly IQueueLogger _logger;
-        private ConnectionFactory _factory;
         private IConnection _connection;
         private IModel _channel;
         private bool _started = false;
@@ -31,9 +31,9 @@ namespace IPROJ.HomeServer.QueueClient
             Argument.OfWichValueShoulBeProvided(configurationProvider, nameof(configurationProvider));
             Argument.OfWichValueShoulBeProvided(queueConnectionProvider, nameof(queueConnectionProvider));
 
+            _connectionFactoryProvider = queueConnectionProvider;
             _readingQueueName = configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.ReadingsQueue);
-            _encoding = Encoding.GetEncoding(int.Parse(configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.CodePage)));
-            _factory = queueConnectionProvider.ProvideFactory();
+            _encoding = Encoding.GetEncoding(int.Parse(configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.CodePage )));
             _logger = logger;
         }
 
@@ -56,7 +56,7 @@ namespace IPROJ.HomeServer.QueueClient
 
             try
             {
-                _connection = _factory.CreateConnection();
+                _connection = _connectionFactoryProvider.CreateConnection();
                 _logger.InformQueueServerHasBeenConnected();
                 _channel = _connection.CreateModel();
                 _logger.InformChannelHasBeenOpened();

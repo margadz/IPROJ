@@ -22,8 +22,8 @@ namespace IPROJ.ConnectionBroker.QueueManaging.Exchanges
         private readonly string _readingsExchange;
         private readonly Encoding _encoding;
         private readonly IQueueLogger _logger;
+        private readonly IConnectionFactoryProvider _connectionFactoryProvider;
         private bool _disposed = false;
-        private ConnectionFactory _factory;
         private IConnection _connection;
         private IModel _channel;
 
@@ -33,7 +33,7 @@ namespace IPROJ.ConnectionBroker.QueueManaging.Exchanges
             Argument.OfWichValueShoulBeProvided(configurationProvider, nameof(configurationProvider));
             Argument.OfWichValueShoulBeProvided(logger, nameof(logger));
 
-            _factory = queueConnectionProvider.ProvideFactory();
+            _connectionFactoryProvider = queueConnectionProvider;
             _routingKey = configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.RoutingKey);
             _readingsExchange = configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.ReadingsExchange);
             _encoding = Encoding.GetEncoding(int.Parse(configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.CodePage)));
@@ -55,7 +55,7 @@ namespace IPROJ.ConnectionBroker.QueueManaging.Exchanges
 
             try
             {
-                _connection = _factory.CreateConnection();
+                _connection = _connectionFactoryProvider.CreateConnection();
                 _channel = _connection.CreateModel();
             }
             catch (Exception error)

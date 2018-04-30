@@ -5,7 +5,7 @@ using IPROJ.ConnectionBroker.DevicesManager.Wemo.Response;
 using IPROJ.Contracts.DataModel;
 using NUnit.Framework;
 
-namespace IPROJ.Given_instance_of.InsightParamsWemoResponse_class
+namespace Given_instance_of.InsightParamsWemoResponse_class
 {
     [TestFixture]
     public class when_serializing

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using IPROJ;
 using IPROJ.Configuration.Configurations;
 using IPROJ.ConnectionBroker.Devices.Managing;
 using IPROJ.Contracts.DataModel;
 using Moq;
 using NUnit.Framework;
 
-namespace IPROJ.Given_instance_of.DailyConsumptionDeviceManager_class
+namespace Given_instance_of.DailyConsumptionDeviceManager_class
 {
     [TestFixture]
     public class when_managing : DeviceManagerTests<DailyConsumptionDeviceManager>

@@ -7,7 +7,7 @@ using IPROJ.ConnectionBroker.Devices.Managing;
 using Moq;
 using NUnit.Framework;
 
-namespace IPROJ.Given_instance_of.CompoundDeviceManager_class
+namespace Given_instance_of.CompoundDeviceManager_class
 {
     [TestFixture]
     public class when_managing

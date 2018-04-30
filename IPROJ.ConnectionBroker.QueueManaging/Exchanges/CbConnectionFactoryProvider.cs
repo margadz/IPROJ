@@ -21,6 +21,11 @@ namespace IPROJ.ConnectionBroker.QueueManaging.Exchanges
             };
         }
 
+        public IConnection CreateConnection()
+        {
+            return _factory.CreateConnection();
+        }
+
         public ConnectionFactory ProvideFactory()
         {
             return _factory;

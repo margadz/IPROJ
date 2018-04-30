@@ -5,7 +5,7 @@ using IPROJ.HomeServer.SignalR;
 using Moq;
 using NUnit.Framework;
 
-namespace IPROJ.Given_instance_of.HS110Device_class
+namespace Given_instance_of.HS110Device_class
 {
     [TestFixture]
     public class when_initializing

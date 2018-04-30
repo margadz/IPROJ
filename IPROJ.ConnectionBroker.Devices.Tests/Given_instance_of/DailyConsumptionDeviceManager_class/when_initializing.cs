@@ -6,7 +6,7 @@ using IPROJ.Contracts;
 using Moq;
 using NUnit.Framework;
 
-namespace IPROJ.Given_instance_of.InstantMessurmentsDeviceManager_class
+namespace Given_instance_of.InstantMessurmentsDeviceManager_class
 {
     [TestFixture]
     public class when_initializing

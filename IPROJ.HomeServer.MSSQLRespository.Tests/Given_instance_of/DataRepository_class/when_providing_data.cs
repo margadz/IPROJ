@@ -5,13 +5,14 @@ using FluentAssertions;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.DataRepository;
 using IPROJ.MSSQLRepository.Repository;
+using IPROJ.MSSQLRepository.Tests;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
-namespace IPROJ.MSSQLRepository.Tests
+namespace Given_instance_of.DataRepository_class
 {
     [TestFixture]
-    public class DataRepositoryTests
+    public class when_providing_data
     {
         private static Guid _guid = Guid.Parse("D28B2B0C-831A-4027-9B6D-3894F5A7EB69");
         private IDataRepository _repository;

@@ -4,7 +4,7 @@ using IPROJ.ConnectionBroker.DevicesManager.HS110;
 using IPROJ.Contracts.DataModel;
 using NUnit.Framework;
 
-namespace IPROJ.Given_instance_of.HS110Device_class
+namespace Given_instance_of.HS110Device_class
 {
     [TestFixture]
     public class when_initializing

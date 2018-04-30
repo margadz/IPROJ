@@ -25,5 +25,10 @@ namespace IPROJ.HomeServer.QueueClient
         {
             return _factory;
         }
+
+        public IConnection CreateConnection()
+        {
+            return _factory.CreateConnection();
+        }
     }
 }

@@ -4,7 +4,7 @@ using IPROJ.ConnectionBroker.DevicesManager.Wemo;
 using IPROJ.Contracts.DataModel;
 using NUnit.Framework;
 
-namespace IPROJ.Given_instance_of.WemoDevice_class
+namespace Given_instance_of.WemoDevice_class
 {
     [TestFixture]
     public class when_initializing

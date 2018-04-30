@@ -5,7 +5,7 @@ using IPROJ.Contracts.DataRepository;
 using Moq;
 using NUnit.Framework;
 
-namespace IPROJ.Given_instance_of.Device_repository_class
+namespace Given_instance_of.Device_repository_class
 {
     [TestFixture]
     public class when_initializing
