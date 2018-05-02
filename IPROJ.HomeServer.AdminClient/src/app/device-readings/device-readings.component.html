@@ -33,7 +33,7 @@
             </span>
           </ng-template>
         </ngb-datepicker>
-        <div>Łączne zużycie energii w zaznaczonym okresie wyniosło: {{total$ | async}} kwh</div>
+        <div >Łączne zużycie energii w zaznaczonym okresie wyniosło: {{total$ | async}} kwh</div>
         <div *ngIf="selectedReadings$ | async; else loading; let reading" >
           <app-graph [readings$]="selectedReadings$"></app-graph>
         </div>

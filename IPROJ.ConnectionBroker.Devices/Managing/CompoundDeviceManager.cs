@@ -22,14 +22,11 @@ namespace IPROJ.ConnectionBroker.Devices.Managing
             _deviceManagers = deviceManagers;
         }
 
-        public Task ManageDevices(CancellationToken cancellationToken)
+        public async Task ManageDevices(CancellationToken cancellationToken)
         {
-            foreach(var manager in _deviceManagers)
-            {
-                Task.Factory.StartNew(() => manager.ManageDevices(cancellationToken), cancellationToken);
-            }
+            var tasks = _deviceManagers.Select(manager => manager.ManageDevices(cancellationToken));
 
-            return Task.FromResult(0);
+            await Task.WhenAll(tasks);
         }
     }
 }

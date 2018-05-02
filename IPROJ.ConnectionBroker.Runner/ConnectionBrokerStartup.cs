@@ -18,14 +18,20 @@ namespace IPROJ.ConnectionBroker.Runner
             _factory?.Dispose();
         }
 
-        public Task Start(CancellationToken cancellationToken)
+        public async Task Start(CancellationToken cancellationToken)
         {
             _factory = new ConnectioBrokerFactory();
-
             var instant = _factory.Resolve<IEnumerable<IDeviceManager>>();
             var compount = new CompoundDeviceManager(instant);
             Console.WriteLine("ConnectionBroker started.");
-            return Task.Factory.StartNew(() => compount.ManageDevices(cancellationToken), cancellationToken);
+            try
+            {
+                await compount.ManageDevices(cancellationToken);
+            }
+            catch (OperationCanceledException)
+            {
+                return;
+            }
         }
     }
 }

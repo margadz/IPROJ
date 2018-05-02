@@ -1,8 +1,8 @@
 ﻿using System;
 using FluentAssertions;
 using IPROJ.Contracts.ConfigurationProvider;
-using IPROJ.HomeServer.QueueClient;
 using IPROJ.QueueManager.Connection;
+using IPROJ.QueueManager.RabbitMQ;
 using Moq;
 using NUnit.Framework;
 

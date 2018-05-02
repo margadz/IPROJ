@@ -24,7 +24,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager.Wemo
 
             _url = device.Host;
             DeviceId = device.DeviceId;
-            Task.Factory.StartNew(() => EnsureDevice());
+            Task.Factory.StartNew(EnsureDevice);
         }
 
         public override Guid DeviceId { get; }

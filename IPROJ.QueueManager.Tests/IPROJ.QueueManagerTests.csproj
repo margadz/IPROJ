@@ -1,10 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <ApplicationIcon />
+    <OutputType>Library</OutputType>
     <StartupObject />
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IPROJ.ConnectionBroker.QueueManaging\IPROJ.ConnectionBroker.QueueManaging.csproj" />
+    <ProjectReference Include="..\IPROJ.Contracts\IPROJ.Contracts.csproj" />
+    <ProjectReference Include="..\IPROJ.QueueManager\IPROJ.QueueManager.csproj" />
   </ItemGroup>
 
 </Project>

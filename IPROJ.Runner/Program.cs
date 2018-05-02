@@ -20,7 +20,6 @@ namespace IPROJ.Runner
             }
 
             Console.ReadKey();
-
             source.Cancel();
             source.Dispose();
             foreach (var startup in list)

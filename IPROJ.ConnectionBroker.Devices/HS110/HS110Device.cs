@@ -26,7 +26,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager.HS110
 
             _connector = new HS110TcpConnector(new TcpHost(device.Host));
             DeviceId = device.DeviceId;
-            Task.Factory.StartNew(() => EnsureDevice());
+            Task.Factory.StartNew(EnsureDevice);
         }
 
         public override Guid DeviceId { get; }

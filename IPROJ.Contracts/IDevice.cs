@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using IPROJ.Contracts.DataModel;
 
@@ -10,8 +11,8 @@ namespace IPROJ.Contracts
 
         string DeviceName { get; }
 
-        Task<DeviceReading> GetInsantReading();
+        Task<DeviceReading> GetInsantReading(CancellationToken cancellationToken);
 
-        Task<DeviceReading> GetTodaysConsumption();
+        Task<DeviceReading> GetTodaysConsumption(CancellationToken cancellationToken);
     }
 }

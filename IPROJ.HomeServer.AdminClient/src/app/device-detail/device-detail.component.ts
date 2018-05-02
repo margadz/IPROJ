@@ -11,8 +11,7 @@ import {DeviceReading} from '../deviceReading';
 })
 export class DeviceDetailComponent implements OnInit {
   @Input() device: Device;
-  constructor(
-    private currentService: CurrentMeasurementService) { }
+  constructor(private currentService: CurrentMeasurementService) { }
 
   ngOnInit() {
   }

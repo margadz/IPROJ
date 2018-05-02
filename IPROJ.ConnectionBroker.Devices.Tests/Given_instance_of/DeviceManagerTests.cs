@@ -48,10 +48,10 @@ namespace IPROJ
             SecondDevice = new Mock<IDevice>(MockBehavior.Strict);
             QueueWriter = new Mock<IQueueWriter>(MockBehavior.Strict);
             QueueWriter.Setup(_ => _.Put(It.IsAny<IEnumerable<DeviceReading>>(), It.IsAny<CancellationToken>())).Returns(Task.FromResult(0)).Callback<IEnumerable<DeviceReading>, CancellationToken>((readings, token) => SentReadings = readings);
-            FirstDevice.Setup(_ => _.GetInsantReading()).ReturnsAsync(FirstReading);
-            SecondDevice.Setup(_ => _.GetInsantReading()).ReturnsAsync(SecondReading);
-            FirstDevice.Setup(_ => _.GetTodaysConsumption()).ReturnsAsync(FirstReading);
-            SecondDevice.Setup(_ => _.GetTodaysConsumption()).ReturnsAsync(SecondReading);
+            FirstDevice.Setup(_ => _.GetInsantReading(It.IsAny<CancellationToken>())).ReturnsAsync(FirstReading);
+            SecondDevice.Setup(_ => _.GetInsantReading(It.IsAny<CancellationToken>())).ReturnsAsync(SecondReading);
+            FirstDevice.Setup(_ => _.GetTodaysConsumption(It.IsAny<CancellationToken>())).ReturnsAsync(FirstReading);
+            SecondDevice.Setup(_ => _.GetTodaysConsumption(It.IsAny<CancellationToken>())).ReturnsAsync(SecondReading);
             DeviceRepository = new Mock<IDeviceRepository>(MockBehavior.Strict);
             DeviceRepository.SetupGet(_ => _.Devices).Returns(new[] { FirstDevice.Object, SecondDevice.Object });
             ConfigurationProvider = new Mock<IConfigurationProvider>(MockBehavior.Strict);

@@ -66,7 +66,7 @@ namespace IPROJ.ConnectionBroker.Devices.Managing
             var result = new List<DeviceReading>();
             foreach (var device in _deviceRepository.Devices)
             {
-                result.Add(await device.GetTodaysConsumption());
+                result.Add(await device.GetTodaysConsumption(cancellationToken));
             }
 
             await _queueWriter.Put(result, cancellationToken);

@@ -2,9 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <ApplicationIcon />
-    <OutputType>Library</OutputType>
-    <StartupObject />
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,9 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IPROJ.Contracts\IPROJ.Contracts.csproj" />
-    <ProjectReference Include="..\IPROJ.HomeServer.QueueClient\IPROJ.HomeServer.QueueClient.csproj" />
-    <ProjectReference Include="..\IPROJ.QueueManager\IPROJ.QueueManager.csproj" />
+    <ProjectReference Include="..\IPROJ.HomeServer.QueueManaging\IPROJ.HomeServer.QueueManaging.csproj" />
   </ItemGroup>
 
 </Project>

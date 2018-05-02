@@ -35,7 +35,7 @@ namespace IPROJ.ConnectionBroker.Devices.Managing
                 var readings = new List<DeviceReading>();
                 foreach (var device in _deviceRepository.Devices)
                 {
-                    readings.Add(await device.GetInsantReading());
+                    readings.Add(await device.GetInsantReading(cancellationToken));
                 }
 
                 await _queueWriter.Put(readings, cancellationToken);

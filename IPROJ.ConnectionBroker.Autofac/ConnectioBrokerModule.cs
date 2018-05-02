@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Autofac;
+﻿using Autofac;
 using IPROJ.Configuration.ConfigurationProvider;
 using IPROJ.ConnectionBroker.Devices.Managing;
 using IPROJ.ConnectionBroker.DevicesManager;
@@ -11,6 +10,7 @@ using IPROJ.Contracts.Logging;
 using IPROJ.Diagnostics.Serilog;
 using IPROJ.MSSQLRepository.Repository;
 using IPROJ.QueueManager.Connection;
+using IPROJ.QueueManager.RabbitMQ;
 using Serilog;
 
 namespace IPROJ.ConnectionBroker.Autofac

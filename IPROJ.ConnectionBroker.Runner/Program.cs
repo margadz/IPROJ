@@ -17,6 +17,7 @@ namespace IPROJ.ConnectionBroker.Runner
             tokenSource.Cancel();
             tokenSource.Dispose();
             startup.Dispose();
+            //Environment.Exit(0);
         }
     }
 }

@@ -2,6 +2,7 @@
 using Autofac;
 using IPROJ.Configuration.ConfigurationProvider;
 using IPROJ.Contracts.ConfigurationProvider;
+using IPROJ.Contracts.Threading;
 
 namespace IPROJ.Autofac
 {
@@ -15,6 +16,7 @@ namespace IPROJ.Autofac
             {
                 Builder = new ContainerBuilder();
                 Builder.RegisterType<ConfigurationProvider>().As<IConfigurationProvider>().SingleInstance();
+                Builder.RegisterType<ThreadingInfrastructure>().As<IThreadingInfrastructure>().SingleInstance();
                 RegisterTypes();
                 Container = Builder.Build();
             }
@@ -29,6 +31,7 @@ namespace IPROJ.Autofac
         public void Dispose()
         {
             _scope?.Dispose();
+            Container?.Dispose();
         }
 
         public T Resolve<T>()

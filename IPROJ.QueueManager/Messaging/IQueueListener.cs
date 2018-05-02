@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
-using IPROJ.Contracts.DataModel;
+using System.Threading.Tasks;
 
 namespace IPROJ.Contracts.Messaging
 {
@@ -9,6 +8,6 @@ namespace IPROJ.Contracts.Messaging
     {
         event QueueEventHandler QueueEvent;
 
-        void Listen(CancellationToken token);
+        Task Listen(CancellationToken token);
     }
 }

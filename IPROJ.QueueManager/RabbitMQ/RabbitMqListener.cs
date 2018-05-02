@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using IPROJ.Configuration.Configurations;
 using IPROJ.Contracts.ConfigurationProvider;
 using IPROJ.Contracts.DataModel;
@@ -13,7 +14,7 @@ using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace IPROJ.HomeServer.QueueClient
+namespace IPROJ.QueueManager.RabbitMQ
 {
     public class RabbitMqListener : IQueueListener
     {
@@ -33,7 +34,7 @@ namespace IPROJ.HomeServer.QueueClient
 
             _connectionFactoryProvider = queueConnectionProvider;
             _readingQueueName = configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.ReadingsQueue);
-            _encoding = Encoding.GetEncoding(int.Parse(configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.CodePage )));
+            _encoding = Encoding.GetEncoding(int.Parse(configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.CodePage)));
             _logger = logger;
         }
 
@@ -45,7 +46,7 @@ namespace IPROJ.HomeServer.QueueClient
             _channel?.Dispose();
         }
 
-        public void Listen(CancellationToken token)
+        public async Task Listen(CancellationToken cancellationToken)
         {
             if (_started)
             {
@@ -79,9 +80,7 @@ namespace IPROJ.HomeServer.QueueClient
                 QueueEvent.Invoke(result);
             };
 
-            while (!token.IsCancellationRequested)
-            {
-            }
+            await Task.Delay(-1, cancellationToken);
         }
     }
 }

@@ -16,6 +16,7 @@
     <ProjectReference Include="..\IPROJ.ConnectionBroker.TcpCommunication\IPROJ.ConnectionBroker.TcpCommunication.csproj" />
     <ProjectReference Include="..\IPROJ.Contracts\IPROJ.Contracts.csproj" />
     <ProjectReference Include="..\IPROJ.HomeServer.MSSQLRepository\IPROJ.MSSQLRepository.csproj" />
+    <ProjectReference Include="..\IPROJ.QueueManager\IPROJ.QueueManager.csproj" />
   </ItemGroup>
 
 </Project>

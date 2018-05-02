@@ -4,7 +4,7 @@ using System.Text;
 
 namespace IPROJ.Contracts.Logging
 {
-    public interface ISignalingDispatcherLog
+    public interface IInstantMessengerLog
     {
         void InformDispacherIsConnectingToHub();
 

@@ -1,8 +1,12 @@
-.current-reading{
-  font-size: 50px;
-  font-weight: bold;
-  background: moccasin;
-  border-style: solid;
-  border-width: 5px;
+div.current-reading {
+  color: #1A5D00;
+  font-size: 350%;
+  font-weight: bolder;
+  padding-top: 30px;
+}
 
+span.device-type{
+  color: #1A7794;
+  font-size: 180%;
+  font-weight: bold;
 }

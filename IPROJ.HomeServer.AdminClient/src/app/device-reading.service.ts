@@ -8,7 +8,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class DeviceReadingService {
-  private baserUrl = 'http://192.168.1.10:12345/api/readings/readingsFor';
+  private baserUrl = 'http://192.168.0.108:12345/api/readings/readingsFor';
   constructor(
     private messageService: MessageService,
     private httpClient: HttpClient) { }

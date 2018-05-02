@@ -1,9 +1,10 @@
 ﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace IPROJ.HomeServer.QueueClient
 {
     public interface IMessagesHandler
     {
-        void StartStartHandling(CancellationToken cancellationToken);
+        Task StartStartHandling(CancellationToken cancellationToken);
     }
 }

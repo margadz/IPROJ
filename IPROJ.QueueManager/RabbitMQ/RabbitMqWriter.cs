@@ -14,7 +14,7 @@ using IPROJ.QueueManager.Connection;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 
-namespace IPROJ.ConnectionBroker.QueueManaging.Exchanges
+namespace IPROJ.QueueManager.RabbitMQ
 {
     public class RabbitMqWriter : IQueueWriter
     {
@@ -26,6 +26,7 @@ namespace IPROJ.ConnectionBroker.QueueManaging.Exchanges
         private bool _disposed = false;
         private IConnection _connection;
         private IModel _channel;
+        private bool _isConnected;
 
         public RabbitMqWriter(IConnectionFactoryProvider queueConnectionProvider, IConfigurationProvider configurationProvider, IQueueLogger logger)
         {
@@ -46,29 +47,42 @@ namespace IPROJ.ConnectionBroker.QueueManaging.Exchanges
             GC.SuppressFinalize(true);
         }
 
-        public async Task Put(IEnumerable<DeviceReading> messages, CancellationToken cancellationToken)
+        public Task Put(IEnumerable<DeviceReading> messages, CancellationToken cancellationToken)
         {
             if (!messages.Any())
             {
-                return;
+                return Task.FromResult(0);
             }
 
             try
             {
-                _connection = _connectionFactoryProvider.CreateConnection();
-                _channel = _connection.CreateModel();
+                Connect();
+                _isConnected = true;
             }
             catch (Exception error)
             {
                 _logger.RaiseOnQueueServerConnection(error);
+                _connection?.Dispose();
+                _channel?.Dispose();
+                return Task.FromResult(0);
+            }
+
+            var json = JsonConvert.SerializeObject(messages);
+            var body = _encoding.GetBytes(json);
+
+            _channel.BasicPublish(exchange: _readingsExchange, routingKey: _routingKey, basicProperties: null, body: body);
+            return Task.FromResult(0);
+        }
+
+        private void Connect()
+        {
+            if (_isConnected)
+            {
                 return;
             }
 
-            string json = JsonConvert.SerializeObject(messages);
-
-            var body = _encoding.GetBytes(json);
-
-            await Task.Run(() => _channel.BasicPublish(exchange: _readingsExchange, routingKey: _routingKey, basicProperties: null, body: body), cancellationToken);
+            _connection = _connectionFactoryProvider.CreateConnection();
+            _channel = _connection.CreateModel();
         }
 
         private void Dispose(bool disposing)

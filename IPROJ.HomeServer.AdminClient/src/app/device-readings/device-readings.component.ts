@@ -88,8 +88,6 @@ export class DeviceReadingsComponent implements OnInit {
       if (a.readingTimeStamp < b.readingTimeStamp) { return 1; } }));
   }
 
-  private y: number = 0;
-
   hasDayReading(date: NgbDateStruct): boolean {
     const newDate = this.normalizeDate(this.getDate(date));
     const index = this.readings.findIndex(reading => this.normalizeDate(reading.readingTimeStamp).getTime() === newDate.getTime());
@@ -130,6 +128,10 @@ export class DeviceReadingsComponent implements OnInit {
   isInside = date => after(date, this._fromDate) && before(date, this._toDate);
   isFrom = date => equals(date, this._fromDate);
   isTo = date => equals(date, this._toDate);
+
+  func(): void {
+    console.log(5);
+  }
 }
 
 

@@ -11,6 +11,7 @@ namespace IPROJ.ConnectionBroker.Devices
     public abstract class Device : IDevice
     {
         private readonly ManualResetEvent _initSync = new ManualResetEvent(false);
+        private CancellationToken _cancellationToken;
         private object _locker = new object();
         private bool _isDisposed;
         private bool _isConnected = true;
@@ -39,8 +40,12 @@ namespace IPROJ.ConnectionBroker.Devices
         }
 
 
-        public async Task<DeviceReading> GetInsantReading()
+        public async Task<DeviceReading> GetInsantReading(CancellationToken cancellationToken)
         {
+            if (_cancellationToken == default(CancellationToken))
+            {
+                _cancellationToken = cancellationToken;
+            }
             _initSync.WaitOne();
             if (!_isConnected)
             {
@@ -55,14 +60,18 @@ namespace IPROJ.ConnectionBroker.Devices
             {
                 Logger.RaiseErrorOnGettingData(error, this);
                 _isConnected = false;
-                Task.Factory.StartNew(ReConnect);
+                Task.Factory.StartNew(ReConnect, cancellationToken);
             }
 
             return null;
         }
 
-        public async Task<DeviceReading> GetTodaysConsumption()
+        public async Task<DeviceReading> GetTodaysConsumption(CancellationToken cancellationToken)
         {
+            if (_cancellationToken == default(CancellationToken))
+            {
+                _cancellationToken = cancellationToken;
+            }
             _initSync.WaitOne();
             if (!_isConnected)
             {
@@ -77,7 +86,7 @@ namespace IPROJ.ConnectionBroker.Devices
             {
                 Logger.RaiseErrorOnGettingData(error, this);
                 _isConnected = false;
-                Task.Factory.StartNew(ReConnect);
+                Task.Factory.StartNew(ReConnect, cancellationToken);
             }
 
             return null;
@@ -107,7 +116,7 @@ namespace IPROJ.ConnectionBroker.Devices
                 if (_isConnected)
                 {
                     Logger.RaiseErrorOnDeviceConnections(error, this);
-                    Task.Factory.StartNew(ReConnect);
+                    Task.Factory.StartNew(ReConnect, _cancellationToken);
                 }
                 _isConnected = false;
             }
@@ -128,10 +137,10 @@ namespace IPROJ.ConnectionBroker.Devices
                 _reconnecting = true;
             }
 
-            while (!_isConnected)
+            while (!_isConnected && !_cancellationToken.IsCancellationRequested)
             {
                 await EnsureDevice();
-                await Task.Delay(2000);
+                await Task.Delay(2000, _cancellationToken);
             }
             _reconnecting = false;
         }

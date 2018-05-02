@@ -15,7 +15,7 @@
     <ProjectReference Include="..\IPROJ.Contracts\IPROJ.Contracts.csproj" />
     <ProjectReference Include="..\IPROJ.Diagnostics\IPROJ.Diagnostics.csproj" />
     <ProjectReference Include="..\IPROJ.HomeServer.MSSQLRepository\IPROJ.MSSQLRepository.csproj" />
-    <ProjectReference Include="..\IPROJ.HomeServer.QueueClient\IPROJ.HomeServer.QueueClient.csproj" />
+    <ProjectReference Include="..\IPROJ.HomeServer.QueueManaging\IPROJ.HomeServer.QueueManaging.csproj" />
     <ProjectReference Include="..\IPROJ.HomeServer.SignalR\IPROJ.HomeServer.SignalR.csproj" />
     <ProjectReference Include="..\IPROJ.QueueManager\IPROJ.QueueManager.csproj" />
   </ItemGroup>

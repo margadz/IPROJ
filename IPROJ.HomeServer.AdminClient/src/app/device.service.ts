@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class DeviceService {
-  private baseUrl = 'http://192.168.1.10:12345/api/devices/';
+  private baseUrl = 'http://192.168.0.108:12345/api/devices/';
   constructor(
     private messageService: MessageService,
     private httpClient: HttpClient) {
@@ -19,11 +19,6 @@ export class DeviceService {
   getDevices(): Promise<Device[]> {
     return this.httpClient.get<Device[]>(`${this.baseUrl}all`)
       .pipe(catchError(this.handleError('getDevices', []))).toPromise();
-  }
-
-  getDevice(id: string): Promise<Device>{
-    return this.httpClient.get<Device>(`${this.baseUrl}id/` + id)
-      .pipe(catchError(this.handleError('getDevice: ' + id, null))).toPromise();
   }
 
   private handleError<T> (operation = 'operation', result?: T) {

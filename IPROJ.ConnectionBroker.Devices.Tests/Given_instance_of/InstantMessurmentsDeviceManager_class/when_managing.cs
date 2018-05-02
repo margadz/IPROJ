@@ -21,14 +21,14 @@ namespace Given_instance_of.InstantMessurmentsDeviceManager_class
         public void First_device_should_be_called()
         {
             TheTest();
-            FirstDevice.Verify(_ => _.GetInsantReading(), Times.Once);
+            FirstDevice.Verify(_ => _.GetInsantReading(It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [Test]
         public void Second_device_should_be_called()
         {
             TheTest();
-            SecondDevice.Verify(_ => _.GetInsantReading(), Times.Once);
+            SecondDevice.Verify(_ => _.GetInsantReading(It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [Test]
