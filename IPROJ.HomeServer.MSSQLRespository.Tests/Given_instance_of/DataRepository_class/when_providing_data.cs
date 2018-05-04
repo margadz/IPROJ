@@ -17,18 +17,18 @@ namespace Given_instance_of.DataRepository_class
         private static Guid _guid = Guid.Parse("D28B2B0C-831A-4027-9B6D-3894F5A7EB69");
         private IDataRepository _repository;
         private int _allReadingCount = 21;
-        private int _allDevicesCount = 9;
+        private int _allDevicesCount = 7;
         private int _readingsFromDeviceCount = 4;
         private IEnumerable<DeviceReading> _readings = new List<DeviceReading>()
         {
-          new DeviceReading(DateTime.Now.AddMinutes(10), 46.4M, _guid, ReadingType.PowerComsumption, ReadingCharacter.Instant),
-          new DeviceReading(DateTime.Now, 46.7M, _guid, ReadingType.PowerComsumption, ReadingCharacter.Instant)
+          new DeviceReading(DateTime.Now.AddMinutes(10), 46.4M, _guid, ReadingType.PowerConsumption, ReadingCharacter.Instant),
+          new DeviceReading(DateTime.Now, 46.7M, _guid, ReadingType.PowerConsumption, ReadingCharacter.Instant)
         };
 
         private IEnumerable<DeviceReading> _incorrectReadings = new List<DeviceReading>()
         {
-          new DeviceReading(DateTime.Now.AddMinutes(10), 46.4M, Guid.NewGuid(), ReadingType.PowerComsumption, ReadingCharacter.Instant),
-          new DeviceReading(DateTime.Now, 46.7M, Guid.NewGuid(), ReadingType.PowerComsumption, ReadingCharacter.Instant)
+          new DeviceReading(DateTime.Now.AddMinutes(10), 46.4M, Guid.NewGuid(), ReadingType.PowerConsumption, ReadingCharacter.Instant),
+          new DeviceReading(DateTime.Now, 46.7M, Guid.NewGuid(), ReadingType.PowerConsumption, ReadingCharacter.Instant)
         };
 
         [Test]
@@ -68,11 +68,35 @@ namespace Given_instance_of.DataRepository_class
         [Test]
         public void DataRepository_Adding_device_Test()
         {
-            var newDevice = new DeviceDescription() { Name = "NewDevice", TypeOfReading = ReadingType.PowerComsumption, TypeOfDevice = "type", IsActive = true, Host = "someHost" };
+            var newDevice = new DeviceDescription() { Name = "NewDevice", TypeOfReading = ReadingType.PowerConsumption, TypeOfDevice = DeviceType.HS110, IsActive = true, Host = "someHost" };
 
             _repository.AddDeviceAync(newDevice).Wait();
 
-            _repository.GetAllDevicesAsync().Result.Any(device => device.Name == newDevice.Name);
+            _repository.GetAllDevicesAsync().Result.Any(device => device.Name == newDevice.Name).Should().BeTrue();
+        }
+
+        [Test]
+        public void DeviceRespository_modifying_device_Test()
+        {
+            var existingDevice = _repository.GetAllDevicesAsync().Result.First(device => device.Name == "Temperatura w pokoju");
+            existingDevice.IsActive = false;
+
+            _repository.AddDeviceAync(existingDevice).Wait();
+
+            _repository.GetAllDevicesAsync().Result.Any(device => existingDevice.DeviceId == device.DeviceId && existingDevice.IsActive == device.IsActive).Should().BeTrue();
+            _repository.GetAllDevicesAsync().Result.Any(device => existingDevice.DeviceId == device.DeviceId && existingDevice.IsActive != device.IsActive).Should().BeFalse();
+        }
+
+        [Test]
+        public void DeviceRespository_should_not_modify_host_Test()
+        {
+            var existingDevice = _repository.GetAllDevicesAsync().Result.First(device => device.Name == "Temperatura w pokoju");
+            existingDevice.Host = "NewHost";
+
+            _repository.AddDeviceAync(existingDevice).Wait();
+
+            _repository.GetAllDevicesAsync().Result.Any(device => existingDevice.DeviceId == device.DeviceId && existingDevice.Host== device.Host).Should().BeFalse();
+            _repository.GetAllDevicesAsync().Result.Any(device => existingDevice.DeviceId == device.DeviceId && existingDevice.Host != device.Host).Should().BeTrue();
         }
 
         [SetUp]

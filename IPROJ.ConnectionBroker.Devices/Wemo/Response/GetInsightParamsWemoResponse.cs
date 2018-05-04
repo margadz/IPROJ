@@ -57,7 +57,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager.Wemo.Response
                     DeviceState = deviceState,
                     Value = instantValue,
                     ReadingTimeStamp = DateTime.UtcNow,
-                    TypeOfReading = ReadingType.PowerComsumption
+                    TypeOfReading = ReadingType.PowerConsumption
                 };
 
                 DailyReading = new DeviceReading
@@ -66,7 +66,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager.Wemo.Response
                     DeviceState = deviceState,
                     Value = dailyValue,
                     ReadingTimeStamp = DateTime.UtcNow,
-                    TypeOfReading = ReadingType.PowerComsumption
+                    TypeOfReading = ReadingType.PowerConsumption
                 };
             }
             catch (FormatException)

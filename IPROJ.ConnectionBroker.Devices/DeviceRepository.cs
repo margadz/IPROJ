@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using IPROJ.ConnectionBroker.DevicesManager.HS110;
 using IPROJ.ConnectionBroker.DevicesManager.Wemo;
 using IPROJ.Contracts;
+using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.DataRepository;
 using IPROJ.Contracts.Helpers;
 using IPROJ.Contracts.Logging;
@@ -57,11 +58,11 @@ namespace IPROJ.ConnectionBroker.DevicesManager
             {
                 try
                 {
-                    if (dev.TypeOfDevice.ToLower() == "hs110")
+                    if (dev.TypeOfDevice == DeviceType.HS110)
                     {
                         result.Add(new HS110Device(dev, _logger));
                     }
-                    if (dev.TypeOfDevice.ToLower() == "wemo")
+                    if (dev.TypeOfDevice == DeviceType.WEMO)
                     {
                         result.Add(new WemoDevice(dev, _logger));
                     }

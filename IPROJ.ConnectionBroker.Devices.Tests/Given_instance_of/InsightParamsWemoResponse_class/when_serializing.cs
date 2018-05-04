@@ -32,7 +32,7 @@ namespace Given_instance_of.InsightParamsWemoResponse_class
             {
                 new TestCaseData(
                         @"<s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><u:GetInsightParamsResponse xmlns:u=""urn:Belkin:service:metainfo:1""><InsightParams>1|1524153919|372|682|667|1209600|295|89625|3230381|3230381.000000|8000</InsightParams></u:GetInsightParamsResponse></s:Body></s:Envelope>",
-                        new DeviceReading(DateTime.UtcNow, 0.053839684410127m, Guid.Empty, ReadingType.PowerComsumption, ReadingCharacter.Daily, DeviceState.On)).SetName("Should_parse_daily_reading_correctly"),
+                        new DeviceReading(DateTime.UtcNow, 0.053839684410127m, Guid.Empty, ReadingType.PowerConsumption, ReadingCharacter.Daily, DeviceState.On)).SetName("Should_parse_daily_reading_correctly"),
                 new TestCaseData(
                         @"<s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><u:GetInsightParamsResponse xmlns:u=""urn:Belkin:service:metainfo:1""><InasdtParams>1|1524153919|372|682|667|1209600|295|89625|3230381|3230381.000000|8000</InsightParams></u:GetInsightParamsResponse></s:Body></s:Envelope>",
                         null).SetName("Should_return_null_daily_reading_if_markup_doesnt_match"),
@@ -48,7 +48,7 @@ namespace Given_instance_of.InsightParamsWemoResponse_class
             {
                 new TestCaseData(
                         @"<s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><u:GetInsightParamsResponse xmlns:u=""urn:Belkin:service:metainfo:1""><InsightParams>1|1524153919|372|682|667|1209600|295|89625|3230381|3230381.000000|8000</InsightParams></u:GetInsightParamsResponse></s:Body></s:Envelope>",
-                        new DeviceReading(DateTime.UtcNow, 89.625m, Guid.Empty, ReadingType.PowerComsumption, ReadingCharacter.Instant, DeviceState.On)).SetName("Should_parse_instant_reading_correctly"),
+                        new DeviceReading(DateTime.UtcNow, 89.625m, Guid.Empty, ReadingType.PowerConsumption, ReadingCharacter.Instant, DeviceState.On)).SetName("Should_parse_instant_reading_correctly"),
                 new TestCaseData(
                         @"<s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><u:GetInsightParamsResponse xmlns:u=""urn:Belkin:service:metainfo:1""><InasdtParams>1|1524153919|372|682|667|1209600|295|89625|3230381|3230381.000000|8000</InsightParams></u:GetInsightParamsResponse></s:Body></s:Envelope>",
                         null).SetName("Should_return_null_instant_reading_if_markup_doesnt_match"),

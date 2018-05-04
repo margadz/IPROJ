@@ -1,8 +1,8 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { Device} from '../device';
-import {CurrentMeasurementService} from '../current-measurement.service';
-import {Observable} from 'rxjs/Observable';
-import {DeviceReading} from '../deviceReading';
+import { CurrentMeasurementService } from '../current-measurement.service';
+import { Observable } from 'rxjs/Observable';
+import { DeviceReading } from '../deviceReading';
 
 @Component({
   selector: 'app-device-detail',
@@ -18,5 +18,9 @@ export class DeviceDetailComponent implements OnInit {
 
   getCurrentMeasurement(deviceId: string): Observable<DeviceReading> {
     return this.currentService.getCurrentReadings(deviceId);
+  }
+
+  get deviceType(): string {
+    return this.device.typeOfDevice.toString();
   }
 }

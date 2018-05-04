@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 
 namespace IPROJ.Contracts.DataModel
 {
@@ -9,7 +11,7 @@ namespace IPROJ.Contracts.DataModel
             CustomId = string.Empty;
         }
 
-        public DeviceDescription(Guid deviceId, string name, ReadingType typeOfReading, bool isActive, string host, string typeOfDevice, string customId = null)
+        public DeviceDescription(Guid deviceId, string name, ReadingType typeOfReading, bool isActive, string host, DeviceType typeOfDevice, string customId = null)
         {
             DeviceId = deviceId;
             Name = name;
@@ -26,9 +28,11 @@ namespace IPROJ.Contracts.DataModel
 
         public bool IsActive { get; set; }
 
+        [JsonConverter(typeof(StringEnumConverter))]
         public ReadingType TypeOfReading { get; set; }
 
-        public string TypeOfDevice { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public DeviceType TypeOfDevice { get; set; }
 
         public string CustomId { get; set; }
 

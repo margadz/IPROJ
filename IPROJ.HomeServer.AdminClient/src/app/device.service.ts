@@ -21,6 +21,10 @@ export class DeviceService {
       .pipe(catchError(this.handleError('getDevices', []))).toPromise();
   }
 
+  addDevice(newDevice: Device): Promise<any> {
+    return this.httpClient.post<Device>(`${this.baseUrl}add`, newDevice).pipe(catchError(this.handleError('addDevice', []))).toPromise();
+  }
+
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       this.messageService.add('DeviceService', error.message)

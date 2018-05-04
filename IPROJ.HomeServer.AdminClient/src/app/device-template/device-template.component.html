@@ -1,0 +1,56 @@
+
+<form>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group row" *ngIf="device.deviceId != undefined">
+        <label class="col-4 col-form-label">Identyfikator</label>
+        <div class="form-group col-9">
+          <input type="text" class="form-control" placeholder="{{device.deviceId}}" name="deviceName" readonly>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-4 col-form-label">Nazwa urządzenia</label>
+        <div class="form-group col-5">
+          <input type="text" [(ngModel)]="device.name" class="form-control" placeholder="Komputer w salonie" name="deviceName">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-4 col-form-label">Adres</label>
+        <div class="fo  rm-group col-5">
+          <input *ngIf="isNew" type="text" [(ngModel)]="device.host" class="form-control" placeholder="192.168.0.10:12345" name="host">
+          <input *ngIf="!isNew" type="text" class="form-control" placeholder="{{device.host}}" name="host" readonly>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-4 col-form-label">Model urządzenia</label>
+        <div class="form-group col-5">
+          <select *ngIf="isNew" class="form-control" [(ngModel)]="device.typeOfDevice" name="deviceType">
+            <option>HS110</option>
+            <option>WEMO</option>
+          </select>
+          <input *ngIf="!isNew" type="text" class="form-control" placeholder="{{device.typeOfDevice}}" name="deviceType" readonly>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-4 col-form-label">Aktywny</label>
+        <div class="form-group col-5">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="device.isActive" class="form-control" name="isActive" id="checkBox">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="row">
+        <a *ngIf="deviceType == 'HS110'">
+          <img src="/assets/images/hs110.jpg" style="width:100px">
+        </a>
+        <a *ngIf="deviceType == 'WEMO'">
+          <img src="/assets/images/wemo.png" style="width:100px">
+        </a>
+      </div>
+      <div class="row">
+        <button *ngIf="isNew" type="button" class="btn btn-success" id="update" (click)="updateDevice()" [disabled]="!isValid()">Dodaj</button>
+        <button *ngIf="!isNew" type="button" class="btn btn-success" id="update" (click)="updateDevice()">Modyfikuj</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -17,6 +17,7 @@ export class DevicesComponent implements OnInit {
   }
 
   getDevices() {
-    this.deviceService.getDevices().then(result => this.devices = result);
+    this.deviceService.getDevices()
+      .then(result => this.devices = result.filter(device => device.isActive === true));
   }
 }

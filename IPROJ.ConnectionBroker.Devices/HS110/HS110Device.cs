@@ -33,7 +33,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager.HS110
 
         public override string DeviceName { get; } = "HS110";
 
-        public ReadingType TypeOfReading { get; } = ReadingType.PowerComsumption;
+        public ReadingType TypeOfReading { get; } = ReadingType.PowerConsumption;
 
         public async Task<DeviceReading> GetDailyReading(DateTime date)
         {
@@ -44,7 +44,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager.HS110
 
             return (from messurement in result
                     where messurement.day == date.Day
-                    select new DeviceReading(date, messurement.energy, DeviceId, ReadingType.PowerComsumption, ReadingCharacter.Daily))
+                    select new DeviceReading(date, messurement.energy, DeviceId, ReadingType.PowerConsumption, ReadingCharacter.Daily))
                     .FirstOrDefault();
         }
 
@@ -55,7 +55,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager.HS110
 
             return (from messurement in result
                     where messurement.day == DateTime.UtcNow.Day
-                    select new DeviceReading(DateTime.UtcNow, messurement.energy, DeviceId, ReadingType.PowerComsumption, ReadingCharacter.Daily))
+                    select new DeviceReading(DateTime.UtcNow, messurement.energy, DeviceId, ReadingType.PowerConsumption, ReadingCharacter.Daily))
                     .FirstOrDefault();
         }
 
@@ -63,7 +63,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager.HS110
         {
             var response = await _connector.QueryDevice(CommandStrings.Emeter);
             var result = JsonConvert.DeserializeObject<EmeterResponse>(response).emeter.get_realtime.power;
-            return new DeviceReading(DateTime.Now, result, DeviceId, ReadingType.PowerComsumption, ReadingCharacter.Instant);
+            return new DeviceReading(DateTime.Now, result, DeviceId, ReadingType.PowerConsumption, ReadingCharacter.Instant);
         }
 
         protected override void Dispose(bool disposing)

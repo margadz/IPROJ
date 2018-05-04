@@ -7,7 +7,7 @@ import {MessageService} from '../message.service';
   styleUrls: ['./messages.component.scss']
 })
 export class MessagesComponent implements OnInit {
-  private _isCollapsed = true;
+  private isCollapsedP = true;
 
   constructor(private messageService: MessageService ) { }
 
@@ -15,15 +15,15 @@ export class MessagesComponent implements OnInit {
   }
 
   getMessages(): string[] {
-    return this.messageService.getMesages();
+    return this.messageService.getMessages();
   }
 
   get isCollapsed(): boolean {
-    return this._isCollapsed;
+    return this.isCollapsedP;
   }
 
   switchCollapse(): void {
-    this._isCollapsed = !this._isCollapsed;
+    this.isCollapsedP = !this.isCollapsedP;
   }
 
   clearMessages(): void {

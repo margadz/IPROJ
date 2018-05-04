@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.DataRepository;
+using IPROJ.HomeServer.WebApi.DataModel;
 using IPROJ.MSSQLRepository.Repository;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -46,8 +47,7 @@ namespace IPROJ.HomeServer.WebApi.Controllers
         {
             string test = body.ToString();
             var jObject = JObject.Parse(test);
-            jObject.Remove("DeviceId");
-            var device = jObject.ToObject<DeviceDescription>();
+            var device = jObject.ToObject<DeviceDescription>().CheckParameters();
             await _repository.AddDeviceAync(device);
         }
     }

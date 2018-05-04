@@ -11,3 +11,17 @@
   stroke: black;
   stroke-width: 0.5px;
 }
+
+::ng-deep .axis.axis--x{
+  height: 100px;
+  overflow: hidden;
+  .tick {
+    text {
+      -webkit-transform: rotate(-45deg);
+      text-anchor: end;
+      height: auto;
+    }
+    height: 100px;
+    overflow: hidden;
+  }
+}

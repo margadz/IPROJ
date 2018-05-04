@@ -15,8 +15,11 @@ import { DeviceReadingsComponent } from './device-readings/device-readings.compo
 import { DeviceReadingService } from './device-reading.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { GraphComponent } from './graph/graph.component';
-import {CurrentMeasurementService} from './current-measurement.service';
+import { CurrentMeasurementService } from './current-measurement.service';
 import { AddingDevicesComponent } from './adding-devices/adding-devices.component';
+import { DeviceManagementComponent } from './device-management/device-management.component';
+import { DeviceTemplateComponent } from './device-template/device-template.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -29,11 +32,14 @@ import { AddingDevicesComponent } from './adding-devices/adding-devices.componen
     DeviceReadingsComponent,
     GraphComponent,
     AddingDevicesComponent,
+    DeviceManagementComponent,
+    DeviceTemplateComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule,
     NgbModule.forRoot()
   ],
   providers: [ DeviceService, MessageService, DeviceReadingService, CurrentMeasurementService ],

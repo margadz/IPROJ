@@ -16,7 +16,7 @@ namespace Given_instance_of.DeviceReadingSerializer_class
             DeviceId = Guid.NewGuid(),
             ReadingCharacter = ReadingCharacter.Daily,
             ReadingTimeStamp = DateTime.ParseExact(DateTime.UtcNow.ToString("yyMMddhhmmss"), "yyMMddhhmmss", CultureInfo.InvariantCulture),
-            TypeOfReading = ReadingType.PowerComsumption,
+            TypeOfReading = ReadingType.PowerConsumption,
             Value = 90m
         };
 

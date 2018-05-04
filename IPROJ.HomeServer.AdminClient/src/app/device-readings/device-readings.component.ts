@@ -25,11 +25,11 @@ const after = (one: NgbDateStruct, two: NgbDateStruct) =>
 export class DeviceReadingsComponent implements OnInit {
   private _total$: Observable<string>;
   private _selectedReadings$: Observable<DeviceReading[]>;
-  private _fromDate: NgbDateStruct;
-  private _toDate: NgbDateStruct;
-  private _totalConsumptionSubject: ReplaySubject<string>;
-  private _selectedReadingSubject: ReplaySubject<DeviceReading[]>;
-  private _selectedReadings: DeviceReading[];
+  private fromDate: NgbDateStruct;
+  private toDate: NgbDateStruct;
+  private totalConsumptionSubject: ReplaySubject<string>;
+  private selectedReadingSubject: ReplaySubject<DeviceReading[]>;
+  private selectedReadings: DeviceReading[];
   readings:  DeviceReading[];
   hoveredDate: NgbDateStruct;
 
@@ -37,11 +37,11 @@ export class DeviceReadingsComponent implements OnInit {
     private deviceReadingService: DeviceReadingService,
     private route: ActivatedRoute,
     calendar: NgbCalendar) {
-    this._fromDate = calendar.getToday();
-    this._toDate = calendar.getNext(calendar.getToday(), 'd', 10);
-    this._totalConsumptionSubject = new ReplaySubject<string>();
-    this._selectedReadingSubject = new ReplaySubject<DeviceReading[]>();
-    this._selectedReadings = [];
+    this.fromDate = calendar.getToday();
+    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    this.totalConsumptionSubject = new ReplaySubject<string>();
+    this.selectedReadingSubject = new ReplaySubject<DeviceReading[]>();
+    this.selectedReadings = [];
   }
 
   private n: number = 0;
@@ -68,19 +68,19 @@ export class DeviceReadingsComponent implements OnInit {
 
   get total$(): Observable<string> {
     if (!this._total$) {
-      this._total$ = this._totalConsumptionSubject.asObservable();
+      this._total$ = this.totalConsumptionSubject.asObservable();
     }
     return this._total$;
   }
 
   get selectedReadings$(): Observable<DeviceReading[]> {
     if (!this._selectedReadings$) {
-      this._selectedReadings$ = this._selectedReadingSubject.asObservable();
+      this._selectedReadings$ = this.selectedReadingSubject.asObservable();
     }
     return this._selectedReadings$;
   }
 
-  getReadings() {
+  private getReadings() {
     const id = this.route.snapshot.paramMap.get('id');
     this.deviceReadingService.getReadingFor(id).then(result => this.readings = result.sort((a, b) => {
       if (a.readingTimeStamp > b.readingTimeStamp) { return -1; }
@@ -88,50 +88,46 @@ export class DeviceReadingsComponent implements OnInit {
       if (a.readingTimeStamp < b.readingTimeStamp) { return 1; } }));
   }
 
-  hasDayReading(date: NgbDateStruct): boolean {
+  private hasDayReading(date: NgbDateStruct): boolean {
     const newDate = this.normalizeDate(this.getDate(date));
     const index = this.readings.findIndex(reading => this.normalizeDate(reading.readingTimeStamp).getTime() === newDate.getTime());
     return index > 0;
   }
 
-  getTotal(): number {
+  private getTotal(): number {
     let result = 0;
-    const fromDate = this.normalizeNgDate(this._fromDate);
-    const toDate = this.normalizeNgDate(this._toDate);
+    const fromDate = this.normalizeNgDate(this.fromDate);
+    const toDate = this.normalizeNgDate(this.toDate);
     for (const reading of this.readings) {
       const date = this.normalizeDate(reading.readingTimeStamp);
       if (date >= fromDate && date <= toDate) {
         result += reading.value;
-        this._selectedReadings.push(reading);
+        this.selectedReadings.push(reading);
       }
     }
     return result;
   }
 
   onDateSelection(date: NgbDateStruct) {
-    if (!this._fromDate && !this._toDate) {
-      this._fromDate = date;
-    } else if (this._fromDate && !this._toDate && after(date, this._fromDate)) {
-      this._toDate = date;
+    if (!this.fromDate && !this.toDate) {
+      this.fromDate = date;
+    } else if (this.fromDate && !this.toDate && after(date, this.fromDate)) {
+      this.toDate = date;
     } else {
-      this._toDate = null;
-      this._fromDate = date;
+      this.toDate = null;
+      this.fromDate = date;
     }
-    if (this._fromDate && this._toDate) {
-      this._selectedReadings = [];
-      this._totalConsumptionSubject.next(this.getTotal().toPrecision(4));
-      this._selectedReadingSubject.next(this._selectedReadings);
+    if (this.fromDate && this.toDate) {
+      this.selectedReadings = [];
+      this.totalConsumptionSubject.next(this.getTotal().toPrecision(4));
+      this.selectedReadingSubject.next(this.selectedReadings);
     }
   }
 
-  isHovered = date => this._fromDate && !this._toDate && this.hoveredDate && after(date, this._fromDate) && before(date, this.hoveredDate);
-  isInside = date => after(date, this._fromDate) && before(date, this._toDate);
-  isFrom = date => equals(date, this._fromDate);
-  isTo = date => equals(date, this._toDate);
-
-  func(): void {
-    console.log(5);
-  }
+  isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
+  isInside = date => after(date, this.fromDate) && before(date, this.toDate);
+  isFrom = date => equals(date, this.fromDate);
+  isTo = date => equals(date, this.toDate);
 }
 
 

@@ -14,7 +14,7 @@ import {Observable} from 'rxjs/Observable';
   styleUrls: ['./graph.component.scss']
 })
 export class GraphComponent implements OnInit {
-  subtitle = 'Wykres zużycia energii';
+  subtitle = "Wykres zużycia energii";
   @Input() readings$: Observable<DeviceReading[]>;
   @Input() readings: DeviceReading[];
   private width: number;
@@ -33,7 +33,7 @@ export class GraphComponent implements OnInit {
   }
 
   initGraph() {
-    if (this.svg){
+    if (this.svg) {
       this.svg.selectAll('*').remove();
     }
     this.initSvg();
@@ -61,7 +61,6 @@ export class GraphComponent implements OnInit {
     this.x = d3Scale.scaleBand().rangeRound([0, this.width]).padding(0.1);
     this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
     this.x.domain(this.readings.map((d) => d.readingTimeStamp));
-
     this.y.domain([0, d3Array.max(this.readings, (d) => d.value)]);
   }
 
@@ -69,7 +68,7 @@ export class GraphComponent implements OnInit {
     this.g.append('g')
       .attr('class', 'axis axis--x')
       .attr('transform', 'translate(0,' + this.height + ')')
-      .call(d3Axis.axisBottom(this.x))
+      .call(d3Axis.axisBottom(this.x).tickFormat(date => this.FormatDate(<Date>date)));
     this.g.append('g')
       .attr('class', 'axis axis--y')
       .call(d3Axis.axisLeft(this.y).ticks (10))
@@ -93,5 +92,8 @@ export class GraphComponent implements OnInit {
       .attr('height', (reading) => this.height - this.y(reading.value) );
   }
 
-
+  private FormatDate(date: Date): string {
+    const newDate = new Date(date);
+    return newDate.toLocaleDateString();
+  }
 }

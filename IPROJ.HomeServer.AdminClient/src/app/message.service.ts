@@ -8,7 +8,7 @@ export class MessageService {
     this.messages.push(`Sender: ${sender} - ${message}` );
   }
 
-  getMesages(): string[]{
+  getMessages(): string[] {
     return this.messages;
   }
 

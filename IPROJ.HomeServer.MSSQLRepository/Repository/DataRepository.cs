@@ -20,15 +20,36 @@ namespace IPROJ.MSSQLRepository.Repository
 
         public async Task AddDeviceAync(DeviceDescription device)
         {
+            if (device == null)
+            {
+                return;
+            }
+
             using (var context = GenerateContext())
             {
-                context.Devices.Add(device);
+                var existingDevice = await context.Devices.Where(dev => dev.DeviceId == device.DeviceId).FirstOrDefaultAsync();
+                if (existingDevice != null)
+                {
+                    existingDevice.IsActive = device.IsActive;
+                    existingDevice.Name = device.Name;
+                }
+                else
+                {
+                    context.Devices.Add(device);
+                }
+
+
                 await context.SaveChangesAsync();
             }
         }
 
         public async Task AddReadingsAsync(IEnumerable<DeviceReading> readings)
         {
+            if (readings == null || !readings.Any())
+            {
+                return;
+            }
+
             using (var context = GenerateContext())
             {
                 context.DeviceReadings.AddRange(readings);
@@ -57,6 +78,11 @@ namespace IPROJ.MSSQLRepository.Repository
 
         public async Task<IEnumerable<DeviceReading>> GetAllReadingsFromDeviceAsync(Guid deviceId)
         {
+            if (deviceId == null)
+            {
+                return Array.Empty<DeviceReading>();
+            }
+
             using (var context = GenerateContext())
             {
                 return await(from reading in context.DeviceReadings

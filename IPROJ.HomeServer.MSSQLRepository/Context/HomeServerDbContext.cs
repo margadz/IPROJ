@@ -49,7 +49,7 @@ namespace IPROJ.MSSQLRepository.Context
 
                 entity.Property(e => e.TypeOfDevice)
                     .IsRequired()
-                    .HasColumnType("varchar(20)");
+                    .HasColumnType("int");
 
                 entity.Property(e => e.CustomId)
                     .HasColumnType("varchar(100)");

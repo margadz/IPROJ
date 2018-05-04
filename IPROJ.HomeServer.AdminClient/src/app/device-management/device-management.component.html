@@ -1,0 +1,12 @@
+<div>
+  <a class="text-primary">Istniejące urządzenia</a>
+  <div *ngFor="let device of devices" >
+    <app-device-template [device]="device"></app-device-template>
+    <hr/>
+  </div>
+</div>
+  <hr/>
+  <a class="text-primary">Dodaj nowe urządzenie</a>
+  <div>
+    <app-device-template></app-device-template>
+  </div>

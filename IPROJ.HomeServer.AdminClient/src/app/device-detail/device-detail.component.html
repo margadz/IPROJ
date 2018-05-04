@@ -1,9 +1,9 @@
 <div *ngIf="device">
   <p><span class="device-type">Typ urządzenia: {{device.typeOfDevice}}</span>
-    <a *ngIf="device.typeOfDevice == 'HS110'">
+    <a *ngIf="deviceType == 'HS110'">
       <img src="/assets/images/hs110.jpg" style="width:60px">
     </a>
-    <a *ngIf="device.typeOfDevice == 'WEMO'">
+    <a *ngIf="deviceType == 'WEMO'">
       <img src="/assets/images/wemo.png" style="width:80px">
     </a>
   </p>

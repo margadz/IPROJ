@@ -14,11 +14,23 @@ CREATE TABLE [HomeServer].[dbo].[Devices]
 	DeviceId UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT newid(),
 	Name NVARCHAR(100) NOT NULL,
 	TypeOfReading INT NOT NULL,
-	TypeOfDevice VARCHAR(20) NOT NULL,
+	TypeOfDevice INT NOT NULL,
 	IsActive BIT NOT NULL,
 	Host VARCHAR(100) NOT NULL,
 	CustomId VARCHAR (100) NULL,
 )
+GO
+
+IF (OBJECT_ID('Configuration') IS NOT NULL)
+  DROP TABLE Configuration
+GO
+
+CREATE TABLE Configuration
+(ConfigId INTEGER PRIMARY KEY IDENTITY(1, 1),
+ ConfigName VARCHAR(20) NOT NULL,
+ ConfigValue VARCHAR(20) NOT NULL,
+ ConfigCategory VARCHAR(20) NOT NULL
+ )
 GO
 
 
@@ -34,5 +46,5 @@ CREATE TABLE [HomeServer].[dbo].[DeviceReadings]
 )
 GO
 
-INSERT INTO Devices (Name, TypeOfReading, TypeOfDevice, IsActive, Host) VALUES ('Komputer w salonie', 1, 'HS110', 1, '192.168.1.202:9999');
-INSERT INTO Devices (Name, TypeOfReading, TypeOfDevice, IsActive, Host) VALUES ('Zestaw audio w salonie', 1, 'WEMO', 1, '192.168.1.227:49153');
+--INSERT INTO Devices (Name, TypeOfReading, TypeOfDevice, IsActive, Host) VALUES ('Komputer w salonie', 1, 1, 1, '192.168.1.202:9999');
+--INSERT INTO Devices (Name, TypeOfReading, TypeOfDevice, IsActive, Host) VALUES ('Zestaw audio w salonie', 1, 2, 1, '192.168.1.227:49153');

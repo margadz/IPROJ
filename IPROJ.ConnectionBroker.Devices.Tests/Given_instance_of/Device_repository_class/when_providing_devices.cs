@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FluentAssertions;
 using IPROJ.ConnectionBroker.DevicesManager;
 using IPROJ.ConnectionBroker.DevicesManager.HS110;
@@ -17,8 +15,8 @@ namespace Given_instance_of.Device_repository_class
     [TestFixture]
     public class when_providing_devices
     {
-        private static DeviceDescription _wemoDeviceDescription = new DeviceDescription() { DeviceId = Guid.NewGuid(), TypeOfDevice = "Wemo" };
-        private static DeviceDescription _hs110DeviceDescription = new DeviceDescription() { DeviceId = Guid.NewGuid(), Host = "192.0.0.1:111", TypeOfDevice = "HS110" };
+        private static DeviceDescription _wemoDeviceDescription = new DeviceDescription() { DeviceId = Guid.NewGuid(), TypeOfDevice = DeviceType.WEMO };
+        private static DeviceDescription _hs110DeviceDescription = new DeviceDescription() { DeviceId = Guid.NewGuid(), Host = "192.0.0.1:111", TypeOfDevice = DeviceType.HS110 };
         private WemoDevice _wemoDevice = new WemoDevice(_wemoDeviceDescription, new Mock<IDeviceLog>().Object);
         private HS110Device _hs110Device = new HS110Device(_hs110DeviceDescription, new Mock<IDeviceLog>().Object);
         private Mock<IDataRepository> _dataRepositoryMock;
