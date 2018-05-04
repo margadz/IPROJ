@@ -12,7 +12,7 @@ export class CurrentMeasurementService {
   private _started = false;
   constructor() { }
 
-  getCurrentReadings(deviceId: string): Observable<DeviceReading>{
+  getCurrentReadings(deviceId: string): Observable<DeviceReading> {
     this.initialize();
     return this.getObservable(deviceId);
   }
@@ -48,7 +48,7 @@ export class CurrentMeasurementService {
       });
   }
 
-  private getObservable(deviceId: string): Observable<DeviceReading>{
+  private getObservable(deviceId: string): Observable<DeviceReading> {
     if (this._readings.get(deviceId)) {
       return this._readings.get(deviceId);
     }

@@ -1,4 +1,4 @@
-div.current-reading {
+#current-reading {
   color: #1A5D00;
   font-size: 350%;
   font-weight: bolder;
@@ -9,4 +9,10 @@ span.device-type{
   color: #1A7794;
   font-size: 180%;
   font-weight: bold;
+}
+
+#current {
+  max-width: 800px;
+  position: relative;
+  right: 10px;
 }

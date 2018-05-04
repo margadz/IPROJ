@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Device } from '../device';
-import {DeviceService} from '../device.service';
+import { DeviceService } from '../device.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-device-template',
@@ -10,8 +11,11 @@ import {DeviceService} from '../device.service';
 export class DeviceTemplateComponent implements OnInit {
   @Input() device: Device;
   isNew: boolean;
+  display = false;
+  @ViewChild('saveModal') modal: any;
 
-  constructor(private deviceService: DeviceService) { }
+  constructor(private deviceService: DeviceService,
+              private modalService: NgbModal) { }
 
   ngOnInit() {
     if (this.device === undefined) {
@@ -28,15 +32,16 @@ export class DeviceTemplateComponent implements OnInit {
     return this.device.typeOfDevice.toString();
   }
 
-  updateDevice(): void {
-    this.deviceService.addDevice(this.device).then(() => console.log('done'));
-  }
-
   isValid(): boolean {
     return this.device.typeOfDevice !== undefined
       && this.device.name.length > 0
       && this.device.name.length < 25
       && this.isHostValid(this.device.host);
+  }
+
+
+  showDialog() {
+    this.display = true;
   }
 
   private isHostValid(host: string): boolean {

@@ -14,12 +14,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DeviceReadingsComponent } from './device-readings/device-readings.component';
 import { DeviceReadingService } from './device-reading.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { GraphComponent } from './graph/graph.component';
 import { CurrentMeasurementService } from './current-measurement.service';
 import { AddingDevicesComponent } from './adding-devices/adding-devices.component';
 import { DeviceManagementComponent } from './device-management/device-management.component';
 import { DeviceTemplateComponent } from './device-template/device-template.component';
 import { FormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { ChartModule } from 'primeng/chart';
+import { HistoryChartComponent } from './history-chart/history-chart.component';
+import { InstantChartComponent } from './instant-chart/instant-chart.component';
 
 
 @NgModule({
@@ -30,16 +33,19 @@ import { FormsModule } from '@angular/forms';
     MessagesComponent,
     DashboardComponent,
     DeviceReadingsComponent,
-    GraphComponent,
     AddingDevicesComponent,
     DeviceManagementComponent,
     DeviceTemplateComponent,
+    HistoryChartComponent,
+    InstantChartComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    DialogModule,
+    ChartModule,
     NgbModule.forRoot()
   ],
   providers: [ DeviceService, MessageService, DeviceReadingService, CurrentMeasurementService ],
