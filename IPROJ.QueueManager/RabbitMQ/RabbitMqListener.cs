@@ -9,7 +9,6 @@ using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.Helpers;
 using IPROJ.Contracts.Logging;
 using IPROJ.Contracts.Messaging;
-using IPROJ.QueueManager.Connection;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -20,13 +19,13 @@ namespace IPROJ.QueueManager.RabbitMQ
     {
         private readonly string _readingQueueName;
         private readonly Encoding _encoding;
-        private readonly IConnectionFactoryProvider _connectionFactoryProvider;
+        private readonly Connection.IRabbitMqConnectionFactory _connectionFactoryProvider;
         private readonly IQueueLogger _logger;
         private IConnection _connection;
         private IModel _channel;
         private bool _started = false;
 
-        public RabbitMqListener(IConnectionFactoryProvider queueConnectionProvider, IConfigurationProvider configurationProvider, IQueueLogger logger)
+        public RabbitMqListener(Connection.IRabbitMqConnectionFactory queueConnectionProvider, IConfigurationProvider configurationProvider, IQueueLogger logger)
         {
             Argument.OfWichValueShoulBeProvided(queueConnectionProvider, nameof(queueConnectionProvider));
             Argument.OfWichValueShoulBeProvided(configurationProvider, nameof(configurationProvider));
@@ -38,7 +37,7 @@ namespace IPROJ.QueueManager.RabbitMQ
             _logger = logger;
         }
 
-        public event QueueEventHandler QueueEvent;
+        public event QueueEventHandler OnMessegeReceived;
 
         public void Dispose()
         {
@@ -77,7 +76,7 @@ namespace IPROJ.QueueManager.RabbitMQ
                 var body = ea.Body;
                 var message = _encoding.GetString(body);
                 var result = JsonConvert.DeserializeObject<IEnumerable<DeviceReading>>(message);
-                QueueEvent.Invoke(result);
+                OnMessegeReceived.Invoke(result);
             };
 
             await Task.Delay(-1, cancellationToken);

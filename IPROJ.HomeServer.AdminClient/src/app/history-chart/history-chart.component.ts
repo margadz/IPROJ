@@ -57,7 +57,7 @@ export class HistoryChartComponent implements OnInit {
     this.data.labels = this.readings.map(reading => HistoryChartComponent.FormatDate(reading.readingTimeStamp));
     this.data.datasets = [
       {
-        label: 'My First dataset',
+        label: 'Dzienne zużycie',
         backgroundColor: '#42A5F5',
         borderColor: '#1E88E5',
         data: this.readings.map(reading => reading.value)

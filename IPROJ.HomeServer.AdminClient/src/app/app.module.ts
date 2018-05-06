@@ -14,7 +14,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DeviceReadingsComponent } from './device-readings/device-readings.component';
 import { DeviceReadingService } from './device-reading.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CurrentMeasurementService } from './current-measurement.service';
 import { AddingDevicesComponent } from './adding-devices/adding-devices.component';
 import { DeviceManagementComponent } from './device-management/device-management.component';
 import { DeviceTemplateComponent } from './device-template/device-template.component';
@@ -23,6 +22,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ChartModule } from 'primeng/chart';
 import { HistoryChartComponent } from './history-chart/history-chart.component';
 import { InstantChartComponent } from './instant-chart/instant-chart.component';
+import {SignalRMessengerService} from './signal-r-messenger.service';
 
 
 @NgModule({
@@ -48,7 +48,7 @@ import { InstantChartComponent } from './instant-chart/instant-chart.component';
     ChartModule,
     NgbModule.forRoot()
   ],
-  providers: [ DeviceService, MessageService, DeviceReadingService, CurrentMeasurementService ],
+  providers: [ DeviceService, MessageService, DeviceReadingService, SignalRMessengerService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

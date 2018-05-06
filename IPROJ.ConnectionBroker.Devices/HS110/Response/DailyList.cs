@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IPROJ.ConnectionBroker.DevicesManager.HS110.Response
+namespace IPROJ.ConnectionBroker.Devices.HS110.Response
 {
     public class DailyList
     {

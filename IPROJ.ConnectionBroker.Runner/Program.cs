@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using IPROJ.ConnectionBroker.Devices.HS110;
 
 namespace IPROJ.ConnectionBroker.Runner
 {

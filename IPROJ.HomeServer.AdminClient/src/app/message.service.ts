@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
+import {LogMessage} from './logMessage';
 
 @Injectable()
 export class MessageService {
-  private messages: string[] = [];
+  private messages: LogMessage[] = [];
 
-  add(sender: string,  message: string) {
-    this.messages.push(`Sender: ${sender} - ${message}` );
+  add(message: LogMessage) {
+    this.messages.push(message);
   }
 
-  getMessages(): string[] {
+  getMessages(): LogMessage[] {
     return this.messages;
   }
 

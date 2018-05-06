@@ -8,6 +8,7 @@ using IPROJ.Contracts.Logging;
 
 namespace IPROJ.ConnectionBroker.Devices
 {
+    /// <summary>Provides base functionality of <see cref="IDevice"/></summary>
     public abstract class Device : IDevice
     {
         private readonly ManualResetEvent _initSync = new ManualResetEvent(false);
@@ -25,9 +26,14 @@ namespace IPROJ.ConnectionBroker.Devices
 
         protected IDeviceLog Logger { get; }
 
+        /// <inheritdoc />
         public abstract Guid DeviceId { get; }
 
+        /// <inheritdoc />
         public abstract string DeviceName { get; }
+
+        /// <inheritdoc />
+        public abstract ReadingType TypeOfReading { get; }
 
         public void Dispose()
         {

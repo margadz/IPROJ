@@ -10,7 +10,6 @@ using IPROJ.Contracts.ConfigurationProvider;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.Helpers;
 using IPROJ.Contracts.Logging;
-using IPROJ.QueueManager.Connection;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 
@@ -22,13 +21,13 @@ namespace IPROJ.QueueManager.RabbitMQ
         private readonly string _readingsExchange;
         private readonly Encoding _encoding;
         private readonly IQueueLogger _logger;
-        private readonly IConnectionFactoryProvider _connectionFactoryProvider;
+        private readonly Connection.IRabbitMqConnectionFactory _connectionFactoryProvider;
         private bool _disposed = false;
         private IConnection _connection;
         private IModel _channel;
         private bool _isConnected;
 
-        public RabbitMqWriter(IConnectionFactoryProvider queueConnectionProvider, IConfigurationProvider configurationProvider, IQueueLogger logger)
+        public RabbitMqWriter(Connection.IRabbitMqConnectionFactory queueConnectionProvider, IConfigurationProvider configurationProvider, IQueueLogger logger)
         {
             Argument.OfWichValueShoulBeProvided(queueConnectionProvider, nameof(queueConnectionProvider));
             Argument.OfWichValueShoulBeProvided(configurationProvider, nameof(configurationProvider));

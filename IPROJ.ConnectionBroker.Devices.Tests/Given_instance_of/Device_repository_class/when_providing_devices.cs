@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Linq;
-using FluentAssertions;
 using IPROJ.ConnectionBroker.DevicesManager;
-using IPROJ.ConnectionBroker.DevicesManager.HS110;
-using IPROJ.ConnectionBroker.DevicesManager.Wemo;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.DataRepository;
-using IPROJ.Contracts.Logging;
 using Moq;
 using NUnit.Framework;
+using IPROJ.Contracts.Devices;
+using IPROJ.Contracts;
 
 namespace Given_instance_of.Device_repository_class
 {
@@ -17,21 +14,16 @@ namespace Given_instance_of.Device_repository_class
     {
         private static DeviceDescription _wemoDeviceDescription = new DeviceDescription() { DeviceId = Guid.NewGuid(), TypeOfDevice = DeviceType.WEMO };
         private static DeviceDescription _hs110DeviceDescription = new DeviceDescription() { DeviceId = Guid.NewGuid(), Host = "192.0.0.1:111", TypeOfDevice = DeviceType.HS110 };
-        private WemoDevice _wemoDevice = new WemoDevice(_wemoDeviceDescription, new Mock<IDeviceLog>().Object);
-        private HS110Device _hs110Device = new HS110Device(_hs110DeviceDescription, new Mock<IDeviceLog>().Object);
         private Mock<IDataRepository> _dataRepositoryMock;
+        private Mock<IDeviceFactory> _factory;
         private DeviceRepository _deviceRepository;
 
         [Test]
-        public void Shuould_provide_wemo_device()
+        public void Shuould_call_factory()
         {
-            _deviceRepository.Devices.FirstOrDefault(_ => _.DeviceName == "Wemo" && _.DeviceId == _wemoDeviceDescription.DeviceId).Should().NotBeNull();
-        }
+            var devices = _deviceRepository.Devices;
 
-        [Test]
-        public void Shuould_provide_hs110_device()
-        {
-            _deviceRepository.Devices.FirstOrDefault(_ => _.DeviceName == "HS110" && _.DeviceId == _hs110DeviceDescription.DeviceId).Should().NotBeNull();
+            _factory.Verify(_ => _.CreateDevice(It.IsAny<DeviceDescription>()), Times.Exactly(2));
         }
 
         [Test]
@@ -45,9 +37,11 @@ namespace Given_instance_of.Device_repository_class
         [SetUp]
         public void ScenarioSetup()
         {
+            _factory = new Mock<IDeviceFactory>(MockBehavior.Strict);
+            _factory.Setup(_ => _.CreateDevice(It.IsAny<DeviceDescription>())).Returns(new Mock<IDevice>().Object);
             _dataRepositoryMock = new Mock<IDataRepository>(MockBehavior.Strict);
             _dataRepositoryMock.Setup(_ => _.GetAllDevicesAsync()).ReturnsAsync(new[] { _wemoDeviceDescription, _hs110DeviceDescription });
-            _deviceRepository = new DeviceRepository(_dataRepositoryMock.Object, new Mock<IDeviceLog>().Object);
+            _deviceRepository = new DeviceRepository(_dataRepositoryMock.Object, _factory.Object);
         }
 
         [TearDown]

@@ -17,7 +17,7 @@ namespace Given_instance_of.Device_repository_class
         }
 
         [Test]
-        public void Should_throw_when_logger_is_null()
+        public void Should_throw_when_factory_is_null()
         {
             ((DeviceRepository)null).Invoking(_ => new DeviceRepository(new Mock<IDataRepository>().Object, null)).Should().Throw<ArgumentNullException>();
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using IPROJ.ConnectionBroker.Devices.HS110.Response;
 
-namespace IPROJ.ConnectionBroker.DevicesManager.HS110.Response
+namespace IPROJ.ConnectionBroker.Devices.HS110
 {
     public class DailyCommand
     {

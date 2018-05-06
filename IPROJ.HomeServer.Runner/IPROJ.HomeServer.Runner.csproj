@@ -11,7 +11,6 @@
   <ItemGroup>
     <ProjectReference Include="..\IPROJ.Contracts\IPROJ.Contracts.csproj" />
     <ProjectReference Include="..\IPROJ.HomeServer.Autofac\IPROJ.HomeServer.Autofac.csproj" />
-    <ProjectReference Include="..\IPROJ.HomeServer.SignalR\IPROJ.HomeServer.SignalR.csproj" />
     <ProjectReference Include="..\IPROJ.HomeServer.WebApi\IPROJ.HomeServer.WebApi.csproj" />
   </ItemGroup>
 

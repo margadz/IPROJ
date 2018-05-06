@@ -17,7 +17,7 @@ namespace IPROJ.HomeServer.WebApi.Controllers
         {
             if (_repository == null)
             {
-                _repository = new DataRepository(@"Data Source=LAPSAM;Initial Catalog=HomeServer;Integrated Security=True");
+                _repository = new DataRepository(@"Data Source=KOMP;Initial Catalog=HomeServer;Integrated Security=True");
             }
         }
 

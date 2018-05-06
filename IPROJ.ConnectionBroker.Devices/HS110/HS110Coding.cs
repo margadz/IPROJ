@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace IPROJ.ConnectionBroker.DevicesManager.HS110
+namespace IPROJ.ConnectionBroker.Devices.HS110
 {
     public static class HS110Coding
     {

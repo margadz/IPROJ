@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\IPROJ.ConnectionBroker.Autofac\IPROJ.ConnectionBroker.Autofac.csproj" />
     <ProjectReference Include="..\IPROJ.ConnectionBroker.Devices\IPROJ.ConnectionBroker.Devices.csproj" />
+    <ProjectReference Include="..\IPROJ.ConnectionBroker.Managing\IPROJ.ConnectionBroker.Managing.csproj" />
   </ItemGroup>
 
 </Project>

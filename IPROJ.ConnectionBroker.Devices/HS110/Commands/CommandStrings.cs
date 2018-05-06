@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace IPROJ.ConnectionBroker.DevicesManager.HS110.Commands
+namespace IPROJ.ConnectionBroker.Devices.HS110.Commands
 {
     public class CommandStrings
     {

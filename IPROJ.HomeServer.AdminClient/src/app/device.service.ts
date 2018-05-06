@@ -7,10 +7,11 @@ import { MessageService } from './message.service';
 import { catchError, map, tap } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import { LogMessage, LogMessageLevel } from './logMessage';
 
 @Injectable()
 export class DeviceService {
-  private baseUrl = 'http://192.168.0.108:12345/api/devices/';
+  private baseUrl = 'http://192.168.1.10:12345/api/devices/';
   constructor(
     private messageService: MessageService,
     private httpClient: HttpClient) {
@@ -27,8 +28,8 @@ export class DeviceService {
 
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      this.messageService.add('DeviceService', error.message)
-      console.error(error);
+      this.messageService.add(new LogMessage(error.message, LogMessageLevel.Error, 'DeviceService'));
+      console.error(error.message);
       return of(result as T);
     };
   }

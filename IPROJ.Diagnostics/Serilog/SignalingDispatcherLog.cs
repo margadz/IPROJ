@@ -4,7 +4,7 @@ using Serilog;
 
 namespace IPROJ.Diagnostics.Serilog
 {
-    public class SignalingDispatcherLog : IInstantMessengerLog
+    public class SignalRMessengerLogger : IInstantMessengerLog
     {
         public void InformDispacherIsConnectingToHub()
         {

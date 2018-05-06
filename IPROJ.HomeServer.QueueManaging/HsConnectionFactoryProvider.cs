@@ -1,15 +1,17 @@
 ﻿using IPROJ.Configuration.Configurations;
 using IPROJ.Contracts.ConfigurationProvider;
-using IPROJ.QueueManager.Connection;
 using RabbitMQ.Client;
 
 namespace IPROJ.HomeServer.QueueClient
 {
-    public class HsConnectionFactoryProvider : IConnectionFactoryProvider
+    /// <summary>Provides connection factory for HomeServer application.</summary>
+    public class HsConnectionFactory : QueueManager.Connection.IRabbitMqConnectionFactory
     {
-        private ConnectionFactory _factory;
+        private readonly ConnectionFactory _factory;
 
-        public HsConnectionFactoryProvider(IConfigurationProvider configurationProvider)
+        /// <summary>Initialize instance of <see cref="HsConnectionFactory"/>.</summary>
+        /// <param name="configurationProvider">Configuration provider.</param>
+        public HsConnectionFactory(IConfigurationProvider configurationProvider)
         {
             _factory = new ConnectionFactory()
             {
@@ -21,11 +23,8 @@ namespace IPROJ.HomeServer.QueueClient
             };
         }
 
-        public ConnectionFactory ProvideFactory()
-        {
-            return _factory;
-        }
-
+        /// <summary>Creates MqServer connection.</summary>
+        /// <returns>Connection.</returns>
         public IConnection CreateConnection()
         {
             return _factory.CreateConnection();

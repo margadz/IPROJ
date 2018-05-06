@@ -15,10 +15,11 @@
   <ItemGroup>
     <ProjectReference Include="..\IPROJ.Autofac\IPROJ.Autofac.csproj" />
     <ProjectReference Include="..\IPROJ.ConnectionBroker.Devices\IPROJ.ConnectionBroker.Devices.csproj" />
-    <ProjectReference Include="..\IPROJ.ConnectionBroker.QueueManaging\IPROJ.ConnectionBroker.QueueManaging.csproj" />
+    <ProjectReference Include="..\IPROJ.ConnectionBroker.Managing\IPROJ.ConnectionBroker.Managing.csproj" />
     <ProjectReference Include="..\IPROJ.Diagnostics\IPROJ.Diagnostics.csproj" />
     <ProjectReference Include="..\IPROJ.HomeServer.MSSQLRepository\IPROJ.MSSQLRepository.csproj" />
     <ProjectReference Include="..\IPROJ.QueueManager\IPROJ.QueueManager.csproj" />
+    <ProjectReference Include="..\IPROJ.SignalR\IPROJ.SignalR.csproj" />
   </ItemGroup>
 
   <ItemGroup>

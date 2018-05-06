@@ -7,7 +7,6 @@ using IPROJ.Contracts.Messaging;
 using IPROJ.Contracts.Threading;
 using IPROJ.Diagnostics.Serilog;
 using IPROJ.HomeServer.QueueClient;
-using IPROJ.HomeServer.SignalR;
 using IPROJ.MSSQLRepository.Repository;
 using IPROJ.QueueManager.Connection;
 using IPROJ.QueueManager.RabbitMQ;
@@ -24,11 +23,10 @@ namespace IPROJ.HomeServer.Autofac
                 .WriteTo.Console().CreateLogger();
 
             builder.RegisterType<ConfigurationProvider>().As<IConfigurationProvider>().SingleInstance();
-            builder.RegisterType<HsConnectionFactoryProvider>().As<IConnectionFactoryProvider>().SingleInstance();
+            builder.RegisterType<HsConnectionFactory>().As<IRabbitMqConnectionFactory>().SingleInstance();
             builder.RegisterType<RabbitMqListener>().As<IQueueListener>().SingleInstance();
             builder.RegisterType<MessagesHandler>().As<IMessagesHandler>().SingleInstance();
-            builder.RegisterType<SignalRInstantMessenger>().As<IInstantMessenger>().SingleInstance();
-            builder.RegisterType<DataRepository>().WithParameter(new TypedParameter(typeof(string), @"Data Source=LapSam;Initial Catalog=HomeServer;Integrated Security=True")).As<IDataRepository>().SingleInstance();
+            builder.RegisterType<DataRepository>().WithParameter(new TypedParameter(typeof(string), @"Data Source=KOMP;Initial Catalog=HomeServer;Integrated Security=True")).As<IDataRepository>().SingleInstance();
             builder.RegisterType<ThreadingInfrastructure>().As<IThreadingInfrastructure>().SingleInstance();
             RegisterLoggers(builder);
         }
@@ -36,7 +34,6 @@ namespace IPROJ.HomeServer.Autofac
         private static void RegisterLoggers(ContainerBuilder builder)
         {
             builder.RegisterType<QueueLogger>().As<IQueueLogger>().SingleInstance();
-            builder.RegisterType<SignalingDispatcherLog>().As<IInstantMessengerLog>().SingleInstance();
         }
     }
 }

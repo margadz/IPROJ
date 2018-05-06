@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MessageService} from '../message.service';
+import {LogMessage} from '../logMessage';
 
 @Component({
   selector: 'app-messages',
@@ -14,7 +15,7 @@ export class MessagesComponent implements OnInit {
   ngOnInit() {
   }
 
-  getMessages(): string[] {
+  getMessages(): LogMessage[] {
     return this.messageService.getMessages();
   }
 
