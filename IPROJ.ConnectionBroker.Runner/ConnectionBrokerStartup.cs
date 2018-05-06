@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using IPROJ.Autofac;
 using IPROJ.ConnectionBroker.Autofac;
-using IPROJ.ConnectionBroker.Managing.Quering;
+using IPROJ.ConnectionBroker.Managing;
 using IPROJ.Contracts;
-using IPROJ.Contracts.Messaging;
 
 namespace IPROJ.ConnectionBroker.Runner
 {
+    /// <summary>Entry point of ConnectionBroker.</summary>
     public class ConnectionBrokerStartup : IStartup
     {
         private Factory _factory;
@@ -19,16 +18,17 @@ namespace IPROJ.ConnectionBroker.Runner
             _factory?.Dispose();
         }
 
+
+        /// <inheritdoc />
         public async Task Start(CancellationToken cancellationToken)
         {
             _factory = new ConnectioBrokerFactory();
-            var instant = _factory.Resolve<IEnumerable<IDeviceQuery>>();
-            var messenger = _factory.Resolve<IMessenger>();
-            var compount = new CompoundDeviceQuery(instant, messenger);
+            var manager = _factory.Resolve<IDeviceManager>();
             Console.WriteLine("ConnectionBroker started.");
+
             try
             {
-                await compount.QueryDevices(cancellationToken);
+                await manager.Manage(cancellationToken);
             }
             catch (OperationCanceledException)
             {

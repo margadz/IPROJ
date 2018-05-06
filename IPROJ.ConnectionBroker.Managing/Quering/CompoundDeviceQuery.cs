@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using IPROJ.Contracts.Helpers;
-using IPROJ.Contracts.Messaging;
 
 namespace IPROJ.ConnectionBroker.Managing.Quering
 {
@@ -19,18 +18,14 @@ namespace IPROJ.ConnectionBroker.Managing.Quering
         /// Initializes instance of <see cref="CompoundDeviceQuery"/>.
         /// </summary>
         /// <param name="deviceQueries"></param>
-        /// <param name="messenger"></param>
         public CompoundDeviceQuery(
-            IEnumerable<IDeviceQuery> deviceQueries, 
-            IMessenger messenger)
+            IEnumerable<IDeviceQuery> deviceQueries)
         {
             Argument.OfWichValueShoulBeProvided(deviceQueries, nameof(deviceQueries));
             if (deviceQueries.Any(manager => manager == null))
             {
                 throw new ArgumentOutOfRangeException(nameof(deviceQueries));
             }
-            Argument.OfWichValueShoulBeProvided(messenger, nameof(messenger));
-
 
             _devicequeries = deviceQueries;
         }

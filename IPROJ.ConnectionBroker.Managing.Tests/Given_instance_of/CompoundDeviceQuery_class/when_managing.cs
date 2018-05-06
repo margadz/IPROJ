@@ -12,7 +12,6 @@ namespace Given_instance_of.CompoundDeviceQuery_class
     {
         private Mock<IDeviceQuery> _firstManager;
         private Mock<IDeviceQuery> _secondManager;
-        private Mock<IMessenger> _messenger;
         private CompoundDeviceQuery _manager;
         private CancellationTokenSource _tokentSource;
 
@@ -42,10 +41,9 @@ namespace Given_instance_of.CompoundDeviceQuery_class
             _tokentSource = new CancellationTokenSource();
             _firstManager = new Mock<IDeviceQuery>(MockBehavior.Strict);
             _secondManager = new Mock<IDeviceQuery>(MockBehavior.Strict);
-            _messenger = new Mock<IMessenger>(MockBehavior.Strict);
             _firstManager.Setup(_ => _.QueryDevices(_tokentSource.Token)).Returns(Task.FromResult(0));
             _secondManager.Setup(_ => _.QueryDevices(_tokentSource.Token)).Returns(Task.FromResult(0));
-            _manager = new CompoundDeviceQuery(new[] { _firstManager.Object, _secondManager.Object }, _messenger.Object);
+            _manager = new CompoundDeviceQuery(new[] { _firstManager.Object, _secondManager.Object });
         }
 
         [TearDown]

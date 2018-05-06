@@ -1,7 +1,5 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Device } from '../device';
-import { DeviceService } from '../device.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-device-template',
@@ -11,11 +9,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class DeviceTemplateComponent implements OnInit {
   @Input() device: Device;
   isNew: boolean;
-  display = false;
   @ViewChild('saveModal') modal: any;
 
-  constructor(private deviceService: DeviceService,
-              private modalService: NgbModal) { }
+  constructor() { }
 
   ngOnInit() {
     if (this.device === undefined) {
@@ -23,6 +19,10 @@ export class DeviceTemplateComponent implements OnInit {
       this.device.typeOfReading = 'PowerConsumption';
       this.isNew = true;
       }
+      if (this.device.deviceId === '00000000-0000-0000-0000-000000000000') {
+        this.device.deviceId = undefined;
+        this.isNew = true;
+    }
   }
 
   get deviceType(): string {
@@ -34,14 +34,10 @@ export class DeviceTemplateComponent implements OnInit {
 
   isValid(): boolean {
     return this.device.typeOfDevice !== undefined
-      && this.device.name.length > 0
-      && this.device.name.length < 25
+      && this.device.name !== undefined
+      //&& this.device.name.length > 0
+      //&& this.device.name.length < 25
       && this.isHostValid(this.device.host);
-  }
-
-
-  showDialog() {
-    this.display = true;
   }
 
   private isHostValid(host: string): boolean {

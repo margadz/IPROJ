@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using IPROJ.ConnectionBroker.Devices.HS110;
 
 namespace IPROJ.ConnectionBroker.Runner
 {
@@ -12,7 +11,7 @@ namespace IPROJ.ConnectionBroker.Runner
             var startup = new ConnectionBrokerStartup();
             var tokenSource = new CancellationTokenSource();
 
-            Task.Factory.StartNew(() => startup.Start(tokenSource.Token), tokenSource.Token);
+            Task.Run(() => startup.Start(tokenSource.Token), tokenSource.Token);
 
             Console.ReadKey();
             tokenSource.Cancel();

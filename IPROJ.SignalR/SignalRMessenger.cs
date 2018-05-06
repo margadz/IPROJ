@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
 namespace IPROJ.SignalR.SignalR
 {
+    /// <summary>SingalR messenger.</summary>
     public class SignalRMessenger : IMessenger
     {
         private readonly HubConnection _hubConnection;
@@ -20,8 +21,12 @@ namespace IPROJ.SignalR.SignalR
         private bool _isConnected;
         private CancellationToken _cancellationToken;
 
+        /// <inheritdoc />
         public event EventHandler OnDeviceDiscoveryRequest;
 
+        /// <summary>Initializes new instance of <see cref="SignalRMessenger"/>.</summary>
+        /// <param name="logger">Logger.</param>
+        /// <param name="threadingInfrastructure">Threading infrastructure.</param>
         public SignalRMessenger(IInstantMessengerLog logger, IThreadingInfrastructure threadingInfrastructure = null)
         {
             Argument.OfWichValueShoulBeProvided(logger, nameof(logger));
@@ -30,13 +35,14 @@ namespace IPROJ.SignalR.SignalR
                 .WithUrl("http://192.168.1.10:12345/current")
                 .Build();
 
-            //_hubConnection.On("DiscoverDevicesRequest", () => OnDeviceDiscoveryRequest.Invoke(this, null));
-            
+            OnDeviceDiscoveryRequest += DummyEventHanlder;
+            _hubConnection.On("DiscoverDevicesRequest", () => OnDeviceDiscoveryRequest.Invoke(this, null));
             _logger = logger;
             _cancellationToken = threadingInfrastructure?.CancellationToken ?? CancellationToken.None;
             Task.Run(Initialize);
         }
 
+        /// <inheritdoc />
         public void Dispose()
         {
             _hubConnection.StopAsync().Wait();
@@ -44,6 +50,15 @@ namespace IPROJ.SignalR.SignalR
             _initSync.Dispose();
         }
 
+        /// <inheritdoc />
+        public async Task SendNewDevices(IEnumerable<DeviceDescription> newDevices, CancellationToken cancellationToken)
+        {
+            _initSync.WaitOne();
+
+            await Send("SendDiscoveredDevices", newDevices, cancellationToken);
+        }
+
+        /// <inheritdoc />
         public async Task SendReadings(IEnumerable<DeviceReading> deviceReadings, CancellationToken cancellationToken)
         {
 
@@ -114,6 +129,10 @@ namespace IPROJ.SignalR.SignalR
                 }
                 await Task.Delay(2000, _cancellationToken);
             }
+        }
+
+        private void DummyEventHanlder(object sende, EventArgs args)
+        {
         }
     }
 }

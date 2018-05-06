@@ -5,23 +5,34 @@ import {DeviceReading} from './deviceReading';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {MessageService} from './message.service';
 import {LogMessage, LogMessageLevel} from './logMessage';
+import {Device} from './device';
 
 @Injectable()
 export class SignalRMessengerService {
+  private readonly newDevices$: Observable<Device[]>;
   private url = 'http://192.168.1.10:12345/current';
   private hubConnection: HubConnection;
   private subjects:  Map<string, ReplaySubject<DeviceReading>> = new Map<string, ReplaySubject<DeviceReading>>();
   private readings: Map<string, Observable<DeviceReading>> = new Map<string, Observable<DeviceReading>>();
+  private newDevicesSubject: ReplaySubject<Device[]> = new ReplaySubject<Device[]>();
   private started = false;
 
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService) {
+    this.newDevices$ = this.newDevicesSubject.asObservable();
+    this.initialize();
+  }
 
   getCurrentReadings(deviceId: string): Observable<DeviceReading> {
     this.initialize();
     return this.getObservable(deviceId);
   }
 
+  get Devices(): Observable<Device[]> {
+    return this.newDevices$;
+  }
+
   requestDeviceDiscovery(): Promise<void> {
+    console.log(this.started);
     this.initialize();
     return this.hubConnection.invoke('DiscoverDevicesRequest').then((resuslt) => {
       this.messageService.add(new LogMessage('Discovery request has been sent.', LogMessageLevel.Info, 'SignalRMessengerService'));
@@ -34,6 +45,7 @@ export class SignalRMessengerService {
       this.hubConnection.on('SendReadings', (data: any) => {
         this.updateReadings(data);
       });
+      this.hubConnection.on('SendDiscoveredDevices', (data: any) => this.updateDiscoveredDevices(data));
 
       this.hubConnection.start()
         .then(() => {
@@ -46,6 +58,10 @@ export class SignalRMessengerService {
         });
       this.started = true;
     }
+  }
+
+  private updateDiscoveredDevices(devices: Device[]): void {
+    this.newDevicesSubject.next(devices);
   }
 
   private updateReadings(readings: DeviceReading[]): void {

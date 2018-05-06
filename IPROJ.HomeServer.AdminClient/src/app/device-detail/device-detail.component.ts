@@ -23,8 +23,4 @@ export class DeviceDetailComponent implements OnInit {
   get deviceType(): string {
     return this.device.typeOfDevice.toString();
   }
-
-  sendRequest(): void {
-    this.signalRMessenger.requestDeviceDiscovery();
-  }
 }

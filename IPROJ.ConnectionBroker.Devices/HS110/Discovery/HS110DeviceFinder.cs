@@ -8,9 +8,9 @@ using IPROJ.ConnectionBroker.Devices.HS110.Commands;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.Device.Discovery;
 
-namespace IPROJ.ConnectionBroker.Devices.HS110
+namespace IPROJ.ConnectionBroker.Devices.HS110.Discovery
 {
-    public class HS110Finder : IDeviceFinder
+    public class HS110DeviceFinder : IDeviceFinder
     {
         private const int Port = 9999;
         private const string Adress = "192.168.1.202";
@@ -21,15 +21,18 @@ namespace IPROJ.ConnectionBroker.Devices.HS110
         private readonly byte[] _discoveryPacket = HS110Coding.Encrypt(CommandStrings.SysInfo, false);
         private readonly IList<UdpReceiveResult> _results = new List<UdpReceiveResult>();
 
-        public HS110Finder()
+        /// <summary>Intilizes new instance of <see cref="HS110DeviceFinder"/>.</summary>
+        public HS110DeviceFinder()
         {
             _client = new UdpClient();
             _client.Client.Bind(new IPEndPoint(IPAddress.Any, Port));
             _buffer = new List<byte[]>();
         }
 
-        public async Task<IEnumerable<DeviceDescription>> Find(CancellationToken cancellationToken)
+        /// <inheritdoc />
+        public async Task<IEnumerable<DeviceDescription>> Discover(CancellationToken cancellationToken)
         {
+            _results.Clear();
             using (var tokenSource = new CancellationTokenSource(500))
             {
                 Task.Run(async () => await ListenToUdp(tokenSource.Token), tokenSource.Token);
