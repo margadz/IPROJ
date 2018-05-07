@@ -21,7 +21,7 @@ namespace IPROJ.ConnectionBroker.Devices.HS110
         /// <summary>Initializes instance of <see cref="HS110Device"/>/</summary>
         /// <param name="device">Device description.</param>
         /// <param name="logger">Logger.</param>
-        public HS110Device(DeviceDescription device, IHS110TcpConnector hS110TcpConnector, IDeviceLog logger) : base (logger)
+        public HS110Device(DeviceDescription device, IHS110TcpConnector hS110TcpConnector, IDeviceLogger logger) : base (logger)
         {
             Argument.OfWichValueShoulBeProvided(device, nameof(device));
             Argument.OfWichValueShoulBeProvided(hS110TcpConnector, nameof(_hS110TcpConnector));

@@ -16,7 +16,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager.Wemo
         const string COMMAND_ON = @"<?xml version=""1.0"" encoding=""utf-8""?><s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><u:SetBinaryState xmlns:u=""urn:Belkin:service:basicevent:1""><BinaryState>1</BinaryState></u:SetBinaryState></s:Body></s:Envelope>";
         private readonly ISoapCaller _soapCaller;
 
-        public WemoDevice(DeviceDescription device, ISoapCaller soapCaller,  IDeviceLog logger) : base (logger)
+        public WemoDevice(DeviceDescription device, ISoapCaller soapCaller,  IDeviceLogger logger) : base (logger)
         {
             Argument.OfWichValueShoulBeProvided(device, nameof(device));
             Argument.OfWichValueShoulBeProvided(soapCaller, nameof(soapCaller));

@@ -51,9 +51,10 @@ namespace IPROJ.ConnectionBroker.Autofac
 
         private static void RegisterLoggers(ContainerBuilder builder)
         {
-            builder.RegisterType<DeviceLog>().As<IDeviceLog>().SingleInstance();
+            builder.RegisterType<DeviceLog>().As<IDeviceLogger>().SingleInstance();
             builder.RegisterType<QueueLogger>().As<IQueueLogger>().SingleInstance();
             builder.RegisterType<SignalRMessengerLogger>().As<IInstantMessengerLog>().SingleInstance();
+            builder.RegisterType<DeviceFinderLogger>().As<IDeviceFinderLogger>().SingleInstance();
         }
 
         private static void RegisterQueries(ContainerBuilder builder)
@@ -71,7 +72,7 @@ namespace IPROJ.ConnectionBroker.Autofac
             builder.RegisterType<HS110DeviceFinder>().Named<IDeviceFinder>(nameof(HS110DeviceFinder)).SingleInstance();
             builder.RegisterType<WemoDeviceFinder>().Named<IDeviceFinder>(nameof(WemoDeviceFinder)).SingleInstance();
             builder
-                .Register(ctx => new CompoundDeviceFinder(new[] { ctx.ResolveNamed<IDeviceFinder>(nameof(HS110DeviceFinder)), ctx.ResolveNamed<IDeviceFinder>(nameof(WemoDeviceFinder)) }))
+                .Register(ctx => new CompoundDeviceFinder(new[] { ctx.ResolveNamed<IDeviceFinder>(nameof(HS110DeviceFinder)), ctx.ResolveNamed<IDeviceFinder>(nameof(WemoDeviceFinder)) }, ctx.Resolve<IDeviceFinderLogger>()))
                 .As<IDeviceFinder>().SingleInstance();
         }
     }

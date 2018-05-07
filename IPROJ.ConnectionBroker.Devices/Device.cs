@@ -18,13 +18,13 @@ namespace IPROJ.ConnectionBroker.Devices
         private bool _isConnected = true;
         private bool _reconnecting;
 
-        public Device(IDeviceLog logger)
+        public Device(IDeviceLogger logger)
         {
             Argument.OfWichValueShoulBeProvided(logger, nameof(logger));
             Logger = logger;
         }
 
-        protected IDeviceLog Logger { get; }
+        protected IDeviceLogger Logger { get; }
 
         /// <inheritdoc />
         public abstract Guid DeviceId { get; }

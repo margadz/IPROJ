@@ -13,10 +13,10 @@ namespace IPROJ.ConnectionBroker.Devices
     /// <summary>Default implementation of <see cref="IDeviceFactory"/>.</summary>
     public class DeviceFactory : IDeviceFactory
     {
-        private readonly IDeviceLog _logger;
+        private readonly IDeviceLogger _logger;
 
         /// <summary>Initializes instance of <see cref="DeviceFactory"/>.</summary>
-        public DeviceFactory(IDeviceLog logger)
+        public DeviceFactory(IDeviceLogger logger)
         {
             Argument.OfWichValueShoulBeProvided(logger, nameof(logger));
 

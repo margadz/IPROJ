@@ -2,7 +2,8 @@
 
 namespace IPROJ.Contracts.Logging
 {
-    public interface IDeviceLog
+    /// <summary>Describes logger for <see cref="IDevice"/>.</summary>
+    public interface IDeviceLogger
     {
         void InformDeviceHasConnected(IDevice device);
 

@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.Device.Discovery;
 using IPROJ.Contracts.Helpers;
+using IPROJ.Contracts.Logging;
 
 namespace IPROJ.ConnectionBroker.Managing.Discovery
 {
@@ -12,22 +14,33 @@ namespace IPROJ.ConnectionBroker.Managing.Discovery
     public class CompoundDeviceFinder : IDeviceFinder
     {
         private readonly IEnumerable<IDeviceFinder> _deviceFinders;
+        private readonly IDeviceFinderLogger _logger;
 
-        public CompoundDeviceFinder(IEnumerable<IDeviceFinder> deviceFinders)
+        public CompoundDeviceFinder(IEnumerable<IDeviceFinder> deviceFinders, IDeviceFinderLogger logger)
         {
             Argument.OfWichValueShoulBeProvided(deviceFinders, nameof(deviceFinders));
+            Argument.OfWichValueShoulBeProvided(logger, nameof(logger));
 
             _deviceFinders = deviceFinders;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<DeviceDescription>> Discover(CancellationToken cancellationToken)
         {
             IEnumerable<DeviceDescription> result = new List<DeviceDescription>();
-            foreach(var finder in _deviceFinders)
+            foreach (var finder in _deviceFinders)
             {
-                result = result.Concat(await finder.Discover(cancellationToken));
+                try
+                {
+                    result = result.Concat(await finder.Discover(cancellationToken));
+                }
+                catch (Exception error)
+                {
+                    _logger.RaiseOnErrorDuringDiscover(error, finder);
+                }
             }
 
+            _logger.InformWhenDiscoveryHasFinished(result.Count());
             return result;
         }
     }

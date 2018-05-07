@@ -9,12 +9,12 @@ namespace IPROJ
     [TestFixture]
     public class DeviceTests
     {
-        protected Mock<IDeviceLog> Logger { get; private set; }
+        protected Mock<IDeviceLogger> Logger { get; private set; }
 
         [SetUp]
         public void TestSetup()
         {
-            Logger = new Mock<IDeviceLog>(MockBehavior.Strict);
+            Logger = new Mock<IDeviceLogger>(MockBehavior.Strict);
             Logger.Setup(_ => _.InformDeviceHasConnected(It.IsAny<IDevice>()));
             Logger.Setup(_ => _.RaiseErrorOnDeviceConnections(It.IsAny<Exception>(), It.IsAny<IDevice>()));
             Logger.Setup(_ => _.RaiseErrorOnGettingData(It.IsAny<Exception>(), It.IsAny<IDevice>()));

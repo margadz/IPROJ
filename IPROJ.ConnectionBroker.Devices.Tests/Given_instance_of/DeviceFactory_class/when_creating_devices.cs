@@ -32,7 +32,7 @@ namespace Given_instance_of.DeviceFactory_class
         [SetUp]
         public void ScenarioSetup()
         {
-            _factory = new DeviceFactory(new Mock<IDeviceLog>(MockBehavior.Strict).Object);
+            _factory = new DeviceFactory(new Mock<IDeviceLogger>(MockBehavior.Strict).Object);
             _description = new DeviceDescription() { Host = "192.0.0.1:111" };
         }
     }
