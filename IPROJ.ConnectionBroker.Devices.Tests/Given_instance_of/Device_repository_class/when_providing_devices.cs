@@ -6,6 +6,8 @@ using Moq;
 using NUnit.Framework;
 using IPROJ.Contracts.Devices;
 using IPROJ.Contracts;
+using IPROJ.Contracts.Threading;
+using System.Threading;
 
 namespace Given_instance_of.Device_repository_class
 {
@@ -16,6 +18,7 @@ namespace Given_instance_of.Device_repository_class
         private static DeviceDescription _hs110DeviceDescription = new DeviceDescription() { DeviceId = Guid.NewGuid(), Host = "192.0.0.1:111", TypeOfDevice = DeviceType.HS110 };
         private Mock<IDataRepository> _dataRepositoryMock;
         private Mock<IDeviceFactory> _factory;
+        private Mock<IThreadingInfrastructure> _threading;
         private DeviceRepository _deviceRepository;
 
         [Test]
@@ -23,7 +26,7 @@ namespace Given_instance_of.Device_repository_class
         {
             var devices = _deviceRepository.Devices;
 
-            _factory.Verify(_ => _.CreateDevice(It.IsAny<DeviceDescription>()), Times.Exactly(2));
+            _factory.Verify(_ => _.CreateDevice(It.IsAny<DeviceDescription>()), Times.AtLeast(2));
         }
 
         [Test]
@@ -31,7 +34,7 @@ namespace Given_instance_of.Device_repository_class
         {
             var devices = _deviceRepository.Devices;
 
-            _dataRepositoryMock.Verify(_ => _.GetAllDevicesAsync(), Times.Once);
+            _dataRepositoryMock.Verify(_ => _.GetAllDevicesAsync(), Times.Exactly(2));
         }
 
         [SetUp]
@@ -41,7 +44,9 @@ namespace Given_instance_of.Device_repository_class
             _factory.Setup(_ => _.CreateDevice(It.IsAny<DeviceDescription>())).Returns(new Mock<IDevice>().Object);
             _dataRepositoryMock = new Mock<IDataRepository>(MockBehavior.Strict);
             _dataRepositoryMock.Setup(_ => _.GetAllDevicesAsync()).ReturnsAsync(new[] { _wemoDeviceDescription, _hs110DeviceDescription });
-            _deviceRepository = new DeviceRepository(_dataRepositoryMock.Object, _factory.Object);
+            _threading = new Mock<IThreadingInfrastructure>(MockBehavior.Strict);
+            _threading.SetupGet(_ => _.CancellationToken).Returns(CancellationToken.None);
+            _deviceRepository = new DeviceRepository(_dataRepositoryMock.Object, _factory.Object, _threading.Object);
         }
 
         [TearDown]

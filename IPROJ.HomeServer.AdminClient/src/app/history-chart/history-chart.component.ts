@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { DeviceReading } from '../deviceReading';
-import { ChartModule } from 'primeng/chart';
 
 @Component({
   selector: 'app-history-chart',
@@ -47,7 +46,7 @@ export class HistoryChartComponent implements OnInit {
 
   private getReadings(): void {
     this.readings$.subscribe(readings => {
-      this.readings = readings;
+      this.readings = readings.reverse();
       this.setupData();
     });
   }

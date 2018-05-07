@@ -29,6 +29,7 @@ namespace Given_instance_of.DeviceManager_class
                 if (withEvent)
                 {
                     _messenger.Raise(_ => _.OnDeviceDiscoveryRequest += null, new EventArgs());
+                    _messenger.Raise(_ => _.OnDeviceDiscoveryRequest += null, new EventArgs());
                 }
                 Thread.Sleep(150);
             }

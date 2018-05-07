@@ -1,21 +1,21 @@
 <div>
   <a class="text-primary">Istniejące urządzenia</a>
   <div *ngFor="let device of devices" >
-    <app-device-template [device]="device"></app-device-template>
+    <app-device-template [device]="device" [isNew]="false" [isBlank]="false"></app-device-template>
     <hr/>
   </div>
 </div>
 <hr/>
 <a class="text-primary">Dodaj nowe urządzenie</a>
 <div>
-  <app-device-template></app-device-template>
+  <app-device-template [isNew]="true" [isBlank]="true"></app-device-template>
 </div>
 <hr/>
 <div>
   <button type="button" (click)="sendRequest()">Button</button>
   <div *ngIf="getNewDevices() | async; let devices; else loading" >
     <div *ngFor="let device of devices" >
-      <app-device-template [device]="device"></app-device-template>
+      <app-device-template [device]="device" [isNew]="true" [isBlank]="false"></app-device-template>
       <hr/>
     </div>
   </div>

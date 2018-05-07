@@ -16,18 +16,18 @@
       <div class="form-group row">
         <label class="col-4 col-form-label">Adres</label>
         <div class="fo  rm-group col-5">
-          <input *ngIf="isNew" type="text" [(ngModel)]="device.host" class="form-control" placeholder="192.168.0.10:12345" name="host">
-          <input *ngIf="!isNew" type="text" class="form-control" value="{{device.host}}" name="host" readonly>
+          <input *ngIf="isNew && isBlank" type="text" [(ngModel)]="device.host" class="form-control" placeholder="192.168.0.10:12345" name="host">
+          <input *ngIf="!isNew || !isBlank" type="text" class="form-control" value="{{device.host}}" name="host" readonly>
         </div>
       </div>
       <div class="form-group row">
         <label class="col-4 col-form-label">Model urządzenia</label>
         <div class="form-group col-5">
-          <select *ngIf="isNew" class="form-control" [(ngModel)]="device.typeOfDevice" name="deviceType">
+          <select *ngIf="isNew && isBlank" class="form-control" [(ngModel)]="device.typeOfDevice" name="deviceType">
             <option>HS110</option>
             <option>WEMO</option>
           </select>
-          <input *ngIf="!isNew" type="text" class="form-control" placeholder="{{device.typeOfDevice}}" name="deviceType" readonly>
+          <input *ngIf="!isNew || !isBlank" type="text" class="form-control" value="{{device.typeOfDevice}}" name="deviceType" readonly>
         </div>
       </div>
       <div class="form-group row">
@@ -47,8 +47,8 @@
         </a>
       </div>
       <div class="row">
-        <button *ngIf="isNew" type="button" class="btn btn-success" id="update" (click)="updateDevice()" [disabled]="!isValid()">Dodaj</button>
-        <button *ngIf="!isNew" type="button" class="btn btn-success" id="update" (click)="updateDevice()">Modyfikuj</button>
+        <button *ngIf="isNew" type="button" class="btn btn-success" id="add" (click)="updateDevice()" [disabled]="!isValid()">Dodaj</button>
+        <button *ngIf="!isNew" type="button" class="btn btn-success" id="update" (click)="updateDevice()" [disabled]="!isValid()">Modyfikuj</button>
       </div>
     </div>
   </div>

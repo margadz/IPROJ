@@ -15,6 +15,7 @@ using IPROJ.Contracts.Device.Discovery;
 using IPROJ.Contracts.Devices;
 using IPROJ.Contracts.Logging;
 using IPROJ.Contracts.Messaging;
+using IPROJ.Contracts.Threading;
 using IPROJ.Diagnostics.Serilog;
 using IPROJ.MSSQLRepository.Repository;
 using IPROJ.QueueManager.Connection;
@@ -42,6 +43,7 @@ namespace IPROJ.ConnectionBroker.Autofac
             builder.RegisterType<SignalRMessenger>().As<IMessenger>().SingleInstance();
             builder.RegisterType<DeviceFactory>().As<IDeviceFactory>().SingleInstance();
             builder.RegisterType<DeviceManager>().As<IDeviceManager>().SingleInstance();
+            builder.RegisterType<ThreadingInfrastructure>().As<IThreadingInfrastructure>().SingleInstance();
             RegisterLoggers(builder);
             RegisterQueries(builder);
             RegisterFinders(builder);

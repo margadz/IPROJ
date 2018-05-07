@@ -63,7 +63,7 @@ namespace IPROJ.ConnectionBroker.Devices.HS110.Discovery
                 var match = Regex.Match(payload);
                 if (match.Success)
                 {
-                    result.Add(new DeviceDescription() { Host = $"{updResult.RemoteEndPoint.Address}:{Port}", TypeOfDevice = DeviceType.HS110, TypeOfReading = ReadingType.PowerConsumption });
+                    result.Add(new DeviceDescription() { Host = $"{updResult.RemoteEndPoint.Address}:{Port}", TypeOfDevice = DeviceType.HS110, TypeOfReading = ReadingType.PowerConsumption, IsActive = true });
                 }
             }
 

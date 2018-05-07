@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Device } from '../device';
+import {DeviceService} from '../device.service';
 
 @Component({
   selector: 'app-device-template',
@@ -8,20 +9,19 @@ import { Device } from '../device';
 })
 export class DeviceTemplateComponent implements OnInit {
   @Input() device: Device;
-  isNew: boolean;
+  @Input() isNew = false;
+  @Input() isBlank = false;
   @ViewChild('saveModal') modal: any;
 
-  constructor() { }
+  constructor(private deviceService: DeviceService) { }
 
   ngOnInit() {
-    if (this.device === undefined) {
+    if (this.isNew && this.isBlank) {
       this.device = new Device();
       this.device.typeOfReading = 'PowerConsumption';
-      this.isNew = true;
-      }
-      if (this.device.deviceId === '00000000-0000-0000-0000-000000000000') {
+    }
+    if (this.device.deviceId === '00000000-0000-0000-0000-000000000000') {
         this.device.deviceId = undefined;
-        this.isNew = true;
     }
   }
 
@@ -32,11 +32,15 @@ export class DeviceTemplateComponent implements OnInit {
     return this.device.typeOfDevice.toString();
   }
 
+  async updateDevice(): Promise<any> {
+    await this.deviceService.addDevice(this.device);
+  }
+
   isValid(): boolean {
     return this.device.typeOfDevice !== undefined
-      && this.device.name !== undefined
-      //&& this.device.name.length > 0
-      //&& this.device.name.length < 25
+      && this.device.name !== null
+      && this.device.name.length > 0
+      && this.device.name.length < 25
       && this.isHostValid(this.device.host);
   }
 

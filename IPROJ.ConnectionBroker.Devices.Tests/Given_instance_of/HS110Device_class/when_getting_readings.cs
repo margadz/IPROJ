@@ -15,7 +15,7 @@ namespace Given_instance_of.HS110Device_class
     public class when_getting_readings : DeviceTests
     {
         private const string _instantResult = "{\"emeter\":{\"get_realtime\":{\"current\":0.521106,\"voltage\":295.070868,\"power\":134.625128,\"total\":1.962000,\"err_code\":0}}}";
-        private const string _dailyResult = "{\"emeter\":{\"get_daystat\":{\"day_list\":[{\"year\":2018,\"month\":5,\"day\":1,\"energy\":0.103000},{\"year\":2018,\"month\":5,\"day\":2,\"energy\":0.195000},{\"year\":2018,\"month\":5,\"day\":3,\"energy\":0.141000},{\"year\":2018,\"month\":5,\"day\":4,\"energy\":0.183000},{\"year\":2018,\"month\":5,\"day\":5,\"energy\":0.715000},{\"year\":2018,\"month\":5,\"day\":6,\"energy\":1.305000}],\"err_code\":0}}}";
+        private string _dailyResult = "{\"emeter\":{\"get_daystat\":{\"day_list\":[{\"year\":2018,\"month\":"+ DateTime.UtcNow.Month +",\"day\":"+ DateTime.UtcNow.Day + ",\"energy\":0.103000},{\"year\":2018,\"month\":5,\"day\":2,\"energy\":0.195000},{\"year\":2018,\"month\":5,\"day\":3,\"energy\":0.141000},{\"year\":2018,\"month\":5,\"day\":4,\"energy\":0.183000},{\"year\":2018,\"month\":5,\"day\":5,\"energy\":0.715000},{\"year\":2018,\"month\":5,\"day\":6,\"energy\":1.305000}],\"err_code\":0}}}";
         private Mock<IHS110TcpConnector> _connector;
         private HS110Device _device;
 
@@ -42,7 +42,7 @@ namespace Given_instance_of.HS110Device_class
         [Test]
         public void Should_get_daily_reading()
         {
-            _device.GetTodaysConsumption(CancellationToken.None).Result.Value.Should().Be(1.305000m);
+            _device.GetTodaysConsumption(CancellationToken.None).Result.Value.Should().Be(0.103000m);
         }
 
         [Test]

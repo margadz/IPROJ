@@ -22,7 +22,8 @@ import { DialogModule } from 'primeng/dialog';
 import { ChartModule } from 'primeng/chart';
 import { HistoryChartComponent } from './history-chart/history-chart.component';
 import { InstantChartComponent } from './instant-chart/instant-chart.component';
-import {SignalRMessengerService} from './signal-r-messenger.service';
+import { SignalRMessengerService } from './signal-r-messenger.service';
+
 
 
 @NgModule({
