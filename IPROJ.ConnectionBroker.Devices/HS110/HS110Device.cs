@@ -40,11 +40,17 @@ namespace IPROJ.ConnectionBroker.Devices.HS110
         /// <inheritdoc />
         public override ReadingType TypeOfReading { get; } = ReadingType.PowerConsumption;
 
+        /// <inheritdoc />
+        public override async Task SetState(DeviceState deviceState)
+        {
+            await _hS110TcpConnector.QueryDevice(deviceState == DeviceState.On ? Hs110Commands.TurnOn : Hs110Commands.TurnOff);
+        }
+
         public async Task<DeviceReading> GetDailyReading(DateTime date)
         {
             _initSync.WaitOne();
 
-            var response = await _hS110TcpConnector.QueryDevice(CommandStrings.MonthStat(date));
+            var response = await _hS110TcpConnector.QueryDevice(Hs110Commands.MonthStat(date));
             var result = JsonConvert.DeserializeObject<DailyResponse>(response).emeter.get_daystat.day_list;
 
             return (from messurement in result
@@ -55,7 +61,7 @@ namespace IPROJ.ConnectionBroker.Devices.HS110
 
         protected override async Task<DeviceReading> InternalDailyGet()
         {
-            var response = await _hS110TcpConnector.QueryDevice(CommandStrings.MonthStat(DateTime.UtcNow));
+            var response = await _hS110TcpConnector.QueryDevice(Hs110Commands.MonthStat(DateTime.UtcNow));
             var result = JsonConvert.DeserializeObject<DailyResponse>(response).emeter.get_daystat.day_list;
 
             return (from messurement in result
@@ -66,9 +72,11 @@ namespace IPROJ.ConnectionBroker.Devices.HS110
 
         protected override async Task<DeviceReading> InternalInstantGet()
         {
-            var response = await _hS110TcpConnector.QueryDevice(CommandStrings.Emeter);
+            var response = await _hS110TcpConnector.QueryDevice(Hs110Commands.Emeter);
             var result = JsonConvert.DeserializeObject<EmeterResponse>(response).emeter.get_realtime.power;
-            return new DeviceReading(DateTime.Now, result, DeviceId, ReadingType.PowerConsumption, ReadingCharacter.Instant);
+            var systemInfoResponse = await _hS110TcpConnector.QueryDevice(Hs110Commands.SysInfo);
+            var sysInfo = JsonConvert.DeserializeObject<SystemResponse>(systemInfoResponse).system.get_sysinfo.relay_state;
+            return new DeviceReading(DateTime.Now, result, DeviceId, ReadingType.PowerConsumption, ReadingCharacter.Instant, sysInfo == 1 ? DeviceState.On : DeviceState.Off);
         }
 
         protected override void Dispose(bool disposing)
@@ -79,7 +87,7 @@ namespace IPROJ.ConnectionBroker.Devices.HS110
 
         protected override async Task EnsureMethod()
         {
-            await _hS110TcpConnector.QueryDevice(CommandStrings.Emeter);
+            await _hS110TcpConnector.QueryDevice(Hs110Commands.Emeter);
         }
     }
 }

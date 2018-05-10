@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using IPROJ.ConnectionBroker.DevicesManager.Wemo.Commands;
+using IPROJ.ConnectionBroker.Devices.Wemo.Commands;
 
 namespace IPROJ.ConnectionBroker.Devices.Wemo.HttpCommunication
 {

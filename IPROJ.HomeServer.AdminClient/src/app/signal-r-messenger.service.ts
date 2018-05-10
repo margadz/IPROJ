@@ -31,8 +31,14 @@ export class SignalRMessengerService {
     return this.newDevices$;
   }
 
+  requestDeviceStateChange(reading: DeviceReading): Promise<void> {
+    this.initialize();
+    return this.hubConnection.invoke('SetDeviceStateRequest', reading).then((resuslt) => {
+      this.messageService.add(new LogMessage('Device state change has been sent.', LogMessageLevel.Info, 'SignalRMessengerService'));
+    });
+  }
+
   requestDeviceDiscovery(): Promise<void> {
-    console.log(this.started);
     this.initialize();
     return this.hubConnection.invoke('DiscoverDevicesRequest').then((resuslt) => {
       this.messageService.add(new LogMessage('Discovery request has been sent.', LogMessageLevel.Info, 'SignalRMessengerService'));

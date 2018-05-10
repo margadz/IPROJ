@@ -24,9 +24,7 @@ export class DeviceManagementComponent implements OnInit {
   }
 
   async sendRequest() {
-    console.log('clicked');
     await this.signalRMessenger.requestDeviceDiscovery();
-    console.log('fnished');
   }
 
   getNewDevices(): Observable<Device[]> {

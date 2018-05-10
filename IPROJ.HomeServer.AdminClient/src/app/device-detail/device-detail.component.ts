@@ -20,6 +20,13 @@ export class DeviceDetailComponent implements OnInit {
     return this.signalRMessenger.getCurrentReadings(deviceId);
   }
 
+  async changeDeviceState(): Promise<any> {
+    let reading: DeviceReading;
+    await this.getCurrentMeasurement(this.device.deviceId).subscribe(result =>  reading = result);
+    reading.deviceState = (reading.deviceState + 1) % 2;
+    await this.signalRMessenger.requestDeviceStateChange(reading);
+  }
+
   get deviceType(): string {
     return this.device.typeOfDevice.toString();
   }

@@ -21,5 +21,10 @@ namespace IPROJ.SignalR.Hubs
         {
             await Clients.All.SendAsync("DiscoverDevicesRequest");
         }
+
+        public async Task SetDeviceStateRequest(DeviceReading reading)
+        {
+            await Clients.All.SendAsync("SetDeviceStateRequest", reading);
+        }
     }
 }

@@ -11,12 +11,15 @@ import {HistoryChartComponent} from '../history-chart/history-chart.component';
 export class InstantChartComponent implements OnInit {
   @Input() reading$: Observable<DeviceReading>;
   private readings: DeviceReading[];
+  private readonly emptyReading: DeviceReading;
   data: any;
   options: any;
 
   constructor() {
     this.readings = [];
     this.SetupOption();
+    this.emptyReading = new DeviceReading();
+    this.emptyReading.value = 0;
   }
 
   ngOnInit() {
@@ -36,7 +39,7 @@ export class InstantChartComponent implements OnInit {
     this.data.datasets = [
       {
         label: 'Aktualne zużycie energii elektrycznej',
-        backgroundColor: '#1A5D00',
+        backgroundColor: '#42cef4',
         borderColor: '#283096',
         data: this.readings.map(reading => reading.value)
       }
@@ -44,8 +47,14 @@ export class InstantChartComponent implements OnInit {
   }
 
   private AddReading(reading: DeviceReading): void {
-    this.readings.push(reading);
-    if (this.readings.length > 50) {
+    if (this.readings.length === 0) {
+      for (let i = 0; i < 60; i++) {
+        this.readings.push(this.emptyReading);
+      }
+    } else {
+      this.readings.push(reading);
+    }
+    if (this.readings.length > 60) {
       this.readings.shift();
     }
   }
@@ -72,17 +81,9 @@ export class InstantChartComponent implements OnInit {
             fontSize: 14
           },
           ticks: {
-            suggestedMin: 0,
+            beginAtZero: true
           },
-          gridLines: {
-            display: false
-          }
         }],
-        xAxes: [{
-          gridLines: {
-            display: false
-          }
-        }]
       },
       elements: {
         point: {

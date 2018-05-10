@@ -10,7 +10,7 @@ namespace IPROJ.Diagnostics.Serilog
     {
         public void InformWhenDiscoveryHasFinished(int numberOfDevices)
         {
-            Log.Information($"InformWhenDiscoveryHasFinished - Device finder disceverd {numberOfDevices} of devices.");
+            Log.Information($"InformWhenDiscoveryHasFinished - Device finder discovered {numberOfDevices} devices.");
         }
 
         /// <inheritdoc />

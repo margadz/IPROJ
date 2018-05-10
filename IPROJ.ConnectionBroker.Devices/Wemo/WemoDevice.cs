@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using IPROJ.ConnectionBroker.Devices;
+using IPROJ.ConnectionBroker.Devices.Wemo.Commands;
 using IPROJ.ConnectionBroker.Devices.Wemo.HttpCommunication;
-using IPROJ.ConnectionBroker.DevicesManager.Wemo.Commands;
 using IPROJ.ConnectionBroker.DevicesManager.Wemo.Response;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.Helpers;
@@ -12,8 +12,6 @@ namespace IPROJ.ConnectionBroker.DevicesManager.Wemo
 {
     public class WemoDevice : Device
     {
-        const string COMMAND_OFF = @"<?xml version=""1.0"" encoding=""utf-8""?><s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><u:SetBinaryState xmlns:u=""urn:Belkin:service:basicevent:1""><BinaryState>0</BinaryState></u:SetBinaryState></s:Body></s:Envelope>";
-        const string COMMAND_ON = @"<?xml version=""1.0"" encoding=""utf-8""?><s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/""><s:Body><u:SetBinaryState xmlns:u=""urn:Belkin:service:basicevent:1""><BinaryState>1</BinaryState></u:SetBinaryState></s:Body></s:Envelope>";
         private readonly ISoapCaller _soapCaller;
 
         public WemoDevice(DeviceDescription device, ISoapCaller soapCaller,  IDeviceLogger logger) : base (logger)
@@ -34,6 +32,12 @@ namespace IPROJ.ConnectionBroker.DevicesManager.Wemo
 
         /// <inheritdoc />
         public override ReadingType TypeOfReading { get; } = ReadingType.PowerConsumption;
+
+        /// <inheritdoc />
+        public override async Task SetState(DeviceState deviceState)
+        {
+            await _soapCaller.SendRequest(deviceState == DeviceState.On ? SetInsightStateCommand.On : SetInsightStateCommand.Off);
+        }
 
         protected override async Task EnsureMethod()
         {

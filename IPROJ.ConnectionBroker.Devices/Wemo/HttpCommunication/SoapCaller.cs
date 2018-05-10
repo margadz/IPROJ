@@ -2,7 +2,7 @@
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using IPROJ.ConnectionBroker.DevicesManager.Wemo.Commands;
+using IPROJ.ConnectionBroker.Devices.Wemo.Commands;
 using IPROJ.Contracts.Helpers;
 
 namespace IPROJ.ConnectionBroker.Devices.Wemo.HttpCommunication

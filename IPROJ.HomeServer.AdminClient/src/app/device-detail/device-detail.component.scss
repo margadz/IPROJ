@@ -1,8 +1,10 @@
 #current-reading {
   color: #1A5D00;
-  font-size: 310%;
+  font-size: 290%;
   font-weight: bolder;
   padding-top: 30px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 span.device-type{
@@ -15,4 +17,18 @@ span.device-type{
   max-width: 800px;
   position: relative;
   right: 10px;
+  padding: 0px;
+}
+
+#panel {
+  max-width: 800px;
+}
+
+#powerIcon {
+  max-height: 60px;
+  cursor: pointer;
+}
+
+#buttons {
+  height: 60px;
 }

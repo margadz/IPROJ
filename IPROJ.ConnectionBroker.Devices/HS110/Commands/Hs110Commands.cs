@@ -3,7 +3,7 @@ using System.Text;
 
 namespace IPROJ.ConnectionBroker.Devices.HS110.Commands
 {
-    public class CommandStrings
+    public class Hs110Commands
     {
         public const string Emeter = "{\"emeter\":{\"get_realtime\":{}}}";
         public const string TurnOff = "{\"system\":{\"set_relay_state\":{\"state\":0}}}";

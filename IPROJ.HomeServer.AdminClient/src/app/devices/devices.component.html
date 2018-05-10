@@ -2,7 +2,7 @@
   <div >
   <a *ngFor="let device of devices" >
     <ngb-panel title="{{device.name}}">
-      <ng-template ngbPanelContent>
+      <ng-template ngbPanelContent id="panel">
         <ul>
             <app-device-detail [device]="device"></app-device-detail>
         </ul>

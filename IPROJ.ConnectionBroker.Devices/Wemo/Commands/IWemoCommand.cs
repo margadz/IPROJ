@@ -1,4 +1,4 @@
-﻿namespace IPROJ.ConnectionBroker.DevicesManager.Wemo.Commands
+﻿namespace IPROJ.ConnectionBroker.Devices.Wemo.Commands
 {
     public interface IWemoCommand
     {

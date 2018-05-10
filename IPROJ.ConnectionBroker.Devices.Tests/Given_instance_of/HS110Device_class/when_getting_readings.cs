@@ -1,13 +1,13 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
+using FluentAssertions;
 using IPROJ;
 using IPROJ.ConnectionBroker.Devices.HS110;
+using IPROJ.ConnectionBroker.Devices.HS110.Commands;
 using IPROJ.ConnectionBroker.Devices.HS110.TcpCommunication;
 using IPROJ.Contracts.DataModel;
 using Moq;
 using NUnit.Framework;
-using FluentAssertions;
-using IPROJ.ConnectionBroker.Devices.HS110.Commands;
-using System;
 
 namespace Given_instance_of.HS110Device_class
 {
@@ -65,8 +65,8 @@ namespace Given_instance_of.HS110Device_class
         protected override void ScenarioSetup()
         {
             _connector = new Mock<IHS110TcpConnector>(MockBehavior.Strict);
-            _connector.Setup(_ => _.QueryDevice(CommandStrings.MonthStat(DateTime.UtcNow))).ReturnsAsync(_dailyResult);
-            _connector.Setup(_ => _.QueryDevice(CommandStrings.Emeter)).ReturnsAsync(_instantResult);
+            _connector.Setup(_ => _.QueryDevice(Hs110Commands.MonthStat(DateTime.UtcNow))).ReturnsAsync(_dailyResult);
+            _connector.Setup(_ => _.QueryDevice(Hs110Commands.Emeter)).ReturnsAsync(_instantResult);
             _device = new HS110Device(new DeviceDescription(), _connector.Object, Logger.Object);
         }
     }

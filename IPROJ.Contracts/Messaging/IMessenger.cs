@@ -23,5 +23,8 @@ namespace IPROJ.Contracts.Messaging
 
         /// <summary>Raised when new device discover is reqested.</summary>
         event EventHandler OnDeviceDiscoveryRequest;
+
+        /// <summary>Raised when device state change is request.</summary>
+        event EventHandler<DeviceReading> OnStateSetChangeRequest;
     }
 }

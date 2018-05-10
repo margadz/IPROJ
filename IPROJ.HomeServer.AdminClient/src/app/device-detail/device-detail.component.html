@@ -1,4 +1,4 @@
-<div *ngIf="device">
+<div *ngIf="device" id="panel">
   <p><span class="device-type">Typ urządzenia: {{device.typeOfDevice}}</span>
     <a *ngIf="deviceType == 'HS110'">
       <img src="/assets/images/hs110.jpg" style="width:60px">
@@ -8,8 +8,18 @@
     </a>
   </p>
   <div *ngIf="getCurrentMeasurement(device.deviceId) | async; let reading; else loading" class="container" id="current">
+    <div class="row" id="buttons">
+        <div  type="button"  (click)="changeDeviceState()" [ngSwitch]="reading.deviceState" class="col-2" id="powerIcon">
+          <div *ngSwitchCase="1">
+            <img src="/assets/svg/on_icon.svg" style="width:150px">
+          </div>
+          <div *ngSwitchDefault>
+            <img src="/assets/svg/off_icon.svg" style="width:150px">
+          </div>
+        </div>
+    </div>
     <div class="row">
-      <div class="col-lg-4" id="current-reading">
+      <div class="col-lg-3" id="current-reading">
         {{reading.value.toFixed(1)}}W
       </div>
       <div class="col-lg-5">

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using IPROJ.ConnectionBroker.DevicesManager;
 using IPROJ.ConnectionBroker.Managing;
 using IPROJ.ConnectionBroker.Managing.Quering;
 using IPROJ.Contracts.DataModel;
@@ -19,6 +20,7 @@ namespace Given_instance_of.DeviceManager_class
         private Mock<IDeviceQuery> _query;
         private Mock<IMessenger> _messenger;
         private Mock<IDeviceFinder> _finder;
+        private Mock<IDeviceRepository> _repository;
         private DeviceManager _manager;
         
         public void TheTest(bool withEvent)
@@ -58,7 +60,8 @@ namespace Given_instance_of.DeviceManager_class
             _messenger.Setup(_ => _.SendNewDevices(It.IsAny<IEnumerable<DeviceDescription>>(), It.IsAny<CancellationToken>())).Returns(Task.FromResult(0));
             _finder = new Mock<IDeviceFinder>(MockBehavior.Strict);
             _finder.Setup(_ => _.Discover(It.IsAny<CancellationToken>())).ReturnsAsync(Array.Empty<DeviceDescription>());
-            _manager = new DeviceManager(_query.Object, _messenger.Object, _finder.Object);
+            _repository = new Mock<IDeviceRepository>(MockBehavior.Strict);
+            _manager = new DeviceManager(_query.Object, _messenger.Object, _finder.Object, _repository.Object);
             
         }
     }

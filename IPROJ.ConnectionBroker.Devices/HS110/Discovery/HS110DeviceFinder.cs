@@ -13,12 +13,12 @@ namespace IPROJ.ConnectionBroker.Devices.HS110.Discovery
     public class HS110DeviceFinder : IDeviceFinder
     {
         private const int Port = 9999;
-        private const string Adress = "192.168.1.202";
+        private const string Adress = "192.168.1.255";
         private const string RegexString = "model.{1,5}HS110";
         private static readonly Regex Regex = new Regex(RegexString);
         private readonly UdpClient _client;
         private readonly ICollection<byte[]> _buffer;
-        private readonly byte[] _discoveryPacket = HS110Coding.Encrypt(CommandStrings.SysInfo, false);
+        private readonly byte[] _discoveryPacket = HS110Coding.Encrypt(Hs110Commands.SysInfo, false);
         private readonly IList<UdpReceiveResult> _results = new List<UdpReceiveResult>();
 
         /// <summary>Intilizes new instance of <see cref="HS110DeviceFinder"/>.</summary>

@@ -35,6 +35,10 @@ namespace IPROJ.ConnectionBroker.Devices
         /// <inheritdoc />
         public abstract ReadingType TypeOfReading { get; }
 
+        /// <inheritdoc />
+        public abstract Task SetState(DeviceState deviceState);
+
+        /// <inheritdoc />
         public void Dispose()
         {
             if (!_isDisposed)

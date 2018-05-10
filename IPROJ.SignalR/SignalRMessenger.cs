@@ -24,6 +24,9 @@ namespace IPROJ.SignalR.SignalR
         /// <inheritdoc />
         public event EventHandler OnDeviceDiscoveryRequest;
 
+        /// <inheritdoc />
+        public event EventHandler<DeviceReading> OnStateSetChangeRequest;
+
         /// <summary>Initializes new instance of <see cref="SignalRMessenger"/>.</summary>
         /// <param name="logger">Logger.</param>
         /// <param name="threadingInfrastructure">Threading infrastructure.</param>
@@ -35,8 +38,10 @@ namespace IPROJ.SignalR.SignalR
                 .WithUrl("http://192.168.1.10:12345/current")
                 .Build();
 
-            OnDeviceDiscoveryRequest += DummyEventHanlder;
+            OnDeviceDiscoveryRequest += DummyDiscoveryHandler;
+            OnStateSetChangeRequest += DummyStateSetHanlder;
             _hubConnection.On("DiscoverDevicesRequest", () => OnDeviceDiscoveryRequest.Invoke(this, null));
+            _hubConnection.On<DeviceReading>("SetDeviceStateRequest", (reading) => OnStateSetChangeRequest.Invoke(this, reading));
             _logger = logger;
             _cancellationToken = threadingInfrastructure?.CancellationToken ?? CancellationToken.None;
             Task.Run(Initialize);
@@ -99,6 +104,7 @@ namespace IPROJ.SignalR.SignalR
                 await _hubConnection.StartAsync();
                 _isConnected = true;
                 await _hubConnection.InvokeAsync("DiscoverDevicesRequest");
+                await _hubConnection.InvokeAsync("SetDeviceStateRequest", new DeviceReading());
                 _logger.InformDispatcherConnectedToHub();
             }
             catch (Exception error)
@@ -131,7 +137,11 @@ namespace IPROJ.SignalR.SignalR
             }
         }
 
-        private void DummyEventHanlder(object sende, EventArgs args)
+        private void DummyDiscoveryHandler(object sender, EventArgs args)
+        {
+        }
+
+        private void DummyStateSetHanlder(object sender, DeviceReading args)
         {
         }
     }

@@ -2,6 +2,6 @@
 {
     public class SystemResponse
     {
-        public SystemCommand System { get; set; }
+        public SystemCommand system { get; set; }
     }
 }
