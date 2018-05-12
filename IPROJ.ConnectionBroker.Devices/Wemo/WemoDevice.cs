@@ -47,7 +47,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager.Wemo
         protected override async Task<DeviceReading> InternalInstantGet()
         {
             var result = await _soapCaller.SendRequest(GetInsightParamsWemoCommand.Command);
-            var response = GetInsightParamsWemoResponse.FromRawResponse(result).InstantReading;
+            var response = InsightParamsWemoParser.FromRawResponse(result).InstantReading;
             response.DeviceId = DeviceId;
             return response;
         }
@@ -55,7 +55,7 @@ namespace IPROJ.ConnectionBroker.DevicesManager.Wemo
         protected override async Task<DeviceReading> InternalDailyGet()
         {
             var result = await _soapCaller.SendRequest(GetInsightParamsWemoCommand.Command);
-            var response = GetInsightParamsWemoResponse.FromRawResponse(result).DailyReading;
+            var response = InsightParamsWemoParser.FromRawResponse(result).DailyReading;
             response.DeviceId = DeviceId;
             return response;
         }

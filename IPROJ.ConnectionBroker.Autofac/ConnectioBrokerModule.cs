@@ -17,6 +17,7 @@ using IPROJ.Contracts.Logging;
 using IPROJ.Contracts.Messaging;
 using IPROJ.Contracts.Threading;
 using IPROJ.Diagnostics.Serilog;
+using IPROJ.Dummies.Devices;
 using IPROJ.MSSQLRepository.Repository;
 using IPROJ.QueueManager.Connection;
 using IPROJ.QueueManager.RabbitMQ;
@@ -42,6 +43,7 @@ namespace IPROJ.ConnectionBroker.Autofac
             builder.RegisterType<DeviceRepository>().As<IDeviceRepository>().SingleInstance();
             builder.RegisterType<SignalRMessenger>().As<IMessenger>().SingleInstance();
             builder.RegisterType<DeviceFactory>().As<IDeviceFactory>().SingleInstance();
+            //builder.RegisterType<DummyDeviceFactory>().As<IDeviceFactory>().SingleInstance();
             builder.RegisterType<DeviceManager>().As<IDeviceManager>().SingleInstance();
             builder.RegisterType<ThreadingInfrastructure>().As<IThreadingInfrastructure>().SingleInstance();
             RegisterLoggers(builder);

@@ -55,7 +55,7 @@ namespace IPROJ.ConnectionBroker.Managing
                 return;
             }
 
-            var device = _deviceRepository.Devices.Where(reading => reading.DeviceId == reading.DeviceId).FirstOrDefault();
+            var device = _deviceRepository.Devices.Where(reading => reading.DeviceId == deviceReading.DeviceId).FirstOrDefault();
             device.SetState(deviceReading.DeviceState.Value);
         }
 

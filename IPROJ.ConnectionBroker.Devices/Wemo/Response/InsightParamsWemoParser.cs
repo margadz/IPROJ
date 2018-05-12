@@ -4,13 +4,13 @@ using IPROJ.Contracts.DataModel;
 
 namespace IPROJ.ConnectionBroker.DevicesManager.Wemo.Response
 {
-    public class GetInsightParamsWemoResponse
+    public class InsightParamsWemoParser
     {
         private const string RegexPattern = @"<InsightParams>([0-9.|]*)<\/InsightParams>";
         private readonly Regex Regex = new Regex(RegexPattern);
         private readonly string _response;
 
-        private GetInsightParamsWemoResponse(string rawResponse)
+        private InsightParamsWemoParser(string rawResponse)
         {
             _response = rawResponse;
             ParseResponse();
@@ -20,9 +20,9 @@ namespace IPROJ.ConnectionBroker.DevicesManager.Wemo.Response
 
         public DeviceReading DailyReading { get; private set; }
 
-        public static GetInsightParamsWemoResponse FromRawResponse(string rawResponse)
+        public static InsightParamsWemoParser FromRawResponse(string rawResponse)
         {
-            return new GetInsightParamsWemoResponse(rawResponse);
+            return new InsightParamsWemoParser(rawResponse);
         }
 
         private void ParseResponse()

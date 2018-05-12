@@ -16,14 +16,14 @@ namespace Given_instance_of.InsightParamsWemoResponse_class
         [TestCaseSource(nameof(GetInstantTestData))]
         public void Should_parse_instant_reading_correctly(string rawResponse, DeviceReading resultReadings)
         {
-            ReadingComparision(GetInsightParamsWemoResponse.FromRawResponse(rawResponse).InstantReading, resultReadings).Should().BeTrue();
+            ReadingComparision(InsightParamsWemoParser.FromRawResponse(rawResponse).InstantReading, resultReadings).Should().BeTrue();
         }
 
         [Test]
         [TestCaseSource(nameof(GetDailyTestData))]
         public void Should_parse_daily_reading_correctly(string rawResponse, DeviceReading resultReadings)
         {
-            ReadingComparision(GetInsightParamsWemoResponse.FromRawResponse(rawResponse).DailyReading, resultReadings).Should().BeTrue();
+            ReadingComparision(InsightParamsWemoParser.FromRawResponse(rawResponse).DailyReading, resultReadings).Should().BeTrue();
         }
 
         private static IEnumerable<TestCaseData> GetDailyTestData()
