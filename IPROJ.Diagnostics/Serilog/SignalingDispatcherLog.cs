@@ -5,7 +5,7 @@ using Serilog;
 namespace IPROJ.Diagnostics.Serilog
 { 
     /// <summary>Serilog-based implementation of <see cref="IQueueLogger"/>.</summary>
-    public class SignalRMessengerLogger : IInstantMessengerLog
+    public class SignalRMessengerLogger : IInstantMessengerLogger
     {
         /// <inheritdoc />
         public void InformDispacherIsConnectingToHub()

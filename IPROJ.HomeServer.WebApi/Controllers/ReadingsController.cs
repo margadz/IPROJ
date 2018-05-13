@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.DataRepository;
-using IPROJ.MSSQLRepository.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IPROJ.HomeServer.WebApi.Controllers
@@ -11,14 +10,11 @@ namespace IPROJ.HomeServer.WebApi.Controllers
     [Route("api/[controller]")]
     public class ReadingsController : Controller
     {
-        private static IDataRepository _repository;
+        private IDataRepository _repository;
 
-        public ReadingsController()
+        public ReadingsController(IDataRepository repository)
         {
-            if (_repository == null)
-            {
-                _repository = new DataRepository(@"Data Source=KOMP;Initial Catalog=HomeServer;Integrated Security=True");
-            }
+            _repository = repository;
         }
 
         // GET: /<controller>/

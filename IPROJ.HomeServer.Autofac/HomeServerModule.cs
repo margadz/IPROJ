@@ -10,6 +10,7 @@ using IPROJ.HomeServer.QueueClient;
 using IPROJ.MSSQLRepository.Repository;
 using IPROJ.QueueManager.Connection;
 using IPROJ.QueueManager.RabbitMQ;
+using Microsoft.IdentityModel.Protocols;
 using Serilog;
 
 namespace IPROJ.HomeServer.Autofac
@@ -21,6 +22,7 @@ namespace IPROJ.HomeServer.Autofac
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.File("home_server_log.txt")
                 .WriteTo.Console().CreateLogger();
+
 
             builder.RegisterType<ConfigurationProvider>().As<IConfigurationProvider>().SingleInstance();
             builder.RegisterType<HsConnectionFactory>().As<IRabbitMqConnectionFactory>().SingleInstance();

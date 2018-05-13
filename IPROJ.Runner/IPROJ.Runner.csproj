@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="..\IPROJ.Configuration\appsettings.json" Link="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\IPROJ.ConnectionBroker.Autofac\IPROJ.ConnectionBroker.Autofac.csproj" />
     <ProjectReference Include="..\IPROJ.ConnectionBroker.Runner\IPROJ.ConnectionBroker.Runner.csproj" />
     <ProjectReference Include="..\IPROJ.HomeServer.Runner\IPROJ.HomeServer.Runner.csproj" />

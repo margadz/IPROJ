@@ -1,3 +1,5 @@
+using IPROJ.Contracts.DataRepository;
+using IPROJ.MSSQLRepository.Repository;
 using IPROJ.SignalR.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +30,8 @@ namespace IPROJ.HomeServer.WebApi
                     .AllowCredentials());
             });
             services.AddMvc();
+
+            services.AddSingleton<IDataRepository>(service => new DataRepository(@"Data Source=KOMP;Initial Catalog=HomeServer;Integrated Security=True"));
 
             services.AddSignalR();
         }

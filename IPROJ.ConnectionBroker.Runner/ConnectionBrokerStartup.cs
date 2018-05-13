@@ -5,6 +5,7 @@ using IPROJ.Autofac;
 using IPROJ.ConnectionBroker.Autofac;
 using IPROJ.ConnectionBroker.Managing;
 using IPROJ.Contracts;
+using IPROJ.Contracts.Logging;
 
 namespace IPROJ.ConnectionBroker.Runner
 {
@@ -17,14 +18,15 @@ namespace IPROJ.ConnectionBroker.Runner
         {
             _factory?.Dispose();
         }
-
-
+        
         /// <inheritdoc />
         public async Task Start(CancellationToken cancellationToken)
         {
             _factory = new ConnectioBrokerFactory();
+            var logger = _factory.Resolve<IStartupLogger>();
+            logger.InformStartupProcessIsStarting("ConnectionBroker");
             var manager = _factory.Resolve<IDeviceManager>();
-            Console.WriteLine("ConnectionBroker started.");
+            logger.InformStartupProcessHasStarted("ConnectionBroker");
 
             try
             {
@@ -33,6 +35,10 @@ namespace IPROJ.ConnectionBroker.Runner
             catch (OperationCanceledException)
             {
                 return;
+            }
+            catch (Exception error)
+            {
+                logger.RaiseOnErrorDuringStartupProcessStart(error, "ConnectionBroker");
             }
         }
     }

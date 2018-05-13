@@ -8,10 +8,11 @@ import { catchError, map, tap } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { LogMessage, LogMessageLevel } from './logMessage';
+import {environment} from '../environments/environment';
 
 @Injectable()
 export class DeviceService {
-  private baseUrl = 'http://192.168.1.10:12345/api/devices/';
+  private baseUrl = `${environment.baseUri}:${environment.basePort}/api/devices/`;
   constructor(
     private messageService: MessageService,
     private httpClient: HttpClient) {

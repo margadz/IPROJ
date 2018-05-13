@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.DataRepository;
 using IPROJ.HomeServer.WebApi.DataModel;
-using IPROJ.MSSQLRepository.Repository;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
@@ -17,12 +16,9 @@ namespace IPROJ.HomeServer.WebApi.Controllers
     {
         private static IDataRepository _repository;
 
-        public DevicesController()
+        public DevicesController(IDataRepository repository)
         {
-            if (_repository == null)
-            {
-                _repository = new DataRepository(@"Data Source=KOMP;Initial Catalog=HomeServer;Integrated Security=True");
-            }
+            _repository = repository;
         }
 
         [HttpGet]

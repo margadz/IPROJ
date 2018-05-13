@@ -6,11 +6,12 @@ import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {MessageService} from './message.service';
 import {LogMessage, LogMessageLevel} from './logMessage';
 import {Device} from './device';
+import {environment} from '../environments/environment';
 
 @Injectable()
 export class SignalRMessengerService {
   private readonly newDevices$: Observable<Device[]>;
-  private url = 'http://192.168.1.10:12345/current';
+  private url = `${environment.baseUri}:${environment.basePort}/current`;
   private hubConnection: HubConnection;
   private subjects:  Map<string, ReplaySubject<DeviceReading>> = new Map<string, ReplaySubject<DeviceReading>>();
   private readings: Map<string, Observable<DeviceReading>> = new Map<string, Observable<DeviceReading>>();

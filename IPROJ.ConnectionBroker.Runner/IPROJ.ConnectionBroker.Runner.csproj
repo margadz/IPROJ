@@ -9,6 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="..\IPROJ.Configuration\appsettings.json" Link="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\IPROJ.ConnectionBroker.Autofac\IPROJ.ConnectionBroker.Autofac.csproj" />
     <ProjectReference Include="..\IPROJ.ConnectionBroker.Devices\IPROJ.ConnectionBroker.Devices.csproj" />
     <ProjectReference Include="..\IPROJ.ConnectionBroker.Managing\IPROJ.ConnectionBroker.Managing.csproj" />

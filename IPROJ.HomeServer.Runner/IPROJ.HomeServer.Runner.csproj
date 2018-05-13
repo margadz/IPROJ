@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="..\IPROJ.Configuration\appsettings.json" Link="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\IPROJ.Contracts\IPROJ.Contracts.csproj" />
     <ProjectReference Include="..\IPROJ.HomeServer.Autofac\IPROJ.HomeServer.Autofac.csproj" />
     <ProjectReference Include="..\IPROJ.HomeServer.WebApi\IPROJ.HomeServer.WebApi.csproj" />

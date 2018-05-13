@@ -16,7 +16,7 @@ namespace IPROJ.SignalR.SignalR
     public class SignalRMessenger : IMessenger
     {
         private readonly HubConnection _hubConnection;
-        private readonly IInstantMessengerLog _logger;
+        private readonly IInstantMessengerLogger _logger;
         private readonly ManualResetEvent _initSync = new ManualResetEvent(false);
         private bool _isConnected;
         private CancellationToken _cancellationToken;
@@ -30,7 +30,7 @@ namespace IPROJ.SignalR.SignalR
         /// <summary>Initializes new instance of <see cref="SignalRMessenger"/>.</summary>
         /// <param name="logger">Logger.</param>
         /// <param name="threadingInfrastructure">Threading infrastructure.</param>
-        public SignalRMessenger(IInstantMessengerLog logger, IThreadingInfrastructure threadingInfrastructure = null)
+        public SignalRMessenger(IInstantMessengerLogger logger, IThreadingInfrastructure threadingInfrastructure = null)
         {
             Argument.OfWichValueShoulBeProvided(logger, nameof(logger));
 

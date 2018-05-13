@@ -6,10 +6,11 @@ import { MessageService } from './message.service';
 import {of} from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LogMessage, LogMessageLevel } from './logMessage';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class DeviceReadingService {
-  private baserUrl = 'http://192.168.1.10:12345/api/readings/readingsFor';
+  private baserUrl = `${environment.baseUri}:${environment.basePort}/api/readings/readingsFor`;
   constructor(
     private messageService: MessageService,
     private httpClient: HttpClient) { }
