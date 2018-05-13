@@ -1,10 +1,12 @@
-import {Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input } from '@angular/core';
 import { DeviceReading} from '../deviceReading';
 import { DeviceReadingService } from '../device-reading.service';
 import {ActivatedRoute} from '@angular/router';
 import {NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
+import { Device } from '../device';
+import {SettingsService} from '../settings.service';
 
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
   one && two && two.year === one.year && two.month === one.month && two.day === one.day;
@@ -30,13 +32,14 @@ export class DeviceReadingsComponent implements OnInit {
   private totalConsumptionSubject: ReplaySubject<string>;
   private selectedReadingSubject: ReplaySubject<DeviceReading[]>;
   private selectedReadings: DeviceReading[];
+  @Input() device: Device;
   readings:  DeviceReading[];
   hoveredDate: NgbDateStruct;
 
   constructor(
     private deviceReadingService: DeviceReadingService,
-    private route: ActivatedRoute,
-    calendar: NgbCalendar) {
+    calendar: NgbCalendar,
+    private settings: SettingsService) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
     this.totalConsumptionSubject = new ReplaySubject<string>();
@@ -44,9 +47,7 @@ export class DeviceReadingsComponent implements OnInit {
     this.selectedReadings = [];
   }
 
-  private n: number = 0;
-
-  private normalizeDate(date: Date): Date{
+  private normalizeDate(date: Date): Date {
     const newDate = new Date(date);
     newDate.setHours(0, 0, 0, 0);
     return newDate;
@@ -73,6 +74,10 @@ export class DeviceReadingsComponent implements OnInit {
     return this._total$;
   }
 
+  totalCost(value: string): string {
+    return (Number(value) * this.settings.powerCost).toPrecision(3).toString();
+  }
+
   get selectedReadings$(): Observable<DeviceReading[]> {
     if (!this._selectedReadings$) {
       this._selectedReadings$ = this.selectedReadingSubject.asObservable();
@@ -81,8 +86,7 @@ export class DeviceReadingsComponent implements OnInit {
   }
 
   private getReadings() {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.deviceReadingService.getReadingFor(id).then(result => this.readings = result.sort((a, b) => {
+    this.deviceReadingService.getReadingFor(this.device.deviceId).then(result => this.readings = result.sort((a, b) => {
       if (a.readingTimeStamp > b.readingTimeStamp) { return -1; }
       if (a.readingTimeStamp === b.readingTimeStamp) { return 0; }
       if (a.readingTimeStamp < b.readingTimeStamp) { return 1; } }));

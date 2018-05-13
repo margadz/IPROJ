@@ -5,10 +5,18 @@
     </ng-template>
   </ngb-tab>
   <ngb-tab title="Historia zużycia">
+    <ng-template ngbTabContent="">
+      <app-readings-tab></app-readings-tab>
+    </ng-template>
   </ngb-tab>
   <ngb-tab title="Zarządzanie urządzeniami">
     <ng-template ngbTabContent>
       <app-device-management></app-device-management>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab title="Ustawienia">
+    <ng-template ngbTabContent>
+      <app-settings></app-settings>
     </ng-template>
   </ngb-tab>
 </ngb-tabset>

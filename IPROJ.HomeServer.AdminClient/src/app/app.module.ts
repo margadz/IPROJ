@@ -14,7 +14,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DeviceReadingsComponent } from './device-readings/device-readings.component';
 import { DeviceReadingService } from './device-reading.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AddingDevicesComponent } from './adding-devices/adding-devices.component';
 import { DeviceManagementComponent } from './device-management/device-management.component';
 import { DeviceTemplateComponent } from './device-template/device-template.component';
 import { FormsModule } from '@angular/forms';
@@ -23,6 +22,9 @@ import { ChartModule } from 'primeng/chart';
 import { HistoryChartComponent } from './history-chart/history-chart.component';
 import { InstantChartComponent } from './instant-chart/instant-chart.component';
 import { SignalRMessengerService } from './signal-r-messenger.service';
+import { ReadingsTabComponent } from './readings-tab/readings-tab.component';
+import {SettingsService} from './settings.service';
+import { SettingsComponent } from './settings/settings.component';
 
 
 
@@ -34,11 +36,12 @@ import { SignalRMessengerService } from './signal-r-messenger.service';
     MessagesComponent,
     DashboardComponent,
     DeviceReadingsComponent,
-    AddingDevicesComponent,
     DeviceManagementComponent,
     DeviceTemplateComponent,
     HistoryChartComponent,
-    InstantChartComponent
+    InstantChartComponent,
+    ReadingsTabComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,7 @@ import { SignalRMessengerService } from './signal-r-messenger.service';
     ChartModule,
     NgbModule.forRoot()
   ],
-  providers: [ DeviceService, MessageService, DeviceReadingService, SignalRMessengerService ],
+  providers: [ DeviceService, MessageService, DeviceReadingService, SignalRMessengerService, SettingsService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

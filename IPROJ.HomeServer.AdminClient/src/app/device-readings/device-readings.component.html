@@ -1,6 +1,4 @@
-<h2>Historyczne pomiary</h2>
 <div class="container" *ngIf="readings">
-
   <ngb-accordion>
     <ngb-panel title="Pomiary dzienne">
       <ng-template ngbPanelContent>
@@ -33,7 +31,10 @@
             </span>
           </ng-template>
         </ngb-datepicker>
-        <div >Łączne zużycie energii w zaznaczonym okresie wyniosło: {{total$ | async}} kwh</div>
+        <div *ngIf="total$ | async">
+          <div >Łączne zużycie energii w zaznaczonym okresie wyniosło: {{total$ | async}} kwh</div>
+          <div>Łączny koszt wyniósł {{totalCost(total$ | async)}} zł </div>
+        </div>
         <div *ngIf="selectedReadings$ | async; else loading; let reading" >
           <app-history-chart [readings$]="selectedReadings$"></app-history-chart>
         </div>

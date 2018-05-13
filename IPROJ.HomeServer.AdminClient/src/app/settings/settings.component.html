@@ -1,0 +1,15 @@
+<div class="container">
+  <table class="table">
+    <thead>
+      <th>Parametr</th>
+      <th>Wartość</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Cena za 1 kWh</td>
+        <input value="{{getPowerCost()}}" [(ngModel)]="powerCost">
+        <button (click)="setPowerCost()" button type="button" class="btn btn-primary">Zapisz</button>
+      </tr>
+    </tbody>
+  </table>
+</div>

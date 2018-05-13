@@ -1,0 +1,13 @@
+<ngb-accordion [closeOthers]="false">
+  <div >
+    <a *ngFor="let device of devices" >
+      <ngb-panel title="{{device.name}}">
+        <ng-template ngbPanelContent id="panel">
+          <ul>
+            <app-device-readings [device]="device"></app-device-readings>
+          </ul>
+        </ng-template>
+      </ngb-panel>
+    </a>
+  </div>
+</ngb-accordion>
