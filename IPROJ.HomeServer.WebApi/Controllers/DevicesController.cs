@@ -22,7 +22,6 @@ namespace IPROJ.HomeServer.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("all")]
         [DisableCors]
         public async Task<IEnumerable<DeviceDescription>> GetAllDevices()
         {
@@ -30,15 +29,15 @@ namespace IPROJ.HomeServer.WebApi.Controllers
         }
 
 
-        [HttpGet("id/{id}", Name = "id")]
-        [Route("id")]
+        [HttpGet("{id}", Name = "id")]
+        [DisableCors]
         public async Task<DeviceDescription> GetDevice(string id)
         {
             return (await _repository.GetAllDevicesAsync()).Where(device => device.DeviceId.ToString().ToLower() == id.ToLower()).FirstOrDefault();
         }
 
         [HttpPost]
-        [Route("add")]
+        [DisableCors]
         public async Task InsertNewDevice([FromBody]dynamic body)
         {
             string test = body.ToString();

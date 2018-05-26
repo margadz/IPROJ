@@ -19,14 +19,14 @@ namespace IPROJ.HomeServer.WebApi.Controllers
 
         // GET: /<controller>/
         [HttpGet]
-        [Route("allreadings")]
+        [Route("")]
         public async Task<IEnumerable<DeviceReading>> GetAllReadings()
         {
             return await _repository.GetAllReadingsAsync();
         }
 
-        [HttpGet("readingsFor/{id}", Name = "deviceGuid")]
-        [Route("readingsFor")]
+        [HttpGet("{id}", Name = "deviceGuid")]
+        [Route("")]
         public async Task<IEnumerable<DeviceReading>> GetReadingsForDevice(string id)
         {
             Guid guid;

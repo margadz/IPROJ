@@ -8,6 +8,8 @@ namespace IPROJ.Contracts.Logging
     {
         void RaiseOnErrorDuringDiscover(Exception error, IDeviceFinder deviceFinder);
 
-        void InformWhenDiscoveryHasFinished(int numberOfDevices);
+        void InformWhenDeviceDiscoveryHasFinished(int numberOfDevices);
+
+        void InformWhenDeviceDiscoveryHasStarted();
     }
 }

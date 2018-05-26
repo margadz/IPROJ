@@ -17,7 +17,6 @@ namespace IPROJ.QueueManager.RabbitMQ
 {
     public class RabbitMqWriter : IQueueWriter
     {
-        private readonly ManualResetEvent _initEvent = new ManualResetEvent(false);
         private readonly string _routingKey;
         private readonly string _readingsExchange;
         private readonly Encoding _encoding;
@@ -39,7 +38,6 @@ namespace IPROJ.QueueManager.RabbitMQ
             _readingsExchange = configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.ReadingsExchange);
             _encoding = Encoding.GetEncoding(int.Parse(configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.CodePage)));
             _logger = logger;
-            Task.Run(() => IntilizeConnection());
 
         }
 
@@ -51,7 +49,6 @@ namespace IPROJ.QueueManager.RabbitMQ
 
         public Task Put(IEnumerable<DeviceReading> messages, CancellationToken cancellationToken)
         {
-            _initEvent.WaitOne();
             if (!messages.Any())
             {
                 return Task.FromResult(0);
@@ -84,6 +81,8 @@ namespace IPROJ.QueueManager.RabbitMQ
                 return;
             }
 
+            _connection?.Dispose();
+            _connection = _connectionFactoryProvider.CreateConnection();
             _connection = _connectionFactoryProvider.CreateConnection();
             _channel = _connection.CreateModel();
             _logger.InformQueueServerHasBeenConnected();
@@ -98,12 +97,6 @@ namespace IPROJ.QueueManager.RabbitMQ
             }
 
             _disposed = true;
-        }
-
-        private void IntilizeConnection()
-        {
-            Connect();
-            _initEvent.Set();
         }
     }
 }

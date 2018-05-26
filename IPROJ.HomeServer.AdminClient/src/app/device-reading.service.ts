@@ -10,13 +10,13 @@ import { environment } from '../environments/environment';
 
 @Injectable()
 export class DeviceReadingService {
-  private baserUrl = `${environment.baseUri}:${environment.basePort}/api/readings/readingsFor`;
+  private baserUrl = `${environment.baseUri}:${environment.basePort}/api/readings/`;
   constructor(
     private messageService: MessageService,
     private httpClient: HttpClient) { }
 
   getReadingFor(deviceId: string): Promise<DeviceReading[]> {
-    const url = this.baserUrl + '/' + deviceId;
+    const url = this.baserUrl + deviceId;
     return this.httpClient.get<DeviceReading[]>(`${url}`)
       .pipe(catchError(this.handleError('getReadingsFor: ' + deviceId, null))).toPromise();
   }
@@ -24,7 +24,6 @@ export class DeviceReadingService {
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       this.messageService.add(new LogMessage(error.message, LogMessageLevel.Error, 'DeviceReadingService'));
-      console.error(error);
       return of(result as T);
     };
   }

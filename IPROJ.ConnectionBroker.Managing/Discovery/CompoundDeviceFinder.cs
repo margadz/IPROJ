@@ -28,6 +28,7 @@ namespace IPROJ.ConnectionBroker.Managing.Discovery
         public async Task<IEnumerable<DeviceDescription>> Discover(CancellationToken cancellationToken)
         {
             IEnumerable<DeviceDescription> result = new List<DeviceDescription>();
+            _logger.InformWhenDeviceDiscoveryHasStarted();
             foreach (var finder in _deviceFinders)
             {
                 try
@@ -40,7 +41,7 @@ namespace IPROJ.ConnectionBroker.Managing.Discovery
                 }
             }
 
-            _logger.InformWhenDiscoveryHasFinished(result.Count());
+            _logger.InformWhenDeviceDiscoveryHasFinished(result.Count());
             return result;
         }
     }

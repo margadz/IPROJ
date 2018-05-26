@@ -8,9 +8,14 @@ namespace IPROJ.Diagnostics.Serilog
     /// <summary>Serilog-based implementation of <see cref="IDeviceFinderLogger"/>.</summary>
     public class DeviceFinderLogger : IDeviceFinderLogger
     {
-        public void InformWhenDiscoveryHasFinished(int numberOfDevices)
+        public void InformWhenDeviceDiscoveryHasFinished(int numberOfDevices)
         {
             Log.Information($"InformWhenDiscoveryHasFinished - Device finder discovered {numberOfDevices} devices.");
+        }
+
+        public void InformWhenDeviceDiscoveryHasStarted()
+        {
+            Log.Information($"InformWhenDeviceDiscoveryHasStarted.");
         }
 
         /// <inheritdoc />

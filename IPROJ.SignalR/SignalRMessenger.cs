@@ -131,7 +131,7 @@ namespace IPROJ.SignalR.SignalR
                 }
                 catch (Exception)
                 {
-                    //supress
+                    //Supress. Connection cannot be established.
                 }
                 await Task.Delay(2000, _cancellationToken);
             }
