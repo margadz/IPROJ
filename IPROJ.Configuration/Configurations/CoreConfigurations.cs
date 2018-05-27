@@ -17,5 +17,7 @@
         public const string ReadingsExchange = "ReadingsExchange";
 
         public const string RoutingKey = "RoutingKey";
+
+        public const string BaseAddress = "BaseAddress";
     }
 }

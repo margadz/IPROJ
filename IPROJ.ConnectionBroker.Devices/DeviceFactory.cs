@@ -16,6 +16,7 @@ namespace IPROJ.ConnectionBroker.Devices
         private readonly IDeviceLogger _logger;
 
         /// <summary>Initializes instance of <see cref="DeviceFactory"/>.</summary>
+        /// <param name="logger">Logger.</param>
         public DeviceFactory(IDeviceLogger logger)
         {
             Argument.OfWichValueShoulBeProvided(logger, nameof(logger));

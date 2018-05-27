@@ -7,8 +7,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using IPROJ.Configuration.Configurations;
+using IPROJ.Contracts.ConfigurationProvider;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.Device.Discovery;
+using IPROJ.Contracts.Helpers;
 
 namespace IPROJ.ConnectionBroker.Devices.Wemo.Discovery
 {
@@ -19,12 +22,21 @@ namespace IPROJ.ConnectionBroker.Devices.Wemo.Discovery
         private const string RegexString = @"((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]{1,5})\/setup.xml.*Insight";
         private const int BroadCastPort = 1900;
         private const string Broadcast = "239.255.255.250";
-        private const string Adress = "192.168.1.10";
         private const int Port = 60000;
-        private static readonly IPEndPoint _localEndPoint = new IPEndPoint(IPAddress.Parse(Adress), Port);
         private static readonly IPEndPoint _multicastEndPoint = new IPEndPoint(IPAddress.Parse(Broadcast), BroadCastPort);
         private static readonly byte[] _payload = Encoding.UTF8.GetBytes(SearchString);
         private static readonly Regex Regex = new Regex(RegexString, RegexOptions.Singleline);
+        private readonly string Adress;
+        private readonly IPEndPoint _localEndPoint;
+
+        /// <summary>Intilizes new instance of <see cref="WemoDeviceFinder"/>.</summary>
+        /// <param name="configurationProvider">Configuration provider.</param>
+        public WemoDeviceFinder(IConfigurationProvider configurationProvider)
+        {
+            Argument.OfWichValueShoulBeProvided(configurationProvider, nameof(configurationProvider));
+            Adress = configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.BaseAddress);
+            _localEndPoint = new IPEndPoint(IPAddress.Parse(Adress), Port);
+        }
 
         /// <inheritdoc />
         public async Task<IEnumerable<DeviceDescription>> Discover(CancellationToken cancellationToken)
@@ -47,7 +59,7 @@ namespace IPROJ.ConnectionBroker.Devices.Wemo.Discovery
             return result;
         }
 
-        private static async Task<string> MakeACall()
+        private async Task<string> MakeACall()
         {
             var buffer = new byte[8192];
 

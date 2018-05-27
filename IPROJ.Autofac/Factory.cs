@@ -1,6 +1,6 @@
 ﻿using System;
 using Autofac;
-using IPROJ.Configuration.ConfigurationProvider;
+using IPROJ.Configuration;
 using IPROJ.Contracts.ConfigurationProvider;
 using IPROJ.Contracts.Threading;
 

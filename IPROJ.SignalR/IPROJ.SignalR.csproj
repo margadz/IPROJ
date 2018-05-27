@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IPROJ.Configuration\IPROJ.Configuration.csproj" />
     <ProjectReference Include="..\IPROJ.Contracts\IPROJ.Contracts.csproj" />
   </ItemGroup>
 

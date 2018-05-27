@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using IPROJ.Configuration.ConfigurationProvider;
+using IPROJ.Configuration;
 using IPROJ.Contracts.ConfigurationProvider;
 using IPROJ.Contracts.DataRepository;
 using IPROJ.Contracts.Logging;
@@ -10,7 +10,6 @@ using IPROJ.HomeServer.QueueClient;
 using IPROJ.MSSQLRepository.Repository;
 using IPROJ.QueueManager.Connection;
 using IPROJ.QueueManager.RabbitMQ;
-using Microsoft.IdentityModel.Protocols;
 using Serilog;
 
 namespace IPROJ.HomeServer.Autofac

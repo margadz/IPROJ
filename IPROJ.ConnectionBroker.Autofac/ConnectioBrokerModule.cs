@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using IPROJ.Configuration.ConfigurationProvider;
+using IPROJ.Configuration;
 using IPROJ.ConnectionBroker.Devices;
 using IPROJ.ConnectionBroker.Devices.HS110.Discovery;
 using IPROJ.ConnectionBroker.Devices.Wemo.Discovery;
@@ -17,7 +17,6 @@ using IPROJ.Contracts.Logging;
 using IPROJ.Contracts.Messaging;
 using IPROJ.Contracts.Threading;
 using IPROJ.Diagnostics.Serilog;
-using IPROJ.Dummies.Devices;
 using IPROJ.MSSQLRepository.Repository;
 using IPROJ.QueueManager.Connection;
 using IPROJ.QueueManager.RabbitMQ;

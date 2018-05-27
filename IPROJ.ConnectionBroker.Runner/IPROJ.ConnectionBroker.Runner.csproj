@@ -10,6 +10,9 @@
 
   <ItemGroup>
     <Content Include="..\IPROJ.Configuration\appsettings.json" Link="appsettings.json" />
+    <Content Include="..\IPROJ.Configuration\config.json" Link="config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

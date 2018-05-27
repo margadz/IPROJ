@@ -1,0 +1,72 @@
+﻿[
+  {
+    "Category": "Core",
+    "OptionName": "MQServerIp",
+    "OptionValue": "localhost"
+  },
+  {
+    "Category": "Core",
+    "OptionName": "MQServerPort",
+    "OptionValue": "5672"
+  },
+  {
+    "Category": "Core",
+    "OptionName": "MQServerVHost",
+    "OptionValue": "/"
+  },
+  {
+    "Category": "Core",
+    "OptionName": "CodePage",
+    "OptionValue": "65001"
+  },
+  {
+    "Category": "Core",
+    "OptionName": "ReadingsQueue",
+    "OptionValue": "HomeServerReadings"
+  },
+  {
+    "Category": "Core",
+    "OptionName": "ReadingsExchange",
+    "OptionValue": "ReadingsExchange"
+  },
+  {
+    "Category": "Core",
+    "OptionName": "RoutingKey",
+    "OptionValue": "readings"
+  },
+  {
+    "Category": "Core",
+    "OptionName": "BaseAddress",
+    "OptionValue": "192.168.1.10"
+  },
+  {
+    "Category": "ConnectionBroker",
+    "OptionName": "MQServerUser",
+    "OptionValue": "CBUser"
+  },
+  {
+    "Category": "ConnectionBroker",
+    "OptionName": "MQServerPass",
+    "OptionValue": "CBPass"
+  },
+  {
+    "Category": "HomeServer",
+    "OptionName": "MQServerUser",
+    "OptionValue": "HSUser"
+  },
+  {
+    "Category": "HomeServer",
+    "OptionName": "MQServerPass",
+    "OptionValue": "HSPass"
+  },
+  {
+    "Category": "ConnectionBroker",
+    "OptionName": "InstanQueryInterval",
+    "OptionValue": "00:00:01"
+  },
+  {
+    "Category": "ConnectionBroker",
+    "OptionName": "DailyConsumptionGettingTime",
+    "OptionValue": "22:00"
+  }
+]

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using IPROJ.Configuration.Configurations;
+using IPROJ.Contracts.ConfigurationProvider;
 using IPROJ.Contracts.DataModel;
 using IPROJ.Contracts.Helpers;
 using IPROJ.Contracts.Logging;
@@ -29,13 +31,16 @@ namespace IPROJ.SignalR.SignalR
 
         /// <summary>Initializes new instance of <see cref="SignalRMessenger"/>.</summary>
         /// <param name="logger">Logger.</param>
+        /// <param name="configurationProvider">Configuration provider.</param>
         /// <param name="threadingInfrastructure">Threading infrastructure.</param>
-        public SignalRMessenger(IInstantMessengerLogger logger, IThreadingInfrastructure threadingInfrastructure = null)
+        public SignalRMessenger(IInstantMessengerLogger logger, IConfigurationProvider configurationProvider, IThreadingInfrastructure threadingInfrastructure = null)
         {
             Argument.OfWichValueShoulBeProvided(logger, nameof(logger));
+            Argument.OfWichValueShoulBeProvided(configurationProvider, nameof(configurationProvider));
 
+            var baseUrl = configurationProvider.GetOption(CoreConfigurations.Category, CoreConfigurations.BaseAddress);
             _hubConnection = new HubConnectionBuilder()
-                .WithUrl("http://192.168.1.10:12345/current")
+                .WithUrl($"http://{baseUrl}:12345/current")
                 .Build();
 
             OnDeviceDiscoveryRequest += DummyDiscoveryHandler;

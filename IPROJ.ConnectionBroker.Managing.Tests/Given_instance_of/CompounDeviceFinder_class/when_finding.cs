@@ -81,6 +81,7 @@ namespace Given_instance_of.CompounDeviceFinder_class
             _secondFinder.Setup(_ => _.Discover(It.IsAny<CancellationToken>())).ReturnsAsync(new[] { new DeviceDescription() });
             _logger = new Mock<IDeviceFinderLogger>(MockBehavior.Strict);
             _logger.Setup(_ => _.InformWhenDeviceDiscoveryHasFinished(It.IsAny<int>()));
+            _logger.Setup(_ => _.InformWhenDeviceDiscoveryHasStarted());
             _logger.Setup(_ => _.RaiseOnErrorDuringDiscover(It.IsAny<Exception>(), It.IsAny<IDeviceFinder>()));
             _finder = new CompoundDeviceFinder(new []{ _firstFinder.Object, _secondFinder.Object }, _logger.Object);
         }
